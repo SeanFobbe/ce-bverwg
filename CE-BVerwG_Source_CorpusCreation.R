@@ -556,8 +556,6 @@ regex.test <- grep(paste0("^BVerwG", # Gericht
 print(regex.test)
 
 
-
-
 #'### Skript stoppen falls REGEX-Validierung gescheitert
 
 if (length(regex.test) != 0){
@@ -623,13 +621,16 @@ print(begin.download)
 #'## Download durchführen
 
 for (i in sample(dt.download[,.N])){
+    
         tryCatch({download.file(dt.download$links.pdf[i],
                                 dt.download$filenames.final[i])
         },
         error = function(cond) {
             return(NA)}
         )
-        Sys.sleep(runif(1, 0.3, 1))
+    
+    Sys.sleep(runif(1, 0.3, 1))
+    
 }
 
 
