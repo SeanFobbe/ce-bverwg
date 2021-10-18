@@ -144,6 +144,12 @@ mode.debug <- TRUE
 debug.sample <- 100
 
 
+#'## Modus: Linguistische Annotationen
+#' Wenn dieser Modus aktiviert ist wird  mittels spacyr eine zusätzliche Variante des Datensatzes mit umfangreichen linguistischen Annotationen berechnet. Dieser Modus ist sehr rechenintensiv! Kann mit anderen Modi kombiniert werden.
+
+mode.annotate <- TRUE
+
+
 
 #'## Optionen: Quanteda
 tokens_locale <- "de_DE"
@@ -1792,12 +1798,176 @@ ggplot(data = meta.bverwg)+
 
 
 
-#'## Anzahl Variablen im Korpus
+
+
+
+
+#'# Linguistische Annotationen berechnen
+
+if (mode.annotate == TRUE){
+
+    txt.annotated <- f.dopar.spacyparse(txt.bverfg,
+                                        threads = detectCores(),
+                                        chunksize = 1,
+                                        model = "de_core_news_sm",
+                                        pos = TRUE,
+                                        tag = TRUE,
+                                        lemma = TRUE,
+                                        entity = TRUE,
+                                        dependency = TRUE,
+                                        nounphrase = TRUE)
+
+}
+
+
+
+
+
+
+
+
+#'# Kontrolle der Variablen
+
+#+
+#'## Semantische Sortierung der Variablen
+
+#+
+#'### Variablen sortieren: Hauptdatensatz
+
+
+setcolorder(txt.bverwg,
+            c("doc_id",
+              "text",
+              "gericht",
+              "datum",
+              "entscheidung_typ", 
+              "spruchkoerper_typ",
+              "spruchkoerper_az",
+              "registerzeichen",
+              "verfahrensart",
+              "eingangsnummer",
+              "eingangsjahr_az",
+              "eingangsjahr_iso",
+              "entscheidungsjahr",
+              "kollision",
+              "name",
+              "band",
+              "seite",  
+              "aktenzeichen",
+              "aktenzeichen_alle",
+              "ecli",
+              "zitiervorschlag",
+              "kurzbeschreibung",
+              "pressemitteilung",
+              "praesi",
+              "v_praesi",
+              "richter",
+              "zeichen",
+              "tokens",
+              "typen",            
+              "saetze",
+              "version",
+              "doi_concept",      
+              "doi_version",
+              "lizenz"))
+
+
+#'\newpage
+#+
+#'### Variablen sortieren: Metadaten
+
+setcolorder(meta.bverwg,
+            c("doc_id",
+              "gericht",
+              "datum",
+              "entscheidung_typ", 
+              "spruchkoerper_typ",
+              "spruchkoerper_az",
+              "registerzeichen",
+              "verfahrensart",
+              "eingangsnummer",
+              "eingangsjahr_az",
+              "eingangsjahr_iso",
+              "entscheidungsjahr",
+              "kollision",
+              "name",
+              "band",
+              "seite",  
+              "aktenzeichen",
+              "aktenzeichen_alle",
+              "ecli",
+              "zitiervorschlag",
+              "kurzbeschreibung",
+              "pressemitteilung",
+              "praesi",
+              "v_praesi",
+              "richter",
+              "zeichen",
+              "tokens",
+              "typen",            
+              "saetze",
+              "version",
+              "doi_concept",      
+              "doi_version",
+              "lizenz"))
+
+#'\newpage
+#+
+#'### Variablen sortieren: Segmentiert
+
+
+setcolorder(dt.segmented.full,
+            c("doc_id",
+              "text",
+              "segment",
+              "gericht",
+              "datum",
+              "entscheidung_typ", 
+              "spruchkoerper_typ",
+              "spruchkoerper_az",
+              "registerzeichen",
+              "verfahrensart",
+              "eingangsnummer",
+              "eingangsjahr_az",
+              "eingangsjahr_iso",
+              "entscheidungsjahr",
+              "kollision",
+              "name",
+              "band",
+              "seite",  
+              "aktenzeichen",
+              "aktenzeichen_alle",
+              "ecli",
+              "zitiervorschlag",
+              "kurzbeschreibung",
+              "pressemitteilung",
+              "praesi",
+              "v_praesi",
+              "richter",
+              "version",
+              "doi_concept",      
+              "doi_version",
+              "lizenz"))
+
+
+#'\newpage
+#'## Anzahl Variablen der Datensätze
+
 length(txt.bverwg)
+length(meta.bverwg)
+length(txt.annotated)
+length(dt.segmented.full)
 
 
-#'## Namen der Variablen im Korpus
+#'## Alle Variablen-Namen der Datensätze
+
 names(txt.bverwg)
+names(meta.bverwg)
+names(txt.annotated)
+names(dt.segmented.full)
+
+
+
 
 
 
