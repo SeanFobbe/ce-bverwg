@@ -813,10 +813,6 @@ txt.bverwg[, text := lapply(.(text), f.hyphen.remove)]
 #'## Variable "datum" als Datentyp "IDate" kennzeichnen
 txt.bverwg$datum <- as.IDate(txt.bverwg$datum)
 
-
-
-
-
 #'## Variable "entscheidungsjahr" hinzufügen
 txt.bverwg$entscheidungsjahr <- year(txt.bverwg$datum)
 
