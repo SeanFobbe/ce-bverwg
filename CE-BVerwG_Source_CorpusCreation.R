@@ -226,6 +226,12 @@ library(quanteda)     # Fortgeschrittene Computerlinguistik
 #' **Hinweis:** Die hieraus verwendeten Funktionen werden jeweils vor der ersten Benutzung in vollem Umfang angezeigt um den Lesefluss zu verbessern.
 
 source("R-fobbe-proto-package/f.linkextract.R")
+source("R-fobbe-proto-package/f.year.iso.R")
+source("R-fobbe-proto-package/f.dopar.pdfextract.R")
+source("R-fobbe-proto-package/f.hyphen.remove.R")
+source("R-fobbe-proto-package/f.fast.freqtable.R")
+source("R-fobbe-proto-package/f.lingsummarize.iterator.R")
+source("R-fobbe-proto-package/f.dopar.multihashes.R")
 
 
 #'## Quanteda-Optionen setzen
@@ -283,7 +289,7 @@ setDTthreads(threads = fullCores)
 #+
 #'## Registerzeichen und Verfahrensarten
 #' 
-#' Datenquelle: "Seán Fobbe (2021). Aktenzeichen der Bundesrepublik Deutschland (AZ-BRD). Version 1.0.1. Zenodo. DOI: 10.5281/zenodo.4569564."
+#'Die Registerzeichen werden im Laufe des Skripts mit ihren detaillierten Bedeutungen aus dem folgenden Datensatz abgeglichen: "Seán Fobbe (2021). Aktenzeichen der Bundesrepublik Deutschland (AZ-BRD). Version 1.0.1. Zenodo. DOI: 10.5281/zenodo.4569564." Das Ergebnis des Abgleichs wird in die Variable "verfahrensart" in den Datensatz eingefügt.
 
 if (file.exists("AZ-BRD_1-0-1_DE_Registerzeichen_Datensatz.csv") == FALSE){
     download.file("https://zenodo.org/record/4569564/files/AZ-BRD_1-0-1_DE_Registerzeichen_Datensatz.csv?download=1",
@@ -294,7 +300,7 @@ if (file.exists("AZ-BRD_1-0-1_DE_Registerzeichen_Datensatz.csv") == FALSE){
 
 #'## Personendaten zu Präsident:innen
 #'
-#' Datenquelle: \enquote{Seán Fobbe and Tilko Swalve (2021). Presidents and Vice-Presidents of the Federal Courts of Germany (PVP-FCG). Version 2021-04-08. Zenodo. DOI: 10.5281/zenodo.4568682}.
+#' Die Personendaten stammen aus folgendem Datensatz: \enquote{Seán Fobbe and Tilko Swalve (2021). Presidents and Vice-Presidents of the Federal Courts of Germany (PVP-FCG). Version 2021-04-08. Zenodo. DOI: 10.5281/zenodo.4568682}.
 
 
 if (file.exists("PVP-FCG_2021-04-08_GermanFederalCourts_Presidents.csv") == FALSE){
@@ -307,7 +313,7 @@ if (file.exists("PVP-FCG_2021-04-08_GermanFederalCourts_Presidents.csv") == FALS
 
 #'## Personendaten zu Vize-Präsident:innen
 #' 
-#' Datenquelle: \enquote{Seán Fobbe and Tilko Swalve (2021). Presidents and Vice-Presidents of the Federal Courts of Germany (PVP-FCG). Version 2021-04-08. Zenodo. DOI: 10.5281/zenodo.4568682}.
+#' Die Personendaten stammen aus folgendem Datensatz: \enquote{Seán Fobbe and Tilko Swalve (2021). Presidents and Vice-Presidents of the Federal Courts of Germany (PVP-FCG). Version 2021-04-08. Zenodo. DOI: 10.5281/zenodo.4568682}.
 
 
 if (file.exists("PVP-FCG_2021-04-08_GermanFederalCourts_VicePresidents.csv") == FALSE){
