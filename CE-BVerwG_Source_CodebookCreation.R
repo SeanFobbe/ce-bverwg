@@ -152,10 +152,6 @@ table.praesi.daten <- table.praesi[court == "BVerwG", c(2:3, 5:8)]
 table.praesi.alter <- table.praesi[court == "BVerwG", c(2:3, 13:15)]
 
 
-
-
-
-
 #+
 ## Personaldaten herunterladen
 
