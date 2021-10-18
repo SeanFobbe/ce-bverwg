@@ -228,7 +228,7 @@ library(scales)       # Skalierung von Diagrammen
 library(data.table)   # Fortgeschrittene Datenverarbeitung
 library(readtext)     # TXT-Dateien einlesen
 library(quanteda)     # Fortgeschrittene Computerlinguistik
-
+library(spacyr)       # Linguistische Annotationen
 
 
 #'## Zusätzliche Funktionen einlesen
@@ -241,7 +241,7 @@ source("R-fobbe-proto-package/f.hyphen.remove.R")
 source("R-fobbe-proto-package/f.fast.freqtable.R")
 source("R-fobbe-proto-package/f.lingsummarize.iterator.R")
 source("R-fobbe-proto-package/f.dopar.multihashes.R")
-
+source("R-fobbe-proto-package/f.dopar.spacyparse.R")
 
 #'## Quanteda-Optionen setzen
 quanteda_options(tokens_locale = tokens_locale)
@@ -1806,7 +1806,7 @@ ggplot(data = meta.bverwg)+
 
 if (mode.annotate == TRUE){
 
-    txt.annotated <- f.dopar.spacyparse(txt.bverfg,
+    txt.annotated <- f.dopar.spacyparse(txt.bverwg,
                                         threads = detectCores(),
                                         chunksize = 1,
                                         model = "de_core_news_sm",
@@ -2242,7 +2242,8 @@ zip(paste0(datasetname,
 #'## Verpacken der Source-Dateien
 
 files.source <- c(list.files(pattern = "Source"),
-                  "buttons")
+                  "buttons",
+                  "R-fobbe-proto-package")
 
 
 files.source <- grep("spin",
@@ -2353,7 +2354,7 @@ print(end.script - begin.script)
 
 
 #'## Warnungen
-print(warnings())
+warnings()
 
 
 
