@@ -225,7 +225,7 @@ library(quanteda)     # Fortgeschrittene Computerlinguistik
 #'## Zusätzliche Funktionen einlesen
 #' **Hinweis:** Die hieraus verwendeten Funktionen werden jeweils vor der ersten Benutzung in vollem Umfang angezeigt um den Lesefluss zu verbessern.
 
-source("General_Source_Functions.R")
+source("R-fobbe-proto-package/f.linkextract.R")
 
 
 #'## Quanteda-Optionen setzen
