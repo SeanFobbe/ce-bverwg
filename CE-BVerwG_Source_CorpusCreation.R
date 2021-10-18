@@ -2034,7 +2034,7 @@ if (mode.annotate == TRUE){
 #+
 #'### Korpus-Objekt in RAM (MB)
 
-print(object.size(corpus(txt.bverwg)),
+print(object.size(txt.bverwg),
       standard = "SI",
       humanReadable = TRUE,
       units = "MB")
@@ -2046,6 +2046,9 @@ file.size(csvname.full) / 10 ^ 6
 
 #'### CSV Metadaten (MB)
 file.size(csvname.meta) / 10 ^ 6
+
+#'### CSV Annotiert (MB)
+file.size(csvname.annotated) / 10 ^ 6
 
 
 #'### PDF-Dateien (MB)
@@ -2139,6 +2142,7 @@ ggplot(data = dt.plot,
 
 #'# Erstellen der ZIP-Archive
 
+#+
 #'## Verpacken der CSV-Dateien
 
 #+ results = 'hide'
