@@ -482,7 +482,7 @@ str(data.corpus)
 #'\end{itemize}
 
 #+
-#'## Erläuterungen zu den einzelnen Variablen
+#'## Erläuterung der Variablen
 
 #'\ra{1.3}
 #' 
