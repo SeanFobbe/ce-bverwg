@@ -781,9 +781,6 @@ kable(stats.docvars,
 #'\vspace{1cm}
 
 #'## Nach Typ der Entscheidung
-
-freqtable <- table.entsch.typ[-.N]
-
 #'\vspace{0.5cm}
 
 #+
@@ -807,10 +804,8 @@ kable(table.entsch.typ,
 
 #+
 #'## Nach Spruchkörper (Aktenzeichen)
-
-
 #'\vspace{0.5cm}
-freqtable <- table.spruch.az[-.N][,lapply(.SD, as.numeric)]
+
 
 
 #+
@@ -835,9 +830,8 @@ kable(table.spruch.az[order(as.numeric(spruchkoerper_az))],
 
 
 #'## Nach Registerzeichen
-
 #'\vspace{0.5cm}
-freqtable <- table.regz[-.N]
+
 
 #+
 #' ![](ANALYSE/CE-BVerwG_04_Barplot_Registerzeichen-1.pdf)
@@ -858,9 +852,7 @@ kable(table.regz,
 
 #'\newpage
 #'## Nach Präsident:in
-
 #'\vspace{0.5cm}
-freqtable <- table.output.praesi[-.N]
 
 
 #+
@@ -883,9 +875,7 @@ kable(table.output.praesi,
 
 #'\newpage
 #'## Nach Vize-Präsident:in
-
 #'\vspace{0.5cm}
-freqtable <- table.output.vpraesi[-.N]
 
 
 #+
@@ -913,10 +903,7 @@ kable(table.output.vpraesi,
 #' \newpage
 #+
 #'## Nach Entscheidungsjahr
-
 #'\vspace{0.5cm}
-freqtable <- table.jahr.entscheid[-.N][,lapply(.SD, as.numeric)]
-
 
 #+
 #' ![](ANALYSE/CE-BVerwG_07_Barplot_Entscheidungsjahr-1.pdf)
@@ -941,12 +928,7 @@ kable(table.jahr.entscheid,
 #'\newpage
 #+
 #'## Nach Eingangsjahr (ISO)
-
-
 #'\vspace{0.5cm}
-
-
-freqtable <- table.jahr.eingangISO[-.N][,lapply(.SD, as.numeric)]
 
 
 #+
