@@ -132,7 +132,7 @@ outputdir <- paste0(getwd(),
 
 #'## Download-Umfang definieren
 scope <- seq(from = 1,
-             to = 25000,
+             to = 26000,
              by = 1000)
 
 
@@ -203,6 +203,9 @@ dir.create(outputdir)
 figure.caption <- paste("DOI:",
                         doi.version,
                         "| Fobbe")
+
+print(figure.caption)
+
 
 
 #+
@@ -334,7 +337,8 @@ print(f.linkextract)
 
 #'## Linkliste erstellen
 
-links.list <- vector("list", length(scope))
+links.list <- vector("list",
+                     length(scope))
 
 
 for (i in seq_along(scope)){
