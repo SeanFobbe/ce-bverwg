@@ -51,7 +51,7 @@ setDTthreads(threads = detectCores())
 
 datasetname <- "CE-BVerwG"
 doi.concept <- "10.5281/zenodo.3911067" # checked
-doi.version <- "???"
+doi.version <- "10.5281/zenodo.5576822"
 
 
 files.zip <- list.files(pattern = "\\.zip")
@@ -1162,10 +1162,14 @@ kable(testresult, format = "latex", booktabs = TRUE,
 #+
 #'## Version \version
 
+#'- Vollständige Aktualisierung der Daten
 #'- Neue Variante mit linguistische Annotationen 
 #'- Neue Variable für Lizenz
 #'- Strenge Kontrolle und semantische Sortierung aller Variablen-Namen
 #'- Source Code des Codebooks deutlich vereinfacht (insbes. Diagramme und Changelog)
+#'- Erweiterung der Dokumentation
+#'- In den linguistischen Kennzahlen werden jetzt auch die Anzahl Typen bezogen auf den Gesamtdatensatz berechnet
+#'- Standardisierung der Diagramme auf 6:9 Zoll (Breite/Höhe) 
 
 
 #+
