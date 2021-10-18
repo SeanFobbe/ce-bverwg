@@ -2008,6 +2008,22 @@ fwrite(meta.bverwg,
 
 
 
+#'## CSV mit Annotationen speichern
+
+if (mode.annotate == TRUE){
+
+    csvname.annotated <- paste(datasetname,
+                               datestamp,
+                               "DE_CSV_Annotiert.csv",
+                               sep = "_")
+
+    fwrite(txt.annotated,
+           csvname.annotated,
+           na = "NA")
+
+}
+
+
 
 
 #'# Dateigrößen analysieren
