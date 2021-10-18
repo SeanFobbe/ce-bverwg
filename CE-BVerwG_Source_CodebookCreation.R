@@ -533,6 +533,80 @@ str(data.corpus)
 
 
 
+#'\newpage
+#+
+#'# Variablen (Linguistische Annotationen)
+#'\label{annovars}
+
+
+#+
+#'## Datenstruktur 
+
+str(annotated.corpus)
+
+
+#+
+#'## Hinweise
+
+#' Diese Variante des Datensatzes beruht nur auf den Variablen \enquote{doc\_id} und \enquote{text} des regulären Datensatzes, die tokenisiert und mittels der Software \enquote{spacy}\footnote{Die den Annotationen zugrundeliegende Software ist \emph{spacy}, die hier verfügbar ist \url{https://spacy.io/}. Diese wird in R mittels des \emph{spacyr} packages integriert: \url{https://spacyr.quanteda.io/}.} mit linguistischen Annotationen versehen wurden.
+#'
+#'
+#' Die Metadaten des Gesamtdatensatzes sind nicht in der linguistische annotierten Fassung enthalten, weil die Bereitstellung von Metadaten für jedes Token die Dateigröße und damit auch den RAM-Bedarf für Analysen gewaltig steigern würde. Um anhand der Metadaten Teilmengen der linguistischen Annotationen zu bilden, gehen sie bitte wie folgt vor:
+#'
+#' \begin{enumerate}
+#' \item CSV-Datei mit Metadaten einlesen
+#' \item Anhand der Metadaten die gewünschte Teilmenge der Dokumente bilden
+#' \item CSV-Datei mit Linguistischen Annotationen einlesen
+#' \item Die Werte der Variable \enquote{doc\_id} der Teilmenge nutzen um aus den annotierten Daten nur diejenigen herauszufiltern, deren Variable \enquote{doc\_id} mit der Teilmenge übereinstimmt 
+#' \end{enumerate}
+
+
+
+
+#'\newpage
+
+#+
+#'## Erläuterung der Variablen
+
+#'\ra{1.3}
+#' 
+#'\begin{centering}
+#' 
+#'\begin{longtable}{P{3.5cm}P{3cm}p{8cm}}
+#' 
+#'\toprule
+#' 
+#'Variable & Typ & Erläuterung\\
+
+#'\midrule
+#'
+#'\endhead
+
+#' doc\_id & String & Der Dateiname des Dokumentes, aus dem die Tokens stammen. Identische Werte wie im Hauptdatensatz. Geeignet um Metadaten mit den linguistischen Annotationen zu verbinden.\\
+#' sentence\_id & Natürliche Zahl & Die Ordinalzahl des Satzes in dem Dokument, dem das Token zugeordnet ist.\\
+#' token\_id & Natürliche Zahl & Die Nummer des Tokens in einem Dokument.\\
+#' token & String & Einzelne Tokens in der Reihenfolge ihres Vorkommens im jeweiligen Dokument.\\
+#' lemma & String & Die lemmatisierte Form des Tokens.\\
+#' pos & String & Grobe Annotation des einzelnen Tokens nach dem universal dependency POS tagset, siehe auch \url{http://universaldependencies.org/u/pos/}.\\
+#' tag & String & Feine Annotation des einzelnen Tokens mit dem \enquote{de\_core\_news\_sm}-Modell von spacy. Für eine detaillierte Erläuterung der Annotationen siehe: \url{https://spacy.io/models/de}\\
+#' head\_token\_id & Natürliche Zahl & Das führende Token.\\
+#' dep\_rel & String & Die \emph{dependency relation} zum head\_token.\\
+#' entity & String & Erkennung von benannten Entitäten (Named Entity Recoginition).\\
+#' nounphrase & String & Erkennung von Nominalphrasen.\\
+#' whitespace & Logisch & Ob es sich bei dem Token um Whitespace handelt oder nicht.\\
+
+
+
+
+#'\bottomrule
+
+#'\end{longtable}
+#'\end{centering}
+
+
+
+
+
 
 #'\newpage
 #+
@@ -1088,7 +1162,7 @@ kable(testresult, format = "latex", booktabs = TRUE,
 #'## Version \version
 
 #'- Neue Variante mit linguistische Annotationen 
-#'- Variable für Lizenz eingefügt
+#'- Neue Variable für Lizenz
 #'- Strenge Kontrolle und semantische Sortierung aller Variablen-Namen
 #'- Source Code des Codebooks deutlich vereinfacht (insbes. Diagramme und Changelog)
 
