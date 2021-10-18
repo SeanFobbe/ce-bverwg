@@ -213,6 +213,23 @@ data.corpus <- fread(cmd = paste("unzip -cq",
                                  data.zip))
 
 
+# Hinweis: Direktes einlesen aus ZIP-Datei führt zu segfault. Grund unbekannt.
+
+annotated.zip <- paste(datasetname,
+                     datestamp,
+                     "DE_CSV_Annotiert.zip",
+                     sep = "_")
+
+annotated.csv <- gsub("\\.zip",
+                      "\\.csv",
+                      annotated.zip)
+
+unzip(annotated.zip)
+
+annotated.corpus <- fread(annotated.csv)
+
+unlink(annotated.csv)
+
 
 ################################
 ### Einlesen: Signaturen
@@ -583,7 +600,9 @@ kable(table.praesi.daten,
 #'## Dienstalter und Lebensalter
 
 
-kable(table.praesi.alter[grep("VACANCY", table.praesi.daten$name_last, invert = TRUE)],
+kable(table.praesi.alter[grep("VACANCY",
+                              table.praesi.daten$name_last,
+                              invert = TRUE)],
       format = "latex",
       align = c("l", "l", "c", "c", "c"),
       booktabs = TRUE,
