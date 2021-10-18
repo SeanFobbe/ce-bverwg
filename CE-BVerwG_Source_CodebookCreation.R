@@ -1082,46 +1082,41 @@ kable(testresult, format = "latex", booktabs = TRUE,
 
 #+
 #'# Changelog
-#'
-#'\ra{1.3}
-#'
-#' 
-#'\begin{centering}
-#'\begin{longtable}{p{2.5cm}p{11.5cm}}
-#'\toprule
-#'Version &  Details\\
-#'\midrule
-#'
-#' \version  &
-#'
-#' \begin{itemize}
-#' \item Vollständige Aktualisierung der Daten
-#' \item Veröffentlichung des vollständigen Source Codes
-#' \item Deutliche Erweiterung des inhaltlichen Umfangs des Codebooks
-#' \item Einführung der vollautomatischen Erstellung von Datensatz und Codebook
-#' \item Einführung von Compilation Reports um den Erstellungsprozess exakt zu dokumentieren
-#' \item Einführung von Variablen für Versionsnummer, Concept DOI, Version DOI, ECLI, Präsident:in, Vize-Präsident:in, Verfahrensart und linguistische Kennzahlen (Zeichen, Tokens, Typen, Sätze)
-#' \item Zusammenfügung von über Zeilengrenzen getrennten Wörtern
-#' \item Automatisierung und Erweiterung der Qualitätskontrolle
-#' \item Einführung von Diagrammen zur Visualisierung von Prüfergebnissen
-#' \item Einführung kryptographischer Signaturen
-#' \item Variable \enquote{Suffix} in \enquote{kollision} umbenannt.
-#' \item Variable \enquote{Ordinalzahl} in \enquote{eingangsnummer} umbenannt.
-#' \item Variable \enquote{Entscheidungsart} in \enquote{entscheidung\_typ} umbenannt.
-#' \item Alle übrigen Variablen sind nun in Kleinschreibung und Snake Case gehalten
 
-#' \end{itemize}\\
-#' 
-#' 
-#'2020-06-23  &
-#'
-#' \begin{itemize}
-#' \item Erstveröffentlichung
-#' \end{itemize}\\
-#' 
-#'\bottomrule
-#'\end{longtable}
-#'\end{centering}
+
+#'## Version \version
+
+#'- Neue Variante mit linguistische Annotationen 
+#'- Variable für Lizenz eingefügt
+#'- Strenge Kontrolle und semantische Sortierung aller Variablen-Namen
+#'- Source Code des Codebooks deutlich vereinfacht (insbes. Diagramme und Changelog)
+
+
+
+#'## Version 2021-04-15
+
+#'- Vollständige Aktualisierung der Daten
+#'- Veröffentlichung des vollständigen Source Codes
+#'- Deutliche Erweiterung des inhaltlichen Umfangs des Codebooks
+#'- Einführung der vollautomatischen Erstellung von Datensatz und Codebook
+#'- Einführung von Compilation Reports um den Erstellungsprozess exakt zu dokumentieren
+#'- Einführung von Variablen für Versionsnummer, Concept DOI, Version DOI, ECLI, Präsident:in, Vize-Präsident:in, Verfahrensart und linguistische Kennzahlen (Zeichen, Tokens, Typen, Sätze)
+#'- Zusammenfügung von über Zeilengrenzen getrennten Wörtern
+#'- Automatisierung und Erweiterung der Qualitätskontrolle
+#'- Einführung von Diagrammen zur Visualisierung von Prüfergebnissen
+#'- Einführung kryptographischer Signaturen
+#'- Variable \enquote{Suffix} in \enquote{kollision} umbenannt.
+#'- Variable \enquote{Ordinalzahl} in \enquote{eingangsnummer} umbenannt.
+#'- Variable \enquote{Entscheidungsart} in \enquote{entscheidung\_typ} umbenannt.
+#'- Alle übrigen Variablen sind nun in Kleinschreibung und Snake Case gehalten
+
+
+
+#'## Version 2020-06-23
+
+#'- Erstveröffentlichung
+
+
 
 #'\newpage
 #+
