@@ -691,15 +691,19 @@ if(missing.N > 0){
     dt.retry <- dt.download[filenames.final %in% missing.names]
     
     for (i in 1:dt.retry[,.N]){
+        
         response <- GET(dt.retry$links.pdf[i])
+        
         Sys.sleep(runif(1, 1, 3))
-        if (response$headers$"content-type" == "application/pdf" & response$status_code == 200){
+        
+        if (grepl("application/pdf", response$headers$"content-type") == TRUE  & response$status_code == 200){
             tryCatch({download.file(url = dt.retry$links.pdf[i],
                                     destfile = dt.retry$filenames.final[i])
             },
-            error=function(cond) {
+            error = function(cond) {
                 return(NA)}
-            )     
+            )
+            
         }else{
             print(paste0(dt.retry$filenames1[i], " : kein PDF vorhanden"))  
         }
