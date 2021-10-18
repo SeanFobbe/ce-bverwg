@@ -140,7 +140,7 @@ scope <- seq(from = 1,
 #'## Modus: Debugging
 #' Der Debuging-Modus reduziert den Download-Umfang auf den in der Variable "debug.sample" definierten Umfang zufällig ausgewählter Entscheidungen und löscht im Anschluss fünf zufällig ausgewählte Entscheidungen um den Wiederholungsversuch zu testen. Nur für Test- und Demonstrationszwecke. 
 
-mode.debug <- FALSE
+mode.debug <- TRUE
 debug.sample <- 100
 
 
@@ -324,7 +324,7 @@ if (file.exists("PVP-FCG_2021-04-08_GermanFederalCourts_VicePresidents.csv") == 
 
 
 
-#'# Download: Entscheidungen des BVerwG
+#'# Download: Alle Entscheidungen des BVerwG
 
 #+
 #'## Funktion zeigen
