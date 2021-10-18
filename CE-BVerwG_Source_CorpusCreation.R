@@ -1601,25 +1601,25 @@ fwrite(dt.stats.ling,
 
 
 #'\newpage
-#'## Zusammenfassungen: Quantitative Variablen
+#'## Quantitative Variablen
 
 
 #'### Entscheidungsdatum
 
-summary(as.IDate(summary.corpus$datum))
+summary(as.IDate(meta.bverwg$datum))
 
 
 
 #'### Zusammenfassungen berechnen
 
-dt.summary.docvars <- summary.corpus[,
+dt.summary.docvars <- meta.bverwg[,
                                      lapply(.SD, function(x)unclass(summary(na.omit(x)))),
                                      .SDcols = c("entscheidungsjahr",
                                                  "eingangsjahr_iso",
                                                  "eingangsnummer")]
 
 
-dt.unique.docvars <- summary.corpus[,
+dt.unique.docvars <- meta.bverwg[,
                                     lapply(.SD, function(x)length(unique(na.omit(x)))),
                                     .SDcols = c("entscheidungsjahr",
                                                 "eingangsjahr_iso",
@@ -1671,7 +1671,7 @@ fwrite(dt.stats.docvars,
 #'### Diagramm: Verteilung Zeichen
 
 #+ CE-BVerwG_09_Density_Zeichen, fig.height = 6, fig.width = 9
-ggplot(data = summary.corpus)+
+ggplot(data = meta.bverwg)+
     geom_density(aes(x = zeichen),
                  fill = "#7e0731")+
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
@@ -1702,7 +1702,7 @@ ggplot(data = summary.corpus)+
 #'### Diagramm: Verteilung Tokens
 
 #+ CE-BVerwG_10_Density_Tokens, fig.height = 6, fig.width = 9
-ggplot(data = summary.corpus)+
+ggplot(data = meta.bverwg)+
     geom_density(aes(x = tokens),
                  fill = "#7e0731")+
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
@@ -1734,7 +1734,7 @@ ggplot(data = summary.corpus)+
 #'### Diagramm: Verteilung Typen
 
 #+ CE-BVerwG_11_Density_Typen, fig.height = 6, fig.width = 9
-ggplot(data = summary.corpus)+
+ggplot(data = meta.bverwg)+
     geom_density(aes(x = typen),
                  fill = "#7e0731")+
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
@@ -1765,7 +1765,7 @@ ggplot(data = summary.corpus)+
 #'### Diagramm: Verteilung Sätze
 
 #+ CE-BVerwG_12_Density_Saetze, fig.height = 6, fig.width = 9
-ggplot(data = summary.corpus)+
+ggplot(data = meta.bverwg)+
     geom_density(aes(x = saetze),
                  fill = "#7e0731")+
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
@@ -1803,7 +1803,7 @@ names(txt.bverwg)
 
 
 #'# Beispiel-Werte für alle Metadaten anzeigen
-print(summary.corpus)
+print(meta.bverwg)
 
 
 
@@ -1832,7 +1832,7 @@ csvname.meta <- paste(datasetname,
                       "DE_CSV_Metadaten.csv",
                       sep = "_")
 
-fwrite(summary.corpus,
+fwrite(meta.bverwg,
        csvname.meta,
        na = "NA")
 
