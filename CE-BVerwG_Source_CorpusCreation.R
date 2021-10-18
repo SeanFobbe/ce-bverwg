@@ -50,7 +50,7 @@ knitr::opts_chunk$set(echo = TRUE,
 #' \item Der Source Code und alle weiteren Quelldaten
 #' \end{enumerate}
 #'
-#' Zusätzlich werden für alle ZIP-Archive kryptographisch sichere Signaturen (SHA2-256 und SHA3-512) berechnet und in einer CSV-Datei hinterlegt. 
+#' Zusätzlich werden für alle ZIP-Archive kryptographische Signaturen (SHA2-256 und SHA3-512) berechnet und in einer CSV-Datei hinterlegt. Weiterhin kann optional ein PDF-Bericht erstellt werden (siehe unter "Kompilierung"). 
 
 
 #+
@@ -118,7 +118,7 @@ doi.concept <- "10.5281/zenodo.3911067" # checked
 
 
 #'## DOI der konkreten Version
-doi.version <- "10.5281/zenodo.4625123" # checked
+doi.version <- "???" # checked
 
 
 #'## Verzeichnis für Analyse-Ergebnisse
