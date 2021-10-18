@@ -1851,14 +1851,9 @@ setcolorder(txt.bverwg,
               "verzoegerung",
               "kollision",
               "aktenzeichen",
-              "aktenzeichen_alle",
               "ecli",
-              "zitiervorschlag",
-              "kurzbeschreibung",
-              "pressemitteilung",
               "praesi",
               "v_praesi",
-              "richter",
               "zeichen",
               "tokens",
               "typen",            
@@ -1878,7 +1873,6 @@ setcolorder(meta.bverwg,
               "gericht",
               "datum",
               "entscheidung_typ", 
-              "spruchkoerper_typ",
               "spruchkoerper_az",
               "registerzeichen",
               "verfahrensart",
@@ -1886,19 +1880,12 @@ setcolorder(meta.bverwg,
               "eingangsjahr_az",
               "eingangsjahr_iso",
               "entscheidungsjahr",
+              "verzoegerung",
               "kollision",
-              "name",
-              "band",
-              "seite",  
               "aktenzeichen",
-              "aktenzeichen_alle",
               "ecli",
-              "zitiervorschlag",
-              "kurzbeschreibung",
-              "pressemitteilung",
               "praesi",
               "v_praesi",
-              "richter",
               "zeichen",
               "tokens",
               "typen",            
@@ -1908,43 +1895,8 @@ setcolorder(meta.bverwg,
               "doi_version",
               "lizenz"))
 
-#'\newpage
-#+
-#'### Variablen sortieren: Segmentiert
 
 
-setcolorder(dt.segmented.full,
-            c("doc_id",
-              "text",
-              "segment",
-              "gericht",
-              "datum",
-              "entscheidung_typ", 
-              "spruchkoerper_typ",
-              "spruchkoerper_az",
-              "registerzeichen",
-              "verfahrensart",
-              "eingangsnummer",
-              "eingangsjahr_az",
-              "eingangsjahr_iso",
-              "entscheidungsjahr",
-              "kollision",
-              "name",
-              "band",
-              "seite",  
-              "aktenzeichen",
-              "aktenzeichen_alle",
-              "ecli",
-              "zitiervorschlag",
-              "kurzbeschreibung",
-              "pressemitteilung",
-              "praesi",
-              "v_praesi",
-              "richter",
-              "version",
-              "doi_concept",      
-              "doi_version",
-              "lizenz"))
 
 
 #'\newpage
@@ -1953,7 +1905,6 @@ setcolorder(dt.segmented.full,
 length(txt.bverwg)
 length(meta.bverwg)
 length(txt.annotated)
-length(dt.segmented.full)
 
 
 #'## Alle Variablen-Namen der Datensätze
@@ -1961,9 +1912,6 @@ length(dt.segmented.full)
 names(txt.bverwg)
 names(meta.bverwg)
 names(txt.annotated)
-names(dt.segmented.full)
-
-
 
 
 
@@ -1971,6 +1919,7 @@ names(dt.segmented.full)
 
 #'# Beispiel-Werte für alle Metadaten anzeigen
 print(meta.bverwg)
+
 
 
 
