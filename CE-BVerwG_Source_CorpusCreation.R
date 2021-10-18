@@ -1,5 +1,5 @@
 #'---
-#'title: "Compilation Report | Corpus der Entscheidungen des Bundesverwaltungsgerichts (CE-BVerwG)"
+#'title: "Compilation Report | Corpus der Entscheidungen des Bundesverwaltungsgerichts (CE-BVerwG-Source)"
 #'author: Seán Fobbe
 #'papersize: a4
 #'geometry: margin=3cm
@@ -50,7 +50,7 @@ knitr::opts_chunk$set(echo = TRUE,
 #' \item Der Source Code und alle weiteren Quelldaten
 #' \end{enumerate}
 #'
-#' Zusätzlich werden für alle ZIP-Archive kryptographisch sichere Signaturen (SHA2-256 und SHA3-512) berechnet und in einer CSV-Datei hinterlegt. 
+#' Zusätzlich werden für alle ZIP-Archive kryptographische Signaturen (SHA2-256 und SHA3-512) berechnet und in einer CSV-Datei hinterlegt. Weiterhin kann optional ein PDF-Bericht erstellt werden (siehe unter "Kompilierung"). 
 
 
 #+
@@ -112,13 +112,15 @@ rmarkdown::render(input = "CE-BVerwG_Source_CodebookCreation.R",
 #'## Name des Datensatzes
 datasetname <- "CE-BVerwG"
 
-
 #'## DOI des Datensatz-Konzeptes
 doi.concept <- "10.5281/zenodo.3911067" # checked
 
-
 #'## DOI der konkreten Version
-doi.version <- "10.5281/zenodo.4625123" # checked
+doi.version <- "10.5281/zenodo.5576822"
+
+#'## Lizenz
+license <- "Creative Commons Zero 1.0 Universal"
+
 
 
 #'## Verzeichnis für Analyse-Ergebnisse
@@ -130,16 +132,22 @@ outputdir <- paste0(getwd(),
 
 #'## Download-Umfang definieren
 scope <- seq(from = 1,
-             to = 25000,
+             to = 26000,
              by = 1000)
 
 
 
-#'## Debugging-Modus
+#'## Modus: Debugging
 #' Der Debuging-Modus reduziert den Download-Umfang auf den in der Variable "debug.sample" definierten Umfang zufällig ausgewählter Entscheidungen und löscht im Anschluss fünf zufällig ausgewählte Entscheidungen um den Wiederholungsversuch zu testen. Nur für Test- und Demonstrationszwecke. 
 
-mode.debug <- FALSE
+mode.debug <- TRUE
 debug.sample <- 100
+
+
+#'## Modus: Linguistische Annotationen
+#' Wenn dieser Modus aktiviert ist wird  mittels spacyr eine zusätzliche Variante des Datensatzes mit umfangreichen linguistischen Annotationen berechnet. Dieser Modus ist sehr rechenintensiv! Kann mit anderen Modi kombiniert werden.
+
+mode.annotate <- TRUE
 
 
 
@@ -196,6 +204,16 @@ print(begin.script)
 dir.create(outputdir)
 
 
+#'## Quellennachweis für Diagramme erstellen
+
+figure.caption <- paste("DOI:",
+                        doi.version,
+                        "| Fobbe")
+
+print(figure.caption)
+
+
+
 #+
 #'## Packages Laden
 
@@ -210,14 +228,20 @@ library(scales)       # Skalierung von Diagrammen
 library(data.table)   # Fortgeschrittene Datenverarbeitung
 library(readtext)     # TXT-Dateien einlesen
 library(quanteda)     # Fortgeschrittene Computerlinguistik
-
+library(spacyr)       # Linguistische Annotationen
 
 
 #'## Zusätzliche Funktionen einlesen
 #' **Hinweis:** Die hieraus verwendeten Funktionen werden jeweils vor der ersten Benutzung in vollem Umfang angezeigt um den Lesefluss zu verbessern.
 
-source("General_Source_Functions.R")
-
+source("R-fobbe-proto-package/f.linkextract.R")
+source("R-fobbe-proto-package/f.year.iso.R")
+source("R-fobbe-proto-package/f.dopar.pdfextract.R")
+source("R-fobbe-proto-package/f.hyphen.remove.R")
+source("R-fobbe-proto-package/f.fast.freqtable.R")
+source("R-fobbe-proto-package/f.lingsummarize.iterator.R")
+source("R-fobbe-proto-package/f.dopar.multihashes.R")
+source("R-fobbe-proto-package/f.dopar.spacyparse.R")
 
 #'## Quanteda-Optionen setzen
 quanteda_options(tokens_locale = tokens_locale)
@@ -274,7 +298,7 @@ setDTthreads(threads = fullCores)
 #+
 #'## Registerzeichen und Verfahrensarten
 #' 
-#' Datenquelle: "Seán Fobbe (2021). Aktenzeichen der Bundesrepublik Deutschland (AZ-BRD). Version 1.0.1. Zenodo. DOI: 10.5281/zenodo.4569564."
+#'Die Registerzeichen werden im Laufe des Skripts mit ihren detaillierten Bedeutungen aus dem folgenden Datensatz abgeglichen: "Seán Fobbe (2021). Aktenzeichen der Bundesrepublik Deutschland (AZ-BRD). Version 1.0.1. Zenodo. DOI: 10.5281/zenodo.4569564." Das Ergebnis des Abgleichs wird in die Variable "verfahrensart" in den Datensatz eingefügt.
 
 if (file.exists("AZ-BRD_1-0-1_DE_Registerzeichen_Datensatz.csv") == FALSE){
     download.file("https://zenodo.org/record/4569564/files/AZ-BRD_1-0-1_DE_Registerzeichen_Datensatz.csv?download=1",
@@ -285,7 +309,7 @@ if (file.exists("AZ-BRD_1-0-1_DE_Registerzeichen_Datensatz.csv") == FALSE){
 
 #'## Personendaten zu Präsident:innen
 #'
-#' Datenquelle: \enquote{Seán Fobbe and Tilko Swalve (2021). Presidents and Vice-Presidents of the Federal Courts of Germany (PVP-FCG). Version 2021-04-08. Zenodo. DOI: 10.5281/zenodo.4568682}.
+#' Die Personendaten stammen aus folgendem Datensatz: \enquote{Seán Fobbe and Tilko Swalve (2021). Presidents and Vice-Presidents of the Federal Courts of Germany (PVP-FCG). Version 2021-04-08. Zenodo. DOI: 10.5281/zenodo.4568682}.
 
 
 if (file.exists("PVP-FCG_2021-04-08_GermanFederalCourts_Presidents.csv") == FALSE){
@@ -298,7 +322,7 @@ if (file.exists("PVP-FCG_2021-04-08_GermanFederalCourts_Presidents.csv") == FALS
 
 #'## Personendaten zu Vize-Präsident:innen
 #' 
-#' Datenquelle: \enquote{Seán Fobbe and Tilko Swalve (2021). Presidents and Vice-Presidents of the Federal Courts of Germany (PVP-FCG). Version 2021-04-08. Zenodo. DOI: 10.5281/zenodo.4568682}.
+#' Die Personendaten stammen aus folgendem Datensatz: \enquote{Seán Fobbe and Tilko Swalve (2021). Presidents and Vice-Presidents of the Federal Courts of Germany (PVP-FCG). Version 2021-04-08. Zenodo. DOI: 10.5281/zenodo.4568682}.
 
 
 if (file.exists("PVP-FCG_2021-04-08_GermanFederalCourts_VicePresidents.csv") == FALSE){
@@ -309,7 +333,7 @@ if (file.exists("PVP-FCG_2021-04-08_GermanFederalCourts_VicePresidents.csv") == 
 
 
 
-#'# Download: Entscheidungen des BVerwG
+#'# Download: Alle Entscheidungen des BVerwG
 
 #+
 #'## Funktion zeigen
@@ -319,7 +343,8 @@ print(f.linkextract)
 
 #'## Linkliste erstellen
 
-links.list <- vector("list", length(scope))
+links.list <- vector("list",
+                     length(scope))
 
 
 for (i in seq_along(scope)){
@@ -374,7 +399,6 @@ links.pdf <- unique(links.pdf)
 
 #'### Extrahieren der ECLI-Ordinalzahl
 #' Die Links zu jeder Entscheidung enthalten das Ordinalzahl-Element ihres jeweiligen ECLI-Codes. Struktur und Inhalt der ECLI für deutsche Gerichte sind auf dem Europäischen Justizportal näher erläutert. \footnote{\url{https://e-justice.europa.eu/content_european_case_law_identifier_ecli-175-de-de.do?member=1}}
-
 
 
 filenames <- basename(links.pdf)
@@ -508,11 +532,27 @@ filenames.final <- paste0(filenames.final,
 #+
 #'### REGEX-Validierung durchführen
 
-regex.test <- grep("^BVerwG_[0-9]{4}-[0-9]{2}-[0-9]{2}_[UBG]_[0-9NA]+_[A-Za-z-]+_[0-9]+_[0-9]+_[NAD]+_[0-9]\\.pdf$",
-     filenames.final,
-     value = TRUE,
-     invert = TRUE)
-
+regex.test <- grep(paste0("^BVerwG", # Gericht
+                          "_",
+                          "[0-9]{4}-[0-9]{2}-[0-9]{2}", # Datum
+                          "_",
+                          "[UBG]", # Entscheidungstyp
+                          "_",
+                          "[0-9NA]+", # Spruchkörper
+                          "_",
+                          "[A-Za-z-]+", # Registerzeichen
+                          "_",
+                          "[0-9]+", # Eingangsnummer
+                          "_",
+                          "[0-9]{1,2}", # Eingangsjahr
+                          "_",
+                          "[NAD]+", # Zusatz
+                          "_",
+                          "[0-9]", # Kollision
+                          "\\.pdf$"), # Dateiendung
+                   filenames.final,
+                   value = TRUE,
+                   invert = TRUE)
 
 
 
@@ -520,8 +560,6 @@ regex.test <- grep("^BVerwG_[0-9]{4}-[0-9]{2}-[0-9]{2}_[UBG]_[0-9NA]+_[A-Za-z-]+
 #' **Hinweis:** Das Ergebnis bei Erfolg sollte ein leerer Vektor sein!
 
 print(regex.test)
-
-
 
 
 #'### Skript stoppen falls REGEX-Validierung gescheitert
@@ -589,13 +627,16 @@ print(begin.download)
 #'## Download durchführen
 
 for (i in sample(dt.download[,.N])){
+    
         tryCatch({download.file(dt.download$links.pdf[i],
                                 dt.download$filenames.final[i])
         },
         error = function(cond) {
             return(NA)}
         )
-        Sys.sleep(runif(1, 0.3, 1))
+    
+    Sys.sleep(runif(1, 0.3, 1))
+    
 }
 
 
@@ -656,15 +697,19 @@ if(missing.N > 0){
     dt.retry <- dt.download[filenames.final %in% missing.names]
     
     for (i in 1:dt.retry[,.N]){
+        
         response <- GET(dt.retry$links.pdf[i])
+        
         Sys.sleep(runif(1, 1, 3))
-        if (response$headers$"content-type" == "application/pdf" & response$status_code == 200){
+        
+        if (grepl("application/pdf", response$headers$"content-type") == TRUE  & response$status_code == 200){
             tryCatch({download.file(url = dt.retry$links.pdf[i],
                                     destfile = dt.retry$filenames.final[i])
             },
-            error=function(cond) {
+            error = function(cond) {
                 return(NA)}
-            )     
+            )
+            
         }else{
             print(paste0(dt.retry$filenames1[i], " : kein PDF vorhanden"))  
         }
@@ -773,10 +818,6 @@ txt.bverwg[, text := lapply(.(text), f.hyphen.remove)]
 
 #'## Variable "datum" als Datentyp "IDate" kennzeichnen
 txt.bverwg$datum <- as.IDate(txt.bverwg$datum)
-
-
-
-
 
 #'## Variable "entscheidungsjahr" hinzufügen
 txt.bverwg$entscheidungsjahr <- year(txt.bverwg$datum)
@@ -1105,6 +1146,10 @@ txt.bverwg$version <- as.character(rep(datestamp,
                                        txt.bverwg[,.N]))
 
 
+#'## Variable "lizenz" hinzufügen
+txt.bverwg$lizenz <- as.character(rep(license,
+                                   txt.bverwg[,.N]))
+
 
 
 
@@ -1198,7 +1243,7 @@ table.output.vpraesi <- fread(paste0(prefix,
 freqtable <- table.entsch.typ[-.N]
 
 
-#+ CE-BVerwG_02_Barplot_Entscheidungstyp, fig.height = 5, fig.width = 8
+#+ CE-BVerwG_02_Barplot_Entscheidungstyp, fig.height = 6, fig.width = 9
 ggplot(data = freqtable) +
     geom_bar(aes(x = reorder(entscheidung_typ,
                              -N),
@@ -1213,8 +1258,7 @@ ggplot(data = freqtable) +
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Typ"),
-        caption = paste("DOI:",
-                        doi.version),
+        caption = figure.caption,
         x = "Typ der Entscheidung",
         y = "Entscheidungen"
     )+
@@ -1235,7 +1279,7 @@ ggplot(data = freqtable) +
 freqtable <- table.spruch.az[-.N][,lapply(.SD, as.numeric)]
 
 
-#+ CE-BVerwG_03_Barplot_Spruchkoerper_AZ, fig.height = 5, fig.width = 8
+#+ CE-BVerwG_03_Barplot_Spruchkoerper_AZ, fig.height = 6, fig.width = 9
 ggplot(data = freqtable) +
     geom_bar(aes(x = reorder(spruchkoerper_az,
                              -N),
@@ -1250,8 +1294,7 @@ ggplot(data = freqtable) +
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Senat (Aktenzeichen)"),
-        caption = paste("DOI:",
-                        doi.version),
+        caption = figure.caption,
         x = "Senat",
         y = "Entscheidungen"
     )+
@@ -1287,8 +1330,7 @@ ggplot(data = freqtable) +
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Registerzeichen"),
-        caption = paste("DOI:",
-                        doi.version),
+        caption = figure.caption,
         x = "Registerzeichen",
         y = "Entscheidungen"
     )+
@@ -1307,7 +1349,7 @@ ggplot(data = freqtable) +
 
 freqtable <- table.output.praesi[-.N]
 
-#+ CE-BVerwG_05_Barplot_PraesidentIn, fig.height = 5.5, fig.width = 8
+#+ CE-BVerwG_05_Barplot_PraesidentIn, fig.height = 6, fig.width = 9
 ggplot(data = freqtable) +
     geom_bar(aes(x = reorder(praesi,
                              N),
@@ -1322,8 +1364,7 @@ ggplot(data = freqtable) +
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Präsident:in"),
-        caption = paste("DOI:",
-                        doi.version),
+        caption = figure.caption,
         x = "Präsident:in",
         y = "Entscheidungen"
     )+
@@ -1343,7 +1384,7 @@ ggplot(data = freqtable) +
 
 freqtable <- table.output.vpraesi[-.N]
 
-#+ CE-BVerwG_06_Barplot_VizePraesidentIn, fig.height = 5.5, fig.width = 8
+#+ CE-BVerwG_06_Barplot_VizePraesidentIn, fig.height = 6, fig.width = 9
 ggplot(data = freqtable) +
     geom_bar(aes(x = reorder(v_praesi,
                              N),
@@ -1358,8 +1399,7 @@ ggplot(data = freqtable) +
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Vize-Präsident:in"),
-        caption = paste("DOI:",
-                        doi.version),
+        caption = figure.caption,
         x = "Vize-Präsident:in",
         y = "Entscheidungen"
     )+
@@ -1379,7 +1419,7 @@ ggplot(data = freqtable) +
 
 freqtable <- table.jahr.entscheid[-.N][,lapply(.SD, as.numeric)]
 
-#+ CE-BVerwG_07_Barplot_Entscheidungsjahr, fig.height = 7, fig.width = 11
+#+ CE-BVerwG_07_Barplot_Entscheidungsjahr, fig.height = 6, fig.width = 9
 ggplot(data = freqtable) +
     geom_bar(aes(x = entscheidungsjahr,
                  y = N),
@@ -1391,8 +1431,7 @@ ggplot(data = freqtable) +
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Entscheidungsjahr"),
-        caption = paste("DOI:",
-                        doi.version),
+        caption = figure.caption,
         x = "Entscheidungsjahr",
         y = "Entscheidungen"
     )+
@@ -1413,7 +1452,7 @@ freqtable <- table.jahr.eingangISO[-.N][,lapply(.SD, as.numeric)]
 
 
 
-#+ CE-BVerwG_08_Barplot_EingangsjahrISO, fig.height = 7, fig.width = 11
+#+ CE-BVerwG_08_Barplot_EingangsjahrISO, fig.height = 6, fig.width = 9
 ggplot(data = freqtable) +
     geom_bar(aes(x = eingangsjahr_iso,
                  y = N),
@@ -1425,8 +1464,7 @@ ggplot(data = freqtable) +
                       "| Version",
                       datestamp,
                       "| Entscheidungen je Eingangsjahr (ISO)"),
-        caption = paste("DOI:",
-                        doi.version),
+        caption = figure.caption,
         x = "Eingangsjahr (ISO)",
         y = "Entscheidungen"
     )+
@@ -1452,13 +1490,13 @@ ggplot(data = freqtable) +
 
 #+
 #'### Funktion anzeigen
-print(f.summarize.iterator,
-      threads = fullCores,
-      chunksize = 1)
+print(f.lingsummarize.iterator)
 
 
 #'### Berechnung durchführen
-summary.corpus <- f.summarize.iterator(txt.bverwg)
+summary.corpus <- f.lingsummarize.iterator(txt.bverwg,
+                                       threads = fullCores,
+                                       chunksize = 1)
 
 
 
@@ -1474,44 +1512,57 @@ setnames(summary.corpus,
                  "typen",
                  "saetze"))
 
-setnames(txt.bverwg,
-         old = "nchars",
-         new = "zeichen")
+#'## Kennwerte dem Korpus hinzufügen
+
+txt.bverwg <- cbind(txt.bverwg,
+                    summary.corpus)
 
 
-#'### Kennwerte dem Korpus hinzufügen
-
-txt.bverwg$tokens <- summary.corpus$tokens
-txt.bverwg$typen <- summary.corpus$typen
-txt.bverwg$saetze <- summary.corpus$saetze
+#'## Variante mit Metadaten erstellen
+meta.bverwg <- txt.bverwg[, !"text"]
 
 
 
 
 
 #'\newpage
-#'## Zusammenfassungen: Linguistische Kennwerte
-#' **Hinweis:** Typen sind definiert als einzigartige Tokens und werden für jedes Dokument gesondert berechnet. Daher ergibt es an dieser Stelle auch keinen Sinn die Typen zu summieren, denn bezogen auf den Korpus wäre der Kennwert ein anderer. Der Wert wird daher manuell auf "NA" gesetzt.
+#'## Linguistische Kennwerte
 
 #+
 #'### Zusammenfassungen berechnen
 
-dt.summary.ling <- summary.corpus[, lapply(.SD,
+
+dt.summary.ling <- meta.bverwg[, lapply(.SD,
                                            function(x)unclass(summary(x))),
                                   .SDcols = c("zeichen",
                                               "tokens",
-                                              "saetze",
-                                              "typen")]
+                                              "typen",
+                                              "saetze")]
 
 
-dt.sums.ling <- summary.corpus[,
-                               lapply(.SD, sum),
-                               .SDcols = c("zeichen",
-                                           "tokens",
-                                           "saetze",
-                                           "typen")]
+dt.sums.ling <- meta.bverwg[,
+                            lapply(.SD, sum),
+                            .SDcols = c("zeichen",
+                                        "tokens",
+                                        "typen",
+                                        "saetze")]
 
-dt.sums.ling$typen <- NA
+
+
+tokens.temp <- tokens(corpus(txt.bverwg),
+                      what = "word",
+                      remove_punct = FALSE,
+                      remove_symbols = FALSE,
+                      remove_numbers = FALSE,
+                      remove_url = FALSE,
+                      remove_separators = TRUE,
+                      split_hyphens = FALSE,
+                      include_docvars = FALSE,
+                      padding = FALSE
+                      )
+
+
+dt.sums.ling$typen <- nfeat(dfm(tokens.temp))
 
 
 
@@ -1531,7 +1582,6 @@ setnames(dt.stats.ling, c("Variable",
                           "Mean",
                           "Quart3",
                           "Max"))
-
 
 
 #'### Zusammenfassungen anzeigen
@@ -1557,25 +1607,25 @@ fwrite(dt.stats.ling,
 
 
 #'\newpage
-#'## Zusammenfassungen: Quantitative Variablen
+#'## Quantitative Variablen
 
 
 #'### Entscheidungsdatum
 
-summary(as.IDate(summary.corpus$datum))
+summary(as.IDate(meta.bverwg$datum))
 
 
 
 #'### Zusammenfassungen berechnen
 
-dt.summary.docvars <- summary.corpus[,
+dt.summary.docvars <- meta.bverwg[,
                                      lapply(.SD, function(x)unclass(summary(na.omit(x)))),
                                      .SDcols = c("entscheidungsjahr",
                                                  "eingangsjahr_iso",
                                                  "eingangsnummer")]
 
 
-dt.unique.docvars <- summary.corpus[,
+dt.unique.docvars <- meta.bverwg[,
                                     lapply(.SD, function(x)length(unique(na.omit(x)))),
                                     .SDcols = c("entscheidungsjahr",
                                                 "eingangsjahr_iso",
@@ -1627,7 +1677,7 @@ fwrite(dt.stats.docvars,
 #'### Diagramm: Verteilung Zeichen
 
 #+ CE-BVerwG_09_Density_Zeichen, fig.height = 6, fig.width = 9
-ggplot(data = summary.corpus)+
+ggplot(data = meta.bverwg)+
     geom_density(aes(x = zeichen),
                  fill = "#7e0731")+
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
@@ -1640,8 +1690,7 @@ ggplot(data = summary.corpus)+
                       "| Version",
                       datestamp,
                       "| Verteilung der Zeichen je Dokument"),
-        caption = paste("DOI:",
-                        doi.version),
+        caption = figure.caption,
         x = "Zeichen",
         y = "Dichte"
     )+
@@ -1659,7 +1708,7 @@ ggplot(data = summary.corpus)+
 #'### Diagramm: Verteilung Tokens
 
 #+ CE-BVerwG_10_Density_Tokens, fig.height = 6, fig.width = 9
-ggplot(data = summary.corpus)+
+ggplot(data = meta.bverwg)+
     geom_density(aes(x = tokens),
                  fill = "#7e0731")+
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
@@ -1672,8 +1721,7 @@ ggplot(data = summary.corpus)+
                       "| Version",
                       datestamp,
                       "| Verteilung der Tokens je Dokument"),
-        caption = paste("DOI:",
-                        doi.version),
+        caption = figure.caption,
         x = "Tokens",
         y = "Dichte"
     )+
@@ -1692,7 +1740,7 @@ ggplot(data = summary.corpus)+
 #'### Diagramm: Verteilung Typen
 
 #+ CE-BVerwG_11_Density_Typen, fig.height = 6, fig.width = 9
-ggplot(data = summary.corpus)+
+ggplot(data = meta.bverwg)+
     geom_density(aes(x = typen),
                  fill = "#7e0731")+
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
@@ -1705,8 +1753,7 @@ ggplot(data = summary.corpus)+
                       "| Version",
                       datestamp,
                       "| Verteilung der Typen je Dokument"),
-        caption = paste("DOI:",
-                        doi.version),
+        caption = figure.caption,
         x = "Typen",
         y = "Dichte"
     )+
@@ -1724,7 +1771,7 @@ ggplot(data = summary.corpus)+
 #'### Diagramm: Verteilung Sätze
 
 #+ CE-BVerwG_12_Density_Saetze, fig.height = 6, fig.width = 9
-ggplot(data = summary.corpus)+
+ggplot(data = meta.bverwg)+
     geom_density(aes(x = saetze),
                  fill = "#7e0731")+
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
@@ -1737,8 +1784,7 @@ ggplot(data = summary.corpus)+
                       "| Version",
                       datestamp,
                       "| Verteilung der Sätze je Dokument"),
-        caption = paste("DOI:",
-                        doi.version),
+        caption = figure.caption,
         x = "Sätze",
         y = "Dichte"
     )+
@@ -1752,18 +1798,128 @@ ggplot(data = summary.corpus)+
 
 
 
-#'## Anzahl Variablen im Korpus
+
+
+
+
+#'# Linguistische Annotationen berechnen
+
+if (mode.annotate == TRUE){
+
+    txt.annotated <- f.dopar.spacyparse(txt.bverwg,
+                                        threads = detectCores(),
+                                        chunksize = 1,
+                                        model = "de_core_news_sm",
+                                        pos = TRUE,
+                                        tag = TRUE,
+                                        lemma = TRUE,
+                                        entity = TRUE,
+                                        dependency = TRUE,
+                                        nounphrase = TRUE)
+
+}
+
+
+
+
+
+
+
+
+#'# Kontrolle der Variablen
+
+#+
+#'## Semantische Sortierung der Variablen
+
+#+
+#'### Variablen sortieren: Hauptdatensatz
+
+
+setcolorder(txt.bverwg,
+            c("doc_id",
+              "text",
+              "gericht",
+              "datum",
+              "entscheidung_typ", 
+              "spruchkoerper_az",
+              "registerzeichen",
+              "verfahrensart",
+              "eingangsnummer",
+              "eingangsjahr_az",
+              "eingangsjahr_iso",
+              "entscheidungsjahr",
+              "verzoegerung",
+              "kollision",
+              "aktenzeichen",
+              "ecli",
+              "praesi",
+              "v_praesi",
+              "zeichen",
+              "tokens",
+              "typen",            
+              "saetze",
+              "version",
+              "doi_concept",      
+              "doi_version",
+              "lizenz"))
+
+
+#'\newpage
+#+
+#'### Variablen sortieren: Metadaten
+
+setcolorder(meta.bverwg,
+            c("doc_id",
+              "gericht",
+              "datum",
+              "entscheidung_typ", 
+              "spruchkoerper_az",
+              "registerzeichen",
+              "verfahrensart",
+              "eingangsnummer",
+              "eingangsjahr_az",
+              "eingangsjahr_iso",
+              "entscheidungsjahr",
+              "verzoegerung",
+              "kollision",
+              "aktenzeichen",
+              "ecli",
+              "praesi",
+              "v_praesi",
+              "zeichen",
+              "tokens",
+              "typen",            
+              "saetze",
+              "version",
+              "doi_concept",      
+              "doi_version",
+              "lizenz"))
+
+
+
+
+
+#'\newpage
+#'## Anzahl Variablen der Datensätze
+
 length(txt.bverwg)
+length(meta.bverwg)
+length(txt.annotated)
 
 
-#'## Namen der Variablen im Korpus
+#'## Alle Variablen-Namen der Datensätze
+
 names(txt.bverwg)
+names(meta.bverwg)
+names(txt.annotated)
+
 
 
 
 
 #'# Beispiel-Werte für alle Metadaten anzeigen
-print(summary.corpus)
+print(meta.bverwg)
+
 
 
 
@@ -1792,10 +1948,26 @@ csvname.meta <- paste(datasetname,
                       "DE_CSV_Metadaten.csv",
                       sep = "_")
 
-fwrite(summary.corpus,
+fwrite(meta.bverwg,
        csvname.meta,
        na = "NA")
 
+
+
+#'## CSV mit Annotationen speichern
+
+if (mode.annotate == TRUE){
+
+    csvname.annotated <- paste(datasetname,
+                               datestamp,
+                               "DE_CSV_Annotiert.csv",
+                               sep = "_")
+
+    fwrite(txt.annotated,
+           csvname.annotated,
+           na = "NA")
+
+}
 
 
 
@@ -1808,7 +1980,7 @@ fwrite(summary.corpus,
 #+
 #'### Korpus-Objekt in RAM (MB)
 
-print(object.size(corpus(txt.bverwg)),
+print(object.size(txt.bverwg),
       standard = "SI",
       humanReadable = TRUE,
       units = "MB")
@@ -1820,6 +1992,9 @@ file.size(csvname.full) / 10 ^ 6
 
 #'### CSV Metadaten (MB)
 file.size(csvname.meta) / 10 ^ 6
+
+#'### CSV Annotiert (MB)
+file.size(csvname.annotated) / 10 ^ 6
 
 
 #'### PDF-Dateien (MB)
@@ -1861,8 +2036,7 @@ ggplot(data = dt.plot,
                       "| Version",
                       datestamp,
                       "| Verteilung der Dateigrößen (PDF)"),
-        caption = paste("DOI:",
-                        doi.version),
+        caption = figure.caption,
         x = "Dateigröße in MB",
         y = "Dichte"
     )+
@@ -1895,8 +2069,7 @@ ggplot(data = dt.plot,
                       "| Version",
                       datestamp,
                       "| Verteilung der Dateigrößen (TXT)"),
-        caption = paste("DOI:",
-                        doi.version),
+        caption = figure.caption,
         x = "Dateigröße in MB",
         y = "Dichte"
     )+
@@ -1915,7 +2088,11 @@ ggplot(data = dt.plot,
 
 #'# Erstellen der ZIP-Archive
 
+#+
 #'## Verpacken der CSV-Dateien
+
+#+
+#'### Vollständiger Datensatz
 
 #+ results = 'hide'
 csvname.full.zip <- gsub(".csv",
@@ -1928,6 +2105,9 @@ zip(csvname.full.zip,
 unlink(csvname.full)
 
 
+#+
+#'### Metadaten
+
 #+ results = 'hide'
 csvname.meta.zip <- gsub(".csv",
                          ".zip",
@@ -1937,6 +2117,26 @@ zip(csvname.meta.zip,
     csvname.meta)
 
 unlink(csvname.meta)
+
+
+
+#+
+#'### Annotiert
+
+
+#+ results = 'hide'
+if (mode.annotate == TRUE){
+
+    csvname.annotated.zip <- gsub(".csv",
+                                  ".zip",
+                                  csvname.annotated)
+
+    zip(csvname.annotated.zip,
+        csvname.annotated)
+
+    unlink(csvname.annotated)
+
+}
 
 
 
@@ -1988,7 +2188,8 @@ zip(paste0(datasetname,
 #'## Verpacken der Source-Dateien
 
 files.source <- c(list.files(pattern = "Source"),
-                  "buttons")
+                  "buttons",
+                  "R-fobbe-proto-package")
 
 
 files.source <- grep("spin",
@@ -2099,7 +2300,7 @@ print(end.script - begin.script)
 
 
 #'## Warnungen
-print(warnings())
+warnings()
 
 
 

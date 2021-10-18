@@ -43,12 +43,6 @@ library(data.table)   # Fortgeschrittene Datenverarbeitung
 setDTthreads(threads = detectCores()) 
 
 
-###################################
-### Zusätzliche Funktionen einlesen
-###################################
-
-source("General_Source_Functions.R")
-
 
 
 ############################
@@ -57,7 +51,7 @@ source("General_Source_Functions.R")
 
 datasetname <- "CE-BVerwG"
 doi.concept <- "10.5281/zenodo.3911067" # checked
-doi.version <- "10.5281/zenodo.4625123" # checked
+doi.version <- "10.5281/zenodo.5576822"
 
 
 files.zip <- list.files(pattern = "\\.zip")
@@ -158,10 +152,6 @@ table.praesi.daten <- table.praesi[court == "BVerwG", c(2:3, 5:8)]
 table.praesi.alter <- table.praesi[court == "BVerwG", c(2:3, 13:15)]
 
 
-
-
-
-
 #+
 ## Personaldaten herunterladen
 
@@ -222,6 +212,23 @@ data.zip <- paste(datasetname,
 data.corpus <- fread(cmd = paste("unzip -cq",
                                  data.zip))
 
+
+# Hinweis: Direktes einlesen aus ZIP-Datei führt zu segfault. Grund unbekannt.
+
+annotated.zip <- paste(datasetname,
+                     datestamp,
+                     "DE_CSV_Annotiert.zip",
+                     sep = "_")
+
+annotated.csv <- gsub("\\.zip",
+                      "\\.csv",
+                      annotated.zip)
+
+unzip(annotated.zip)
+
+annotated.corpus <- fread(annotated.csv)
+
+unlink(annotated.csv)
 
 
 ################################
@@ -436,11 +443,12 @@ df.bverwg <- readtext("./*.txt",
 #'
 #'\endhead
 
-#'PDF & \textbf{Traditionelle juristische Forschung}. Die PDF-Dokumente wie sie vom \court\ auf der amtlichen Webseite bereitgestellt werden, jedoch verbessert durch semantisch hochwertige Dateinamen, die der leichteren Auffindbarkeit von Entscheidungen dienen. Die Dateinamen sind so konzipiert, dass sie auch für die traditionelle qualitative juristische Arbeit einen erheblichen Mehrwert bieten. Im Vergleich zu den CSV-Dateien enthalten die Dateinamen nur einen reduzierten Umfang an Metadaten, um Kompatibilitätsprobleme unter Windows zu vermeiden und die Lesbarkeit zu verbessern.\\
-#' CSV\_Datensatz & \textbf{Legal Tech/Quantitative Forschung}. Diese CSV-Datei ist die für statistische Analysen empfohlene Variante des Datensatzes. Sie enthält den Volltext aller Entscheidungen, sowie alle in diesem Codebook beschriebenen Metadaten. Über Zeilenumbrüche getrennte Wörter wurden zusammengefügt.\\
-#' CSV\_Metadaten & \textbf{Legal Tech/Quantitative Forschung}. Wie die andere CSV-Datei, nur ohne die Entscheidungstexte. Sinnvoll für Analyst:innen, die sich nur für die Metadaten interessieren und Speicherplatz sparen wollen.\\
+#'PDF & \textbf{Traditionelle juristische Forschung}. Die PDF-Dokumente wie sie vom \court\ auf der amtlichen Webseite bereitgestellt werden, jedoch verbessert durch semantisch hochwertige Dateinamen, die der leichteren Auffindbarkeit von Entscheidungen dienen. Die Dateinamen sind so konzipiert, dass sie auch für die traditionelle qualitative juristische Arbeit einen erheblichen Mehrwert bieten. Im Vergleich zu den CSV-Dateien enthalten die Dateinamen nur einen reduzierten Umfang an Metadaten, um Kompatibilitätsprobleme zu vermeiden und die Lesbarkeit zu verbessern.\\
+#' CSV\_Datensatz & \textbf{Legal Tech/Quantitative Forschung}. Diese CSV-Datei ist die für statistische Analysen empfohlene Variante des Datensatzes. Sie enthält den Volltext aller Entscheidungen, sowie alle in diesem Codebook beschriebenen Metadaten.  Jede Spalte entspricht einer Variable, jede Zeile einer Entscheidung. Über Zeilenumbrüche getrennte Wörter wurden zusammengefügt. \\
+#' CSV\_Metadaten & \textbf{Legal Tech/Quantitative Forschung.} Wie die vorige CSV-Variante, nur ohne die Entscheidungstexte. Sinnvoll für Analyst:innen, die sich nur für die Metadaten interessieren und Speicherplatz sparen wollen.  Jede Spalte entspricht einer Variable, jede Zeile einer Entscheidung.\\
+#' CSV\_Annotiert & \textbf{Legal Tech/Quantitative Forschung.} Alle Entscheidungen in tokenisierter Form mit linguistischen Annotationen. Beachten Sie bitte die besondere Variablen-Struktur unter Punkt \ref{annovars}.  Jede Spalte entspricht einer Variable, jede Zeile einem Token.\\
 #' TXT & \textbf{Subsidiär für alle Zielgruppen}. Diese Variante enthält die vollständigen aus den PDF-Dateien extrahierten Entscheidungstexte, aber nur einen reduzierten Umfang an Metadaten, der dem der PDF-Dateien entspricht. Die TXT-Dateien sind optisch an das Layout der PDF-Dateien angelehnt. Geeignet für qualitativ arbeitende Forscher:innen, die nur wenig Speicherplatz oder eine langsame Internetverbindung zur Verfügung haben oder für quantitativ arbeitende Forscher:innen, die beim Einlesen der CSV-Dateien Probleme haben. Über Zeilenumbrüche getrennte Wörter wurden \emph{nicht} zusammengefügt.\\
-#' ANALYSE & \textbf{Alle Lehrenden und Forschenden}. Dieses Archiv enthält alle während dem Kompilierungs- und Prüfprozess erstellten Tabellen (CSV) und Diagramme (PDF, PNG) im Original. Sie sind inhaltsgleich mit den in diesem Codebook verwendeten Tabellen und Diagrammen. Das PDF-Format eignet sich besonders für die Verwendung in gedruckten Publikationen, das PNG-Format besonders für die Darstellung im Internet. Analyst:innen mit fortgeschrittenen Kenntnissen in R können auch auf den Source Code zurückgreifen. Empfohlen für Nutzer:innen die einzelne Inhalte aus dem Codebook für andere Zwecke (z.B. Präsentationen, eigene Publikationen) weiterverwenden möchten.\\
+#' ANALYSE & \textbf{Alle Lehrenden und Forschenden.} Dieses Archiv enthält alle während dem Kompilierungs- und Prüfprozess erstellten Tabellen (CSV) und Diagramme (PDF, PNG) im Original. Sie sind inhaltsgleich mit den in diesem Codebook verwendeten Tabellen und Diagrammen. Das PDF-Format eignet sich besonders für die Verwendung in gedruckten Publikationen, das PNG-Format besonders für die Darstellung im Internet. Analyst:innen mit fortgeschrittenen Kenntnissen in R können auch auf den Source Code zurückgreifen. Empfohlen für Nutzer:innen die einzelne Inhalte aus dem Codebook für andere Zwecke (z.B. Präsentationen, eigene Publikationen) weiterverwenden möchten.\\
 
 
 #'\bottomrule
@@ -457,8 +465,8 @@ df.bverwg <- readtext("./*.txt",
 
 
 #+
-#'# Variablen
-
+#'# Variablen (Allgemein)
+#'\label{variablen}
 
 #+
 #'## Datenstruktur 
@@ -475,7 +483,7 @@ str(data.corpus)
 #'\end{itemize}
 
 #+
-#'## Erläuterungen zu den einzelnen Variablen
+#'## Erläuterung der Variablen
 
 #'\ra{1.3}
 #' 
@@ -491,24 +499,24 @@ str(data.corpus)
 #'
 #'\endhead
 #' 
-#'doc\_id & String & (Nur CSV-Datei) Der Name der extrahierten TXT-Datei.\\
-#'text  & String & (Nur CSV-Datei) Der vollständige Inhalt der Entscheidung, so wie er in der von www.bverwg.de heruntergeladenen PDF-Datei dokumentiert ist. Die einzige editorische Änderung gegenüber den TXT-Dateien ist die Zusammenfügung von über Zeilengrenzen gebrochenen Wörtern.\\
-#'gericht & Alphabetisch & In diesem Datensatz ist nur der Wert \mbox{\enquote{BVerwG}} vergeben. Dies ist der ECLI-Gerichtscode für \enquote{\court}. Diese Variable dient vor allem zur einfachen und transparenten Verbindung der Daten mit anderen Datensätzen.\\
-#'datum & Datum (ISO) & Das Datum der Entscheidung im Format YYYY-MM-DD (Langform nach ISO-8601). Die Langform ist für Menschen einfacher lesbar und wird maschinell auch öfter automatisch als Datumsformat erkannt.\\
-#'entscheidung\_typ & Alphabetisch & Der Typ der Entscheidung. Es sind die Werte \enquote{B} (Beschluss), \enquote{U} (Urteil) und \enquote{G} (Gerichtsbescheid) vergeben.\\
-#'spruchkoerper\_az & Natürliche Zahl & Der im Aktenzeichen angegebene Spruchkörper. Es sind die Werte \enquote{1} bis \enquote{10} (Revisions- und Wehrdienstsenate) und \enquote{20} (Fachsenat) vergeben. Die Werte stehen für den jeweiligen Senat des Gerichts. \textbf{Achtung:} die ersten beiden Revisionssenate und die beiden Wehrdienstsenate sind inhaltsgleich mit \enquote{1} und \enquote{2} in den jeweiligen Aktenzeichen codiert. Um zwischen den Revisions- und Wehrdienstsenaten zu unterscheiden müssen Sie in einer Analyse zwingend auch nach dem Registerzeichen differenzieren. Die Registerzeichen der Wehrdienstsenate beginnen immer mit \enquote{W}.\\
-#'registerzeichen & String & Das amtliche Registerzeichen. Es gibt die Verfahrensart an, in der die Entscheidung ergangen ist. Eine Erläuterung der Registerzeichen und der zugehörigen Verfahrensarten findet sich unter Punkt \ref{register}.\\
+#' doc\_id & String & (Nur CSV-Datei) Der Name der extrahierten TXT-Datei.\\
+#' text  & String & (Nur CSV-Datei) Der vollständige Inhalt der Entscheidung, so wie er in der von www.bverwg.de heruntergeladenen PDF-Datei dokumentiert ist. Die einzige editorische Änderung gegenüber den TXT-Dateien ist die Zusammenfügung von über Zeilengrenzen gebrochenen Wörtern.\\
+#' gericht & String & In diesem Datensatz ist nur der Wert \mbox{\enquote{BVerwG}} vergeben. Dies ist der ECLI-Gerichtscode für \enquote{\court}. Diese Variable dient vor allem zur einfachen und transparenten Verbindung der Daten mit anderen Datensätzen.\\
+#' datum & Datum (ISO) & Das Datum der Entscheidung im Format YYYY-MM-DD (Langform nach ISO-8601). Die Langform ist für Menschen einfacher lesbar und wird maschinell auch öfter automatisch als Datumsformat erkannt.\\
+#' entscheidung\_typ & String & Der Typ der Entscheidung. Es sind die Werte \enquote{B} (Beschluss), \enquote{U} (Urteil) und \enquote{G} (Gerichtsbescheid) vergeben.\\
+#' spruchkoerper\_az & Natürliche Zahl & Der im Aktenzeichen angegebene Spruchkörper. Es sind die Werte \enquote{1} bis \enquote{10} (Revisions- und Wehrdienstsenate) und \enquote{20} (Fachsenat) vergeben. Die Werte stehen für den jeweiligen Senat des Gerichts. \textbf{Achtung:} die ersten beiden Revisionssenate und die beiden Wehrdienstsenate sind inhaltsgleich mit \enquote{1} und \enquote{2} in den jeweiligen Aktenzeichen codiert. Um zwischen den Revisions- und Wehrdienstsenaten zu unterscheiden müssen Sie in einer Analyse zwingend auch nach dem Registerzeichen differenzieren. Die Registerzeichen der Wehrdienstsenate beginnen immer mit \enquote{W}.\\
+#' registerzeichen & String & Das amtliche Registerzeichen. Es gibt die Verfahrensart an, in der die Entscheidung ergangen ist. Eine Erläuterung der Registerzeichen und der zugehörigen Verfahrensarten findet sich unter Punkt \ref{register}.\\
 #' verfahrensart & String &  Die ausführliche Beschreibung der Verfahrensart, die dem Registerzeichen zugeordnet ist.  Eine Erläuterung der Registerzeichen und der zugehörigen Verfahrensarten findet sich unter Punkt \ref{register}.\\
-#'eingangsnummer & Natürliche Zahl & Verfahren des gleichen Eingangsjahres erhalten vom Gericht eine Nummer in der Reihenfolge ihres Eingangs.\\
-#'eingangsjahr\_az & Natürliche Zahl & Das im Aktenzeichen angegebene Jahr in dem das Verfahren beim Gericht anhängig wurde. Das Format ist eine zweistellige Jahreszahl (YY).\\
-#'eingangsjahr\_iso & Natürliche Zahl & (Nur CSV-Datei) Das nach ISO-8601 codierte Jahr in dem das Verfahren beim Gericht anhängig wurde. Das Format ist eine vierstellige Jahreszahl (YYYY), um eine maschinenlesbare und eindeutige Jahreszahl für den Eingang zur Verfügung zu stellen. Wurde aus der Variable \enquote{eingangsjahr\_az} durch den Autor des Datensatzes berechnet, unter der Annahme, dass Jahreszahlen über 50 dem 20. Jahrhundert zugeordnet sind und andere Jahreszahlen dem 21. Jahrhundert.\\
-#'entscheidungsjahr & Natürliche Zahl & (Nur CSV-Datei) Das Jahr in dem die Entscheidung ergangen ist. Das Format ist eine vierstellige Jahreszahl (YYYY). Wurde aus der Variable \enquote{datum} durch den Autor des Datensatzes berechnet.\\
-#'verzoegerung & Alphabetisch & Verzögerungsrügen sind mit \enquote{D} gekennzeichnet. Alle anderen Entscheidungen (der weit überwiegende Anteil) sind mit dem Wert \enquote{NA} codiert.\\
-#'kollision & Numerisch & In wenigen Fällen sind am gleichen Tag mehrere Entscheidungen zum gleichen Aktenzeichen ergangen. Diese werden ab der zweiten Entscheidung pro Tag durch eine Kollisions-ID mit einer fortlaufenden Zahl ausdifferenziert. Für die erste Entscheidung ist der Wert der Variable \enquote{0}. Die zweite Entscheidung ist mit \enquote{1} identifiziert, die dritte mit \enquote{2} und so fort.\\
-#'praesi & Alphabetisch & (Nur CSV-Datei) Der Nachname des oder der Präsident:in in dessen/deren Amtszeit das Datum der Entscheidung fällt.\\
-#'v\_praesi & Alphabetisch & (Nur CSV-Datei) Der Nachname des oder der Vize-Präsident:in in dessen/deren Amtszeit das Datum der Entscheidung fällt.\\
-#'aktenzeichen & String & (Nur CSV-Datei) Das amtliche Aktenzeichen. Die Variable wurde aus den Variablen \enquote{spruchkoerper\_az}, \enquote{registerzeichen}, \enquote{eingangsnummer} und \enquote{eingangsjahr\_az} durch den Autor des Datensatzes berechnet.\\
-#'ecli & String & (Nur CSV-Datei) Der European Case Law Identifier (ECLI) der Entscheidung. Jeder Entscheidung ist eine einzigartige ECLI zugewiesen. Die ECLI ist vor allem dann hilfreich, wenn dieser Datensatz mit anderen Datensätzen zusammengeführt und Duplikate vermieden werden sollen. Alle inhaltlichen Bestandteile der ECLI sind in diesem Datensatz zusätzlich auch anderen und besser verständlichen Variablen zugewiesen. Nutzen Sie bevorzugt diese anderen Variablen, statt Informationen aus der ECLI zu extrahieren. Die Variable wurde aus den Variablen \enquote{gericht}, \enquote{entscheidungsjahr},  \enquote{datum}, \enquote{entscheidung\_typ},\enquote{spruchkoerper\_az}, \enquote{registerzeichen},  \enquote{eingangsnummer}, \enquote{eingangsjahr\_az}, \enquote{verzoegerung} und \enquote{kollision} durch den Autor des Datensatzes berechnet.\\
+#' eingangsnummer & Natürliche Zahl & Verfahren des gleichen Eingangsjahres erhalten vom Gericht eine Nummer in der Reihenfolge ihres Eingangs.\\
+#' eingangsjahr\_az & Natürliche Zahl & Das im Aktenzeichen angegebene Jahr in dem das Verfahren beim Gericht anhängig wurde. Das Format ist eine zweistellige Jahreszahl (YY).\\
+#' eingangsjahr\_iso & Natürliche Zahl & (Nur CSV-Datei) Das nach ISO-8601 codierte Jahr in dem das Verfahren beim Gericht anhängig wurde. Das Format ist eine vierstellige Jahreszahl (YYYY), um eine maschinenlesbare und eindeutige Jahreszahl für den Eingang zur Verfügung zu stellen. Wurde aus der Variable \enquote{eingangsjahr\_az} durch den Autor des Datensatzes berechnet, unter der Annahme, dass Jahreszahlen über 50 dem 20. Jahrhundert zugeordnet sind und andere Jahreszahlen dem 21. Jahrhundert.\\
+#' entscheidungsjahr & Natürliche Zahl & (Nur CSV-Datei) Das Jahr in dem die Entscheidung ergangen ist. Das Format ist eine vierstellige Jahreszahl (YYYY). Wurde aus der Variable \enquote{datum} durch den Autor des Datensatzes berechnet.\\
+#' verzoegerung & String & Verzögerungsrügen sind mit \enquote{D} gekennzeichnet. Alle anderen Entscheidungen (der weit überwiegende Anteil) sind mit dem Wert \enquote{NA} codiert.\\
+#' kollision & Numerisch & In wenigen Fällen sind am gleichen Tag mehrere Entscheidungen zum gleichen Aktenzeichen ergangen. Diese werden ab der zweiten Entscheidung pro Tag durch eine Kollisions-ID mit einer fortlaufenden Zahl ausdifferenziert. Für die erste Entscheidung ist der Wert der Variable \enquote{0}. Die zweite Entscheidung ist mit \enquote{1} identifiziert, die dritte mit \enquote{2} und so fort.\\
+#' aktenzeichen & String & (Nur CSV-Datei) Das amtliche Aktenzeichen. Die Variable wurde aus den Variablen \enquote{spruchkoerper\_az}, \enquote{registerzeichen}, \enquote{eingangsnummer} und \enquote{eingangsjahr\_az} durch den Autor des Datensatzes berechnet.\\
+#' ecli & String & (Nur CSV-Datei) Der European Case Law Identifier (ECLI) der Entscheidung. Jeder Entscheidung ist eine einzigartige ECLI zugewiesen. Die ECLI ist vor allem dann hilfreich, wenn dieser Datensatz mit anderen Datensätzen zusammengeführt und Duplikate vermieden werden sollen. Alle inhaltlichen Bestandteile der ECLI sind in diesem Datensatz zusätzlich auch anderen und besser verständlichen Variablen zugewiesen. Nutzen Sie bevorzugt diese anderen Variablen, statt Informationen aus der ECLI zu extrahieren. Die Variable wurde aus den Variablen \enquote{gericht}, \enquote{entscheidungsjahr},  \enquote{datum}, \enquote{entscheidung\_typ},\enquote{spruchkoerper\_az}, \enquote{registerzeichen},  \enquote{eingangsnummer}, \enquote{eingangsjahr\_az}, \enquote{verzoegerung} und \enquote{kollision} durch den Autor des Datensatzes berechnet.\\
+#' praesi & String & (Nur CSV-Datei) Der Nachname des oder der Präsident:in in dessen/deren Amtszeit das Datum der Entscheidung fällt.\\
+#' v\_praesi & String & (Nur CSV-Datei) Der Nachname des oder der Vize-Präsident:in in dessen/deren Amtszeit das Datum der Entscheidung fällt.\\
 #' zeichen & Natürliche Zahl & (Nur CSV-Datei) Die Anzahl Zeichen eines Dokumentes.\\
 #' tokens & Natürliche Zahl & (Nur CSV-Datei) Die Anzahl Tokens (beliebige Zeichenfolge getrennt durch whitespace) eines Dokumentes. Diese Zahl kann je nach Tokenizer und verwendeten Einstellungen erheblich schwanken. Für diese Berechnung wurde eine reine Tokenisierung ohne Entfernung von Inhalten durchgeführt. Benutzen Sie diesen Wert eher als Anhaltspunkt für die Größenordnung denn als exakte Aussage und führen sie ggf. mit ihrer eigenen Software eine Kontroll-Rechnung durch.\\
 #' typen & Natürliche Zahl & (Nur CSV-Datei) Die Anzahl \emph{einzigartiger} Tokens (beliebige Zeichenfolge getrennt durch whitespace) eines Dokumentes. Diese Zahl kann je nach Tokenizer und verwendeten Einstellungen erheblich schwanken. Für diese Berechnung wurde eine reine Tokenisierung und Typenzählung ohne Entfernung von Inhalten durchgeführt. Benutzen Sie diesen Wert eher als Anhaltspunkt für die Größenordnung denn als exakte Aussage und führen sie ggf. mit ihrer eigenen Software eine Kontroll-Rechnung durch.\\
@@ -516,11 +524,86 @@ str(data.corpus)
 #' version & Datum (ISO) & (Nur CSV-Datei) Die Versionsnummer des Datensatzes im Format YYYY-MM-DD (Langform nach ISO-8601). Die Versionsnummer entspricht immer dem Datum an dem der Datensatz erstellt und die Daten von der Webseite des Gerichts abgerufen wurden.\\
 #' doi\_concept & String & (Nur CSV-Datei) Der Digital Object Identifier (DOI) des Gesamtkonzeptes des Datensatzes. Dieser ist langzeit-stabil (persistent). Über diese DOI kann via www.doi.org immer die \textbf{aktuellste Version} des Datensatzes abgerufen werden. Prinzip F1 der FAIR-Data Prinzipien (\enquote{data are assigned globally unique and persistent identifiers}) empfiehlt die Dokumentation jeder Messung mit einem persistenten Identifikator. Selbst wenn die CSV-Dateien ohne Kontext weitergegeben werden kann ihre Herkunft so immer zweifelsfrei und maschinenlesbar bestimmt werden.\\
 #' doi\_version & String & (Nur CSV-Datei) Der Digital Object Identifier (DOI) der \textbf{konkreten Version} des Datensatzes. Dieser ist langzeit-stabil (persistent). Über diese DOI kann via www.doi.org immer diese konkrete Version des Datensatzes abgerufen werden. Prinzip F1 der FAIR-Data Prinzipien (\enquote{data are assigned globally unique and persistent identifiers}) empfiehlt die Dokumentation jeder Messung mit einem persistenten Identifikator. Selbst wenn die CSV-Dateien ohne Kontext weitergegeben werden kann ihre Herkunft so immer zweifelsfrei und maschinenlesbar bestimmt werden.\\
+#' lizenz & String & Die Lizenz für den Gesamtdatensatz. In diesem Datensatz immer \enquote{Creative Commons Zero 1.0 Universal}.\\
 #' 
 #'\bottomrule
 #' 
 #'\end{longtable}
 #'\end{centering}
+
+
+
+
+#'\newpage
+#+
+#'# Variablen (Linguistische Annotationen)
+#'\label{annovars}
+
+
+#+
+#'## Datenstruktur 
+
+str(annotated.corpus)
+
+
+#+
+#'## Hinweise
+
+#' Diese Variante des Datensatzes beruht nur auf den Variablen \enquote{doc\_id} und \enquote{text} des regulären Datensatzes, die tokenisiert und mittels der Software \enquote{spacy}\footnote{Die den Annotationen zugrundeliegende Software ist \emph{spacy}, die hier verfügbar ist \url{https://spacy.io/}. Diese wird in R mittels des \emph{spacyr} packages integriert: \url{https://spacyr.quanteda.io/}.} mit linguistischen Annotationen versehen wurden.
+#'
+#'
+#' Die Metadaten des Gesamtdatensatzes sind nicht in der linguistische annotierten Fassung enthalten, weil die Bereitstellung von Metadaten für jedes Token die Dateigröße und damit auch den RAM-Bedarf für Analysen gewaltig steigern würde. Um anhand der Metadaten Teilmengen der linguistischen Annotationen zu bilden, gehen sie bitte wie folgt vor:
+#'
+#' \begin{enumerate}
+#' \item CSV-Datei mit Metadaten einlesen
+#' \item Anhand der Metadaten die gewünschte Teilmenge der Dokumente bilden
+#' \item CSV-Datei mit Linguistischen Annotationen einlesen
+#' \item Die Werte der Variable \enquote{doc\_id} der Teilmenge nutzen um aus den annotierten Daten nur diejenigen herauszufiltern, deren Variable \enquote{doc\_id} mit der Teilmenge übereinstimmt 
+#' \end{enumerate}
+
+
+
+
+#'\newpage
+
+#+
+#'## Erläuterung der Variablen
+
+#'\ra{1.3}
+#' 
+#'\begin{centering}
+#' 
+#'\begin{longtable}{P{3.5cm}P{3cm}p{8cm}}
+#' 
+#'\toprule
+#' 
+#'Variable & Typ & Erläuterung\\
+
+#'\midrule
+#'
+#'\endhead
+
+#' doc\_id & String & Der Dateiname des Dokumentes, aus dem die Tokens stammen. Identische Werte wie im Hauptdatensatz. Geeignet um Metadaten mit den linguistischen Annotationen zu verbinden.\\
+#' sentence\_id & Natürliche Zahl & Die Ordinalzahl des Satzes in dem Dokument, dem das Token zugeordnet ist.\\
+#' token\_id & Natürliche Zahl & Die Nummer des Tokens in einem Dokument.\\
+#' token & String & Einzelne Tokens in der Reihenfolge ihres Vorkommens im jeweiligen Dokument.\\
+#' lemma & String & Die lemmatisierte Form des Tokens.\\
+#' pos & String & Grobe Annotation des einzelnen Tokens nach dem universal dependency POS tagset, siehe auch \url{http://universaldependencies.org/u/pos/}.\\
+#' tag & String & Feine Annotation des einzelnen Tokens mit dem \enquote{de\_core\_news\_sm}-Modell von spacy. Für eine detaillierte Erläuterung der Annotationen siehe: \url{https://spacy.io/models/de}\\
+#' head\_token\_id & Natürliche Zahl & Das führende Token.\\
+#' dep\_rel & String & Die \emph{dependency relation} zum head\_token.\\
+#' entity & String & Erkennung von benannten Entitäten (Named Entity Recoginition).\\
+#' nounphrase & String & Erkennung von Nominalphrasen.\\
+#' whitespace & Logisch & Ob es sich bei dem Token um Whitespace handelt oder nicht.\\
+
+
+
+
+#'\bottomrule
+
+#'\end{longtable}
+#'\end{centering}
+
 
 
 
@@ -592,7 +675,9 @@ kable(table.praesi.daten,
 #'## Dienstalter und Lebensalter
 
 
-kable(table.praesi.alter[grep("VACANCY", table.praesi.daten$name_last, invert = TRUE)],
+kable(table.praesi.alter[grep("VACANCY",
+                              table.praesi.daten$name_last,
+                              invert = TRUE)],
       format = "latex",
       align = c("l", "l", "c", "c", "c"),
       booktabs = TRUE,
@@ -638,7 +723,9 @@ kable(table.vpraesi.daten,
 #'##  Dienstalter und Lebensalter
 
 
-kable(table.vpraesi.alter[grep("VACANCY", table.vpraesi.daten$name_last, invert = TRUE)],
+kable(table.vpraesi.alter[grep("VACANCY",
+                               table.vpraesi.daten$name_last,
+                               invert = TRUE)],
       format = "latex",
       align = c("l", "l", "c", "c", "c"),
       booktabs=TRUE,
@@ -685,7 +772,7 @@ kable(table.vpraesi.alter[grep("VACANCY", table.vpraesi.daten$name_last, invert 
 #'\end{longtable}
 #'\end{centering}
 #'
-#' Es handelt sich bei den Diagrammen jeweils um "Density Charts", die sich besonders dafür eignen die Schwerpunkte von Variablen mit stark schwankenden numerischen Werten zu visualisieren. Die Interpretation ist denkbar einfach: je höher die Kurve, desto dichter sind in diesem Bereich die Werte der Variable. Der Wert der y-Achse kann außer Acht gelassen werden, wichtig sind nur die relativen Flächenverhältnisse und die x-Achse.
+#' Es handelt sich bei den Diagrammen jeweils um \enquote{Density Charts}, die sich besonders dafür eignen die Schwerpunkte von Variablen mit stark schwankenden numerischen Werten zu visualisieren. Die Interpretation ist denkbar einfach: je höher die Kurve, desto dichter sind in diesem Bereich die Werte der Variable. Der Wert der y-Achse kann außer Acht gelassen werden, wichtig sind nur die relativen Flächenverhältnisse und die x-Achse.
 #'
 #' Vorsicht bei der Interpretation: Die x-Achse it logarithmisch skaliert, d.h. in 10er-Potenzen und damit nicht-linear. Die kleinen Achsen-Markierungen zwischen den Schritten der Exponenten sind eine visuelle Hilfestellung um diese nicht-Linearität zu verstehen.
 #'
@@ -715,124 +802,29 @@ kable(stats.ling,
 #+
 #'## Verteilung Zeichen
 
-#+ CE-BVerwG_09_Density_Zeichen, fig.height = 6, fig.width = 9
-ggplot(data = summary.corpus)+
-    geom_density(aes(x = zeichen),
-                 fill = "#7e0731")+
-    scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
-                  labels = trans_format("log10", math_format(10^.x)))+
-    annotation_logticks(sides = "b")+
-    coord_cartesian(xlim = c(1, 10^6))+
-    theme_bw()+
-    labs(
-        title = paste(datasetname,
-                      "| Version",
-                      datestamp,
-                      "| Verteilung der Zeichen je Dokument"),
-        caption = paste("DOI:",
-                        doi.version),
-        x = "Zeichen",
-        y = "Dichte"
-    )+
-    theme(
-        text = element_text(size = 14),
-        plot.title = element_text(size = 14,
-                                  face = "bold"),
-        legend.position = "none",
-        plot.margin = margin(10, 20, 10, 10)
-    )
+#+
+#' ![](ANALYSE/CE-BVerwG_09_Density_Zeichen-1.pdf)
 
 
+#+
 #'## Verteilung Tokens
 
-#+ CE-BVerwG_10_Density_Tokens, fig.height = 6, fig.width = 9
-ggplot(data = summary.corpus)+
-    geom_density(aes(x = tokens),
-                 fill = "#7e0731")+
-    scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
-                  labels = trans_format("log10", math_format(10^.x)))+
-    annotation_logticks(sides = "b")+
-    coord_cartesian(xlim = c(1, 10^6))+
-    theme_bw()+
-    labs(
-        title = paste(datasetname,
-                      "| Version",
-                      datestamp,
-                      "| Verteilung der Tokens je Dokument"),
-        caption = paste("DOI:",
-                        doi.version),
-        x = "Tokens",
-        y = "Dichte"
-    )+
-    theme(
-        text = element_text(size = 14),
-        plot.title = element_text(size = 14,
-                                  face = "bold"),
-        legend.position = "none",
-        plot.margin = margin(10, 20, 10, 10)
-    )
+#+
+#' ![](ANALYSE/CE-BVerwG_10_Density_Tokens-1.pdf)
 
 
+#+
 #'## Verteilung Typen
 
-#+ CE-BVerwG_11_Density_Typen, fig.height = 6, fig.width = 9
-ggplot(data = summary.corpus)+
-    geom_density(aes(x = typen),
-                 fill = "#7e0731")+
-    scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
-                  labels = trans_format("log10", math_format(10^.x)))+
-    annotation_logticks(sides = "b")+
-    coord_cartesian(xlim = c(1, 10^6))+
-    theme_bw()+
-    labs(
-        title = paste(datasetname,
-                      "| Version",
-                      datestamp,
-                      "| Verteilung der Typen je Dokument"),
-        caption = paste("DOI:",
-                        doi.version),
-        x = "Typen",
-        y = "Dichte"
-    )+
-    theme(
-        text = element_text(size = 14),
-        plot.title = element_text(size = 14,
-                                  face = "bold"),
-        legend.position = "none",
-        plot.margin = margin(10, 20, 10, 10)
-    )
+#+
+#' ![](ANALYSE/CE-BVerwG_11_Density_Typen-1.pdf)
 
 
+#+
 #'## Verteilung Sätze
 
-#+ CE-BVerwG_12_Density_Saetze, fig.height = 6, fig.width = 9
-ggplot(data = summary.corpus)+
-    geom_density(aes(x = saetze),
-                 fill = "#7e0731")+
-    scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
-                  labels = trans_format("log10", math_format(10^.x)))+
-    annotation_logticks(sides = "b")+
-    coord_cartesian(xlim = c(1, 10^6))+
-    theme_bw()+
-    labs(
-        title = paste(datasetname,
-                      "| Version",
-                      datestamp,
-                      "| Verteilung der Sätze je Dokument"),
-        caption = paste("DOI:",
-                        doi.version),
-        x = "Sätze",
-        y = "Dichte"
-    )+
-    theme(
-        text = element_text(size = 14),
-        plot.title = element_text(size = 14,
-                                  face = "bold"),
-        legend.position = "none",
-        plot.margin = margin(10, 20, 10, 10)
-    )
-
-
+#+
+#' ![](ANALYSE/CE-BVerwG_12_Density_Saetze-1.pdf)
 
 
     
@@ -864,41 +856,13 @@ kable(stats.docvars,
 #'\vspace{1cm}
 
 #'## Nach Typ der Entscheidung
-
-freqtable <- table.entsch.typ[-.N]
-
 #'\vspace{0.5cm}
 
-#+ CE-BVerwG_02_Barplot_Entscheidungstyp, fig.height = 5, fig.width = 8
-ggplot(data = freqtable) +
-    geom_bar(aes(x = reorder(entscheidung_typ,
-                             -N),
-                 y = N),
-             stat = "identity",
-             fill = "#7e0731",
-             color = "black",
-             width = 0.5) +
-    theme_bw() +
-    labs(
-        title = paste(datasetname,
-                      "| Version",
-                      datestamp,
-                      "| Entscheidungen je Typ"),
-        caption = paste("DOI:",
-                        doi.version),
-        x = "Typ der Entscheidung",
-        y = "Entscheidungen"
-    )+
-    theme(
-        text = element_text(size = 14),
-        plot.title = element_text(size = 14,
-                                  face = "bold"),
-        legend.position = "none",
-        plot.margin = margin(10, 20, 10, 10)
-    )
+#+
+#' ![](ANALYSE/CE-BVerwG_02_Barplot_Entscheidungstyp-1.pdf)
 
 
-
+#+
 #'\vspace{1cm}
 
 kable(table.entsch.typ,
@@ -915,42 +879,15 @@ kable(table.entsch.typ,
 
 #+
 #'## Nach Spruchkörper (Aktenzeichen)
-
-
 #'\vspace{0.5cm}
-freqtable <- table.spruch.az[-.N][,lapply(.SD, as.numeric)]
-
-
-#+ CE-BVerwG_03_Barplot_Spruchkoerper_AZ, fig.height = 5, fig.width = 8
-ggplot(data = freqtable) +
-    geom_bar(aes(x = reorder(spruchkoerper_az,
-                             -N),
-                 y = N),
-             stat = "identity",
-             fill = "#7e0731",
-             color = "black",
-             width = 0.5) +
-    theme_bw() +
-    labs(
-        title = paste(datasetname,
-                      "| Version",
-                      datestamp,
-                      "| Entscheidungen je Senat (Aktenzeichen)"),
-        caption = paste("DOI:",
-                        doi.version),
-        x = "Senat",
-        y = "Entscheidungen"
-    )+
-    theme(
-        text = element_text(size = 14),
-        plot.title = element_text(size = 14,
-                                  face = "bold"),
-        legend.position = "none",
-        plot.margin = margin(10, 20, 10, 10)
-    )
 
 
 
+#+
+#' ![](ANALYSE/CE-BVerwG_03_Barplot_Spruchkoerper_AZ-1.pdf)
+
+
+#+
 #'\vspace{1cm}
 
 kable(table.spruch.az[order(as.numeric(spruchkoerper_az))],
@@ -968,39 +905,13 @@ kable(table.spruch.az[order(as.numeric(spruchkoerper_az))],
 
 
 #'## Nach Registerzeichen
-
 #'\vspace{0.5cm}
-freqtable <- table.regz[-.N]
-
-#+ CE-BVerwG_04_Barplot_Registerzeichen, fig.height = 10, fig.width = 8
-ggplot(data = freqtable) +
-    geom_bar(aes(x = reorder(registerzeichen,
-                             N),
-                 y = N),
-             stat = "identity",
-             fill = "#7e0731",
-             color = "black") +
-    coord_flip()+
-    theme_bw() +
-    labs(
-        title = paste(datasetname,
-                      "| Version",
-                      datestamp,
-                      "| Entscheidungen je Registerzeichen"),
-        caption = paste("DOI:",
-                        doi.version),
-        x = "Registerzeichen",
-        y = "Entscheidungen"
-    )+
-    theme(
-        text = element_text(size = 14),
-        plot.title = element_text(size = 14,
-                                  face = "bold"),
-        legend.position = "none",
-        plot.margin = margin(10, 20, 10, 10)
-    )
 
 
+#+
+#' ![](ANALYSE/CE-BVerwG_04_Barplot_Registerzeichen-1.pdf)
+
+#+
 #'\newpage
 
 kable(table.regz,
@@ -1016,40 +927,14 @@ kable(table.regz,
 
 #'\newpage
 #'## Nach Präsident:in
-
 #'\vspace{0.5cm}
-freqtable <- table.output.praesi[-.N]
-
-#+ CE-BVerwG_05_Barplot_PraesidentIn, fig.height = 5.5, fig.width = 8
-ggplot(data = freqtable) +
-    geom_bar(aes(x = reorder(praesi,
-                             N),
-                 y = N),
-             stat = "identity",
-             fill = "#7e0731",
-             color = "black") +
-    coord_flip()+
-    theme_bw() +
-    labs(
-        title = paste(datasetname,
-                      "| Version",
-                      datestamp,
-                      "| Entscheidungen je Präsident:in"),
-        caption = paste("DOI:",
-                        doi.version),
-        x = "Präsident:in",
-        y = "Entscheidungen"
-    )+
-    theme(
-        axis.title.y = element_blank(),
-        text = element_text(size = 14),
-        plot.title = element_text(size = 14,
-                                  face = "bold"),
-        legend.position = "none",
-        plot.margin = margin(10, 20, 10, 10)
-    )
 
 
+#+
+#' ![](ANALYSE/CE-BVerwG_05_Barplot_PraesidentIn-1.pdf)
+
+
+#+
 #'\vspace{0.5cm}
 
 kable(table.output.praesi,
@@ -1065,41 +950,14 @@ kable(table.output.praesi,
 
 #'\newpage
 #'## Nach Vize-Präsident:in
-
 #'\vspace{0.5cm}
-freqtable <- table.output.vpraesi[-.N]
 
 
-#+ CE-BVerwG_06_Barplot_VizePraesidentIn, fig.height = 5.5, fig.width = 8
-ggplot(data = freqtable) +
-    geom_bar(aes(x = reorder(v_praesi,
-                             N),
-                 y = N),
-             stat = "identity",
-             fill = "#7e0731",
-             color = "black") +
-    coord_flip()+
-    theme_bw() +
-    labs(
-        title = paste(datasetname,
-                      "| Version",
-                      datestamp,
-                      "| Entscheidungen je Vize-Präsident:in"),
-        caption = paste("DOI:",
-                        doi.version),
-        x = "Vize-Präsident:in",
-        y = "Entscheidungen"
-    )+
-    theme(
-        axis.title.y = element_blank(),
-        text = element_text(size = 14),
-        plot.title = element_text(size = 14,
-                                  face = "bold"),
-        legend.position = "none",
-        plot.margin = margin(10, 20, 10, 10)
-    )
+#+
+#' ![](ANALYSE/CE-BVerwG_06_Barplot_VizePraesidentIn-1.pdf)
 
 
+#+
 #'\vspace{0.5cm}
 
 kable(table.output.vpraesi,
@@ -1120,35 +978,13 @@ kable(table.output.vpraesi,
 #' \newpage
 #+
 #'## Nach Entscheidungsjahr
-
 #'\vspace{0.5cm}
-freqtable <- table.jahr.entscheid[-.N][,lapply(.SD, as.numeric)]
 
-#+ CE-BVerwG_07_Barplot_Entscheidungsjahr, fig.height = 7, fig.width = 11
-ggplot(data = freqtable) +
-    geom_bar(aes(x = entscheidungsjahr,
-                 y = N),
-             stat = "identity",
-             fill = "#7e0731") +
-    theme_bw() +
-    labs(
-        title = paste(datasetname,
-                      "| Version",
-                      datestamp,
-                      "| Entscheidungen je Entscheidungsjahr"),
-        caption = paste("DOI:",
-                        doi.version),
-        x = "Entscheidungsjahr",
-        y = "Entscheidungen"
-    )+
-    theme(
-        text = element_text(size = 16),
-        plot.title = element_text(size = 16,
-                                  face = "bold"),
-        legend.position = "none",
-        plot.margin = margin(10, 20, 10, 10)
-    )
+#+
+#' ![](ANALYSE/CE-BVerwG_07_Barplot_Entscheidungsjahr-1.pdf)
 
+
+#+
 #'\vspace{1cm}
 
 kable(table.jahr.entscheid,
@@ -1167,39 +1003,14 @@ kable(table.jahr.entscheid,
 #'\newpage
 #+
 #'## Nach Eingangsjahr (ISO)
-
-
 #'\vspace{0.5cm}
 
 
-freqtable <- table.jahr.eingangISO[-.N][,lapply(.SD, as.numeric)]
+#+
+#' ![](ANALYSE/CE-BVerwG_08_Barplot_EingangsjahrISO-1.pdf)
 
 
-#+ CE-BVerwG_08_Barplot_EingangsjahrISO, fig.height = 7, fig.width = 11
-ggplot(data = freqtable) +
-    geom_bar(aes(x = eingangsjahr_iso,
-                 y = N),
-             stat = "identity",
-             fill = "#7e0731") +
-    theme_bw() +
-    labs(
-        title = paste(datasetname,
-                      "| Version",
-                      datestamp,
-                      "| Entscheidungen je Eingangsjahr (ISO)"),
-        caption = paste("DOI:",
-                        doi.version),
-        x = "Eingangsjahr (ISO)",
-        y = "Entscheidungen"
-    )+
-    theme(
-        text = element_text(size = 16),
-        plot.title = element_text(size = 16,
-                                  face = "bold"),
-        legend.position = "none",
-        plot.margin = margin(10, 20, 10, 10)
-    )
-
+#+
 #'\vspace{1cm}
 
 kable(table.jahr.eingangISO,
@@ -1219,13 +1030,13 @@ kable(table.jahr.eingangISO,
 #'# Dateigrößen
 
 #+
-#'## Verteilung PDF
+#'## Verteilung PDF-Dateigrößen
 
 #' ![](ANALYSE/CE-BVerwG_13_Density_Dateigroessen_PDF-1.pdf)
 
 
 #+
-#'## Verteilung TXT
+#'## Verteilung TXT-Dateigrößen
 #' ![](ANALYSE/CE-BVerwG_14_Density_Dateigroessen_TXT-1.pdf)
 
 #'\newpage
@@ -1289,6 +1100,7 @@ system2("gpg2", "--import GPG-Public-Key_Fobbe-Data.asc",
 
 # CSV-Datei mit Hashes
 print(hashfile)
+
 # GPG-Signatur
 print(signaturefile)
 
@@ -1345,46 +1157,46 @@ kable(testresult, format = "latex", booktabs = TRUE,
 
 #+
 #'# Changelog
-#'
-#'\ra{1.3}
-#'
-#' 
-#'\begin{centering}
-#'\begin{longtable}{p{2.5cm}p{11.5cm}}
-#'\toprule
-#'Version &  Details\\
-#'\midrule
-#'
-#' \version  &
-#'
-#' \begin{itemize}
-#' \item Vollständige Aktualisierung der Daten
-#' \item Veröffentlichung des vollständigen Source Codes
-#' \item Deutliche Erweiterung des inhaltlichen Umfangs des Codebooks
-#' \item Einführung der vollautomatischen Erstellung von Datensatz und Codebook
-#' \item Einführung von Compilation Reports um den Erstellungsprozess exakt zu dokumentieren
-#' \item Einführung von Variablen für Versionsnummer, Concept DOI, Version DOI, ECLI, Präsident:in, Vize-Präsident:in, Verfahrensart und linguistische Kennzahlen (Zeichen, Tokens, Typen, Sätze)
-#' \item Zusammenfügung von über Zeilengrenzen getrennten Wörtern
-#' \item Automatisierung und Erweiterung der Qualitätskontrolle
-#' \item Einführung von Diagrammen zur Visualisierung von Prüfergebnissen
-#' \item Einführung kryptographischer Signaturen
-#' \item Variable \enquote{Suffix} in \enquote{kollision} umbenannt.
-#' \item Variable \enquote{Ordinalzahl} in \enquote{eingangsnummer} umbenannt.
-#' \item Variable \enquote{Entscheidungsart} in \enquote{entscheidung\_typ} umbenannt.
-#' \item Alle übrigen Variablen sind nun in Kleinschreibung und Snake Case gehalten
 
-#' \end{itemize}\\
-#' 
-#' 
-#'2020-06-23  &
-#'
-#' \begin{itemize}
-#' \item Erstveröffentlichung
-#' \end{itemize}\\
-#' 
-#'\bottomrule
-#'\end{longtable}
-#'\end{centering}
+
+#+
+#'## Version \version
+
+#'- Vollständige Aktualisierung der Daten
+#'- Neue Variante mit linguistische Annotationen 
+#'- Neue Variable für Lizenz
+#'- Strenge Kontrolle und semantische Sortierung aller Variablen-Namen
+#'- Source Code des Codebooks deutlich vereinfacht (insbes. Diagramme und Changelog)
+#'- Erweiterung der Dokumentation
+#'- In den linguistischen Kennzahlen werden jetzt auch die Anzahl Typen bezogen auf den Gesamtdatensatz berechnet
+#'- Standardisierung der Diagramme auf 6:9 Zoll (Breite/Höhe) 
+
+
+#+
+#'## Version 2021-04-15
+
+#'- Vollständige Aktualisierung der Daten
+#'- Veröffentlichung des vollständigen Source Codes
+#'- Deutliche Erweiterung des inhaltlichen Umfangs des Codebooks
+#'- Einführung der vollautomatischen Erstellung von Datensatz und Codebook
+#'- Einführung von Compilation Reports um den Erstellungsprozess exakt zu dokumentieren
+#'- Einführung von Variablen für Versionsnummer, Concept DOI, Version DOI, ECLI, Präsident:in, Vize-Präsident:in, Verfahrensart und linguistische Kennzahlen (Zeichen, Tokens, Typen, Sätze)
+#'- Zusammenfügung von über Zeilengrenzen getrennten Wörtern
+#'- Automatisierung und Erweiterung der Qualitätskontrolle
+#'- Einführung von Diagrammen zur Visualisierung von Prüfergebnissen
+#'- Einführung kryptographischer Signaturen
+#'- Variable \enquote{Suffix} in \enquote{kollision} umbenannt.
+#'- Variable \enquote{Ordinalzahl} in \enquote{eingangsnummer} umbenannt.
+#'- Variable \enquote{Entscheidungsart} in \enquote{entscheidung\_typ} umbenannt.
+#'- Alle übrigen Variablen sind nun in Kleinschreibung und Snake Case gehalten
+
+
+#+
+#'## Version 2020-06-23
+
+#'- Erstveröffentlichung
+
+
 
 #'\newpage
 #+
