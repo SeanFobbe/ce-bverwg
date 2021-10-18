@@ -1084,6 +1084,7 @@ kable(testresult, format = "latex", booktabs = TRUE,
 #'# Changelog
 
 
+#+
 #'## Version \version
 
 #'- Neue Variante mit linguistische Annotationen 
@@ -1092,7 +1093,7 @@ kable(testresult, format = "latex", booktabs = TRUE,
 #'- Source Code des Codebooks deutlich vereinfacht (insbes. Diagramme und Changelog)
 
 
-
+#+
 #'## Version 2021-04-15
 
 #'- Vollständige Aktualisierung der Daten
@@ -1111,7 +1112,7 @@ kable(testresult, format = "latex", booktabs = TRUE,
 #'- Alle übrigen Variablen sind nun in Kleinschreibung und Snake Case gehalten
 
 
-
+#+
 #'## Version 2020-06-23
 
 #'- Erstveröffentlichung
