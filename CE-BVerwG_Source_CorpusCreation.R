@@ -1484,13 +1484,13 @@ ggplot(data = freqtable) +
 
 #+
 #'### Funktion anzeigen
-print(f.summarize.iterator,
-      threads = fullCores,
-      chunksize = 1)
+print(f.lingsummarize.iterator)
 
 
 #'### Berechnung durchführen
-summary.corpus <- f.summarize.iterator(txt.bverwg)
+summary.corpus <- f.lingsummarize.iterator(txt.bverwg,
+                                       threads = fullCores,
+                                       chunksize = 1)
 
 
 
@@ -1506,16 +1506,14 @@ setnames(summary.corpus,
                  "typen",
                  "saetze"))
 
-setnames(txt.bverwg,
-         old = "nchars",
-         new = "zeichen")
+#'## Kennwerte dem Korpus hinzufügen
+
+txt.bverwg <- cbind(txt.bverwg,
+                    summary.corpus)
 
 
-#'### Kennwerte dem Korpus hinzufügen
-
-txt.bverwg$tokens <- summary.corpus$tokens
-txt.bverwg$typen <- summary.corpus$typen
-txt.bverwg$saetze <- summary.corpus$saetze
+#'## Variante mit Metadaten erstellen
+meta.bverwg <- txt.bverwg[, !"text"]
 
 
 
