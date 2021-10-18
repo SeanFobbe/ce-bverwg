@@ -395,7 +395,6 @@ links.pdf <- unique(links.pdf)
 #' Die Links zu jeder Entscheidung enthalten das Ordinalzahl-Element ihres jeweiligen ECLI-Codes. Struktur und Inhalt der ECLI für deutsche Gerichte sind auf dem Europäischen Justizportal näher erläutert. \footnote{\url{https://e-justice.europa.eu/content_european_case_law_identifier_ecli-175-de-de.do?member=1}}
 
 
-
 filenames <- basename(links.pdf)
 
 filenames <- gsub(".pdf",
@@ -527,11 +526,27 @@ filenames.final <- paste0(filenames.final,
 #+
 #'### REGEX-Validierung durchführen
 
-regex.test <- grep("^BVerwG_[0-9]{4}-[0-9]{2}-[0-9]{2}_[UBG]_[0-9NA]+_[A-Za-z-]+_[0-9]+_[0-9]+_[NAD]+_[0-9]\\.pdf$",
-     filenames.final,
-     value = TRUE,
-     invert = TRUE)
-
+regex.test <- grep(paste0("^BVerwG", # Gericht
+                          "_",
+                          "[0-9]{4}-[0-9]{2}-[0-9]{2}", # Datum
+                          "_",
+                          "[UBG]", # Entscheidungstyp
+                          "_",
+                          "[0-9NA]+", # Spruchkörper
+                          "_",
+                          "[A-Za-z-]+", # Registerzeichen
+                          "_",
+                          "[0-9]+", # Eingangsnummer
+                          "_",
+                          "[0-9]{1,2}", # Eingangsjahr
+                          "_",
+                          "[NAD]+", # Zusatz
+                          "_",
+                          "[0-9]", # Kollision
+                          "\\.pdf$"), # Dateiendung
+                   filenames.final,
+                   value = TRUE,
+                   invert = TRUE)
 
 
 
