@@ -1231,13 +1231,13 @@ kable(table.jahr.eingangISO,
 #'# Dateigrößen
 
 #+
-#'## Verteilung PDF
+#'## Verteilung PDF-Dateigrößen
 
 #' ![](ANALYSE/CE-BVerwG_13_Density_Dateigroessen_PDF-1.pdf)
 
 
 #+
-#'## Verteilung TXT
+#'## Verteilung TXT-Dateigrößen
 #' ![](ANALYSE/CE-BVerwG_14_Density_Dateigroessen_TXT-1.pdf)
 
 #'\newpage
@@ -1301,6 +1301,7 @@ system2("gpg2", "--import GPG-Public-Key_Fobbe-Data.asc",
 
 # CSV-Datei mit Hashes
 print(hashfile)
+
 # GPG-Signatur
 print(signaturefile)
 
