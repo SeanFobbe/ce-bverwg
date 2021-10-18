@@ -112,13 +112,15 @@ rmarkdown::render(input = "CE-BVerwG_Source_CodebookCreation.R",
 #'## Name des Datensatzes
 datasetname <- "CE-BVerwG"
 
-
 #'## DOI des Datensatz-Konzeptes
 doi.concept <- "10.5281/zenodo.3911067" # checked
 
-
 #'## DOI der konkreten Version
-doi.version <- "???" # checked
+doi.version <- "???"
+
+#'## Lizenz
+license <- "Creative Commons Zero 1.0 Universal"
+
 
 
 #'## Verzeichnis für Analyse-Ergebnisse
