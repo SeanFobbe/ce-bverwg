@@ -137,7 +137,7 @@ scope <- seq(from = 1,
 
 
 
-#'## Debugging-Modus
+#'## Modus: Debugging
 #' Der Debuging-Modus reduziert den Download-Umfang auf den in der Variable "debug.sample" definierten Umfang zufällig ausgewählter Entscheidungen und löscht im Anschluss fünf zufällig ausgewählte Entscheidungen um den Wiederholungsversuch zu testen. Nur für Test- und Demonstrationszwecke. 
 
 mode.debug <- FALSE
