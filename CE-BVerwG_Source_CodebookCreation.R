@@ -727,24 +727,28 @@ kable(stats.ling,
 #+
 #'## Verteilung Zeichen
 
+#+
 #' ![](ANALYSE/CE-BVerwG_09_Density_Zeichen-1.pdf)
 
 
-
+#+
 #'## Verteilung Tokens
 
+#+
 #' ![](ANALYSE/CE-BVerwG_10_Density_Tokens-1.pdf)
 
 
-
+#+
 #'## Verteilung Typen
 
+#+
 #' ![](ANALYSE/CE-BVerwG_11_Density_Typen-1.pdf)
 
 
-
+#+
 #'## Verteilung Sätze
 
+#+
 #' ![](ANALYSE/CE-BVerwG_12_Density_Saetze-1.pdf)
 
 
