@@ -1,5 +1,5 @@
 #'---
-#'title: "Compilation Report | Corpus der Entscheidungen des Bundesverwaltungsgerichts (CE-BVerwG)"
+#'title: "Compilation Report | Corpus der Entscheidungen des Bundesverwaltungsgerichts (CE-BVerwG-Source)"
 #'author: Seán Fobbe
 #'papersize: a4
 #'geometry: margin=3cm
