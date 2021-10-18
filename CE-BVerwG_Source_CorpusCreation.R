@@ -1140,6 +1140,10 @@ txt.bverwg$version <- as.character(rep(datestamp,
                                        txt.bverwg[,.N]))
 
 
+#'## Variable "lizenz" hinzufügen
+txt.bverwg$lizenz <- as.character(rep(license,
+                                   txt.bverwg[,.N]))
+
 
 
 
