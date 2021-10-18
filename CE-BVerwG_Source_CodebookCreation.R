@@ -491,10 +491,10 @@ str(data.corpus)
 #'
 #'\endhead
 #' 
-#'doc\_id & String & (Nur CSV-Datei) Der Name der extrahierten TXT-Datei.\\
-#'text  & String & (Nur CSV-Datei) Der vollständige Inhalt der Entscheidung, so wie er in der von www.bverwg.de heruntergeladenen PDF-Datei dokumentiert ist. Die einzige editorische Änderung gegenüber den TXT-Dateien ist die Zusammenfügung von über Zeilengrenzen gebrochenen Wörtern.\\
-#'gericht & Alphabetisch & In diesem Datensatz ist nur der Wert \mbox{\enquote{BVerwG}} vergeben. Dies ist der ECLI-Gerichtscode für \enquote{\court}. Diese Variable dient vor allem zur einfachen und transparenten Verbindung der Daten mit anderen Datensätzen.\\
-#'datum & Datum (ISO) & Das Datum der Entscheidung im Format YYYY-MM-DD (Langform nach ISO-8601). Die Langform ist für Menschen einfacher lesbar und wird maschinell auch öfter automatisch als Datumsformat erkannt.\\
+#' doc\_id & String & (Nur CSV-Datei) Der Name der extrahierten TXT-Datei.\\
+#' text  & String & (Nur CSV-Datei) Der vollständige Inhalt der Entscheidung, so wie er in der von www.bverwg.de heruntergeladenen PDF-Datei dokumentiert ist. Die einzige editorische Änderung gegenüber den TXT-Dateien ist die Zusammenfügung von über Zeilengrenzen gebrochenen Wörtern.\\
+#' gericht & Alphabetisch & In diesem Datensatz ist nur der Wert \mbox{\enquote{BVerwG}} vergeben. Dies ist der ECLI-Gerichtscode für \enquote{\court}. Diese Variable dient vor allem zur einfachen und transparenten Verbindung der Daten mit anderen Datensätzen.\\
+#' datum & Datum (ISO) & Das Datum der Entscheidung im Format YYYY-MM-DD (Langform nach ISO-8601). Die Langform ist für Menschen einfacher lesbar und wird maschinell auch öfter automatisch als Datumsformat erkannt.\\
 #'entscheidung\_typ & Alphabetisch & Der Typ der Entscheidung. Es sind die Werte \enquote{B} (Beschluss), \enquote{U} (Urteil) und \enquote{G} (Gerichtsbescheid) vergeben.\\
 #'spruchkoerper\_az & Natürliche Zahl & Der im Aktenzeichen angegebene Spruchkörper. Es sind die Werte \enquote{1} bis \enquote{10} (Revisions- und Wehrdienstsenate) und \enquote{20} (Fachsenat) vergeben. Die Werte stehen für den jeweiligen Senat des Gerichts. \textbf{Achtung:} die ersten beiden Revisionssenate und die beiden Wehrdienstsenate sind inhaltsgleich mit \enquote{1} und \enquote{2} in den jeweiligen Aktenzeichen codiert. Um zwischen den Revisions- und Wehrdienstsenaten zu unterscheiden müssen Sie in einer Analyse zwingend auch nach dem Registerzeichen differenzieren. Die Registerzeichen der Wehrdienstsenate beginnen immer mit \enquote{W}.\\
 #'registerzeichen & String & Das amtliche Registerzeichen. Es gibt die Verfahrensart an, in der die Entscheidung ergangen ist. Eine Erläuterung der Registerzeichen und der zugehörigen Verfahrensarten findet sich unter Punkt \ref{register}.\\
