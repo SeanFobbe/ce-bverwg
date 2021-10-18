@@ -2145,6 +2145,9 @@ ggplot(data = dt.plot,
 #+
 #'## Verpacken der CSV-Dateien
 
+#+
+#'### Vollständiger Datensatz
+
 #+ results = 'hide'
 csvname.full.zip <- gsub(".csv",
                          ".zip",
@@ -2156,6 +2159,9 @@ zip(csvname.full.zip,
 unlink(csvname.full)
 
 
+#+
+#'### Metadaten
+
 #+ results = 'hide'
 csvname.meta.zip <- gsub(".csv",
                          ".zip",
@@ -2165,6 +2171,26 @@ zip(csvname.meta.zip,
     csvname.meta)
 
 unlink(csvname.meta)
+
+
+
+#+
+#'### Annotiert
+
+
+#+ results = 'hide'
+if (mode.annotate == TRUE){
+
+    csvname.annotated.zip <- gsub(".csv",
+                                  ".zip",
+                                  csvname.annotated)
+
+    zip(csvname.annotated.zip,
+        csvname.annotated)
+
+    unlink(csvname.annotated)
+
+}
 
 
 
