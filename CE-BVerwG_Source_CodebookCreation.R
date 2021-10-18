@@ -464,7 +464,7 @@ df.bverwg <- readtext("./*.txt",
 
 
 #+
-#'# Variablen
+#'# Variablen (Allgemein)
 
 
 #+
