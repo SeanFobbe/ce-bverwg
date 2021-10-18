@@ -43,12 +43,6 @@ library(data.table)   # Fortgeschrittene Datenverarbeitung
 setDTthreads(threads = detectCores()) 
 
 
-###################################
-### Zusätzliche Funktionen einlesen
-###################################
-
-source("General_Source_Functions.R")
-
 
 
 ############################
@@ -57,7 +51,7 @@ source("General_Source_Functions.R")
 
 datasetname <- "CE-BVerwG"
 doi.concept <- "10.5281/zenodo.3911067" # checked
-doi.version <- "???" # checked
+doi.version <- "???"
 
 
 files.zip <- list.files(pattern = "\\.zip")
