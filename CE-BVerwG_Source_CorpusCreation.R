@@ -1237,7 +1237,7 @@ table.output.vpraesi <- fread(paste0(prefix,
 freqtable <- table.entsch.typ[-.N]
 
 
-#+ CE-BVerwG_02_Barplot_Entscheidungstyp, fig.height = 5, fig.width = 8
+#+ CE-BVerwG_02_Barplot_Entscheidungstyp, fig.height = 6, fig.width = 9
 ggplot(data = freqtable) +
     geom_bar(aes(x = reorder(entscheidung_typ,
                              -N),
@@ -1273,7 +1273,7 @@ ggplot(data = freqtable) +
 freqtable <- table.spruch.az[-.N][,lapply(.SD, as.numeric)]
 
 
-#+ CE-BVerwG_03_Barplot_Spruchkoerper_AZ, fig.height = 5, fig.width = 8
+#+ CE-BVerwG_03_Barplot_Spruchkoerper_AZ, fig.height = 6, fig.width = 9
 ggplot(data = freqtable) +
     geom_bar(aes(x = reorder(spruchkoerper_az,
                              -N),
@@ -1343,7 +1343,7 @@ ggplot(data = freqtable) +
 
 freqtable <- table.output.praesi[-.N]
 
-#+ CE-BVerwG_05_Barplot_PraesidentIn, fig.height = 5.5, fig.width = 8
+#+ CE-BVerwG_05_Barplot_PraesidentIn, fig.height = 6, fig.width = 9
 ggplot(data = freqtable) +
     geom_bar(aes(x = reorder(praesi,
                              N),
@@ -1378,7 +1378,7 @@ ggplot(data = freqtable) +
 
 freqtable <- table.output.vpraesi[-.N]
 
-#+ CE-BVerwG_06_Barplot_VizePraesidentIn, fig.height = 5.5, fig.width = 8
+#+ CE-BVerwG_06_Barplot_VizePraesidentIn, fig.height = 6, fig.width = 9
 ggplot(data = freqtable) +
     geom_bar(aes(x = reorder(v_praesi,
                              N),
@@ -1413,7 +1413,7 @@ ggplot(data = freqtable) +
 
 freqtable <- table.jahr.entscheid[-.N][,lapply(.SD, as.numeric)]
 
-#+ CE-BVerwG_07_Barplot_Entscheidungsjahr, fig.height = 7, fig.width = 11
+#+ CE-BVerwG_07_Barplot_Entscheidungsjahr, fig.height = 6, fig.width = 9
 ggplot(data = freqtable) +
     geom_bar(aes(x = entscheidungsjahr,
                  y = N),
@@ -1446,7 +1446,7 @@ freqtable <- table.jahr.eingangISO[-.N][,lapply(.SD, as.numeric)]
 
 
 
-#+ CE-BVerwG_08_Barplot_EingangsjahrISO, fig.height = 7, fig.width = 11
+#+ CE-BVerwG_08_Barplot_EingangsjahrISO, fig.height = 6, fig.width = 9
 ggplot(data = freqtable) +
     geom_bar(aes(x = eingangsjahr_iso,
                  y = N),
