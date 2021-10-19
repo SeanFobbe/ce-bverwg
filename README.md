@@ -55,13 +55,13 @@ Um das Codebook zu kompilieren und einen PDF-Bericht zu erstellen, führen Sie b
 Bei der Prüfung der GPG-Signatur wird ein Fehler auftreten und im Codebook dokumentiert, weil die Daten nicht mit meiner Original-Signatur versehen sind. Dieser Fehler hat jedoch keine Auswirkungen auf die Funktionalität und hindert die Kompilierung nicht.
 
  
-
+```R
 rmarkdown::render(input = "CE-BVerwG_Source_CodebookCreation.R",
                   output_file = paste0("CE-BVerwG_",
                                        Sys.Date(),
                                        "_Codebook.pdf"),
                   envir = new.env())
-
+```
 
 
 
@@ -69,11 +69,11 @@ rmarkdown::render(input = "CE-BVerwG_Source_CodebookCreation.R",
 
 Website — www.seanfobbe.de
 
-Open Data  —  zenodo.org/communities/sean-fobbe-data/
+Open Data  —  [zenodo.org/communities/sean-fobbe-data/](zenodo.org/communities/sean-fobbe-data/)
 
-Source Code  —  zenodo.org/communities/sean-fobbe-code/
+Source Code  —  [zenodo.org/communities/sean-fobbe-code/](zenodo.org/communities/sean-fobbe-code/)
 
-Volltexte regulärer Publikationen  —  zenodo.org/communities/sean-fobbe-publications/
+Volltexte regulärer Publikationen  —  [zenodo.org/communities/sean-fobbe-publications/](zenodo.org/communities/sean-fobbe-publications/)
 
 
 
