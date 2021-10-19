@@ -38,12 +38,14 @@ Alle Kommentare sind im roxygen2-Stil gehalten. Das Skript kann daher auch ohne 
 
 Um den vollständigen Datensatz zu kompilieren und einen PDF-Bericht zu erstellen, kopieren Sie bitte alle im Source-Archiv bereitgestellten Dateien in einen leeren Ordner und führen mit R diesen Befehl aus:
 
+```R
+
 rmarkdown::render(input = "CE-BVerwG_Source_CorpusCreation.R",
                   output_file = paste0("CE-BVerwG_",
                                        Sys.Date(),
                                        "_CompilationReport.pdf"),
                   envir = new.env())
-
+```
  
 
 # Kompilierung: Codebook
