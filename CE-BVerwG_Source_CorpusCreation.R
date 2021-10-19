@@ -116,7 +116,7 @@ datasetname <- "CE-BVerwG"
 doi.concept <- "10.5281/zenodo.3911067" # checked
 
 #'## DOI der konkreten Version
-doi.version <- "10.5281/zenodo.5576822"
+doi.version <- "10.5281/zenodo.5576822" # checked
 
 #'## Lizenz
 license <- "Creative Commons Zero 1.0 Universal"
@@ -140,7 +140,7 @@ scope <- seq(from = 1,
 #'## Modus: Debugging
 #' Der Debuging-Modus reduziert den Download-Umfang auf den in der Variable "debug.sample" definierten Umfang zufällig ausgewählter Entscheidungen und löscht im Anschluss fünf zufällig ausgewählte Entscheidungen um den Wiederholungsversuch zu testen. Nur für Test- und Demonstrationszwecke. 
 
-mode.debug <- TRUE
+mode.debug <- FALSE
 debug.sample <- 100
 
 

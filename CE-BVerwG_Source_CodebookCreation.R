@@ -51,7 +51,7 @@ setDTthreads(threads = detectCores())
 
 datasetname <- "CE-BVerwG"
 doi.concept <- "10.5281/zenodo.3911067" # checked
-doi.version <- "10.5281/zenodo.5576822"
+doi.version <- "10.5281/zenodo.5576822" # checked
 
 
 files.zip <- list.files(pattern = "\\.zip")
