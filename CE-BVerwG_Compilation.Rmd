@@ -356,6 +356,27 @@ tar_target(changelog,
 
 
 
+## Report Targets
+
+Dieser Abschnitt der Pipeline erstellt die finalen Berichte (Codebook und Robustness Checks).
+
+
+
+### LaTeX-Definitionen schreiben
+
+Um Variablen aus der Pipeline in die LaTeX-Kompilierung einzuführen, müssen diese als .tex-Datei auf die Festplatte geschrieben werden.
+
+```{targets tar.report1}
+tar_target(latexdefs,
+                f.latexdefs(config,
+                            dir = "temp",
+                            datestamp = datestamp),
+	       format = "file")
+
+```
+
+
+
 
 
 
