@@ -53,7 +53,7 @@ parallel.multihashes = true
 #=== Download ===
 
 download.timeout = 600	  # Timeout für Downloads
-download.scope = 26000    # Maximale Anzahl an heruntergeladenen Entscheidungen
+download.max = 26000    # Maximale Anzahl an heruntergeladenen Entscheidungen
 
 
 #=== Quanteda ===
