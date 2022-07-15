@@ -357,22 +357,6 @@ tar_target(changelog,
 
 
 
-## Data Targets
-
-Mit diesem Abschnitt der Pipeline werden CSV-Dateien eingelesen, die im file tracking zuvor definiert wurden.
-
-
-```{targets tar.data}
-list(tar_target(scope,
-                fread(file.scope)),
-     tar_target(variables,
-                fread(file.variables)),
-     tar_target(az.brd,
-                fread(file.az.brd)))
-
-
-```
-
 
 
 # Pipeline: Kompilierung
