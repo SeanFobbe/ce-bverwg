@@ -264,43 +264,72 @@ files.source.raw <-  c(list.files(pattern = "\\.R$|\\.toml$|\\.md$|\\.Rmd$"),
 
 ## File Tracking Targets
 
-Mit diesem Abschnitt der Pipeline werden Input-Dateien getrackt. Mit der Option \enquote{format = "file"} werden für Input-Dateien Prüfsummen berechnet. Falls sich diese verändern werden alle von ihnen abhängigen Pipeline-Schritte als veraltet markiert und neu berechnet.
+Mit diesem Abschnitt der Pipeline werden Input-Dateien getrackt und eingelesen. Mit der Option \enquote{format = "file"} werden für Input-Dateien Prüfsummen berechnet. Falls sich diese verändern werden alle von ihnen abhängigen Pipeline-Schritte als veraltet markiert und neu berechnet.
 
 
 
-### Scope
-
-Der Umfang der Auswertung der Datenbank des BVerwG.
-
-
-```{targets tar.file1}
-tar_target(file.scope,
-           "data/CE-BVerwG_Scope.csv",
-           format = "file")
-
-```
 
 ### Variablen
 
 Die Variablen des Datensatzes, inklusive ihrer Erläuterung.
 
-```{targets tar.file2}
-tar_target(file.variables,
+
+```{targets tar.file1}
+list(
+    tar_target(file.variables,
            "data/CE-BVerwG_Variables.csv",
-           format = "file")
+           format = "file"),
+     tar_target(variables,
+                fread(file.variables))
+     )
 ```
+
 
 
 ### Aktenzeichen der Bundesrepublik Deutschland (AZ-BRD)
 
 Die Tabelle der Registerzeichen und der ihnen zugeordneten Verfahrensarten stammt aus dem folgenden Datensatz: \enquote{Seán Fobbe (2021). Aktenzeichen der Bundesrepublik Deutschland (AZ-BRD). Version 1.0.1. Zenodo. DOI: 10.5281/zenodo.4569564.}
 
+`
+
+```{targets tar.file2}
+list(
+    tar_target(file.az.brd,
+           "data/AZ-BRD_1-0-1_DE_Registerzeichen_Datensatz.csv",
+           format = "file"),
+     tar_target(az.brd,
+                fread(file.az.brd))
+     )
+```
+
+### Presidents and Vice-Presidents of the Federal Courts of Germany (PVP-FCG)
+
+
 
 ```{targets tar.file3}
-tar_target(file.az.brd,
-           "data/AZ-BRD_1-0-1_DE_Registerzeichen_Datensatz.csv",
-           format = "file")
+list(
+    tar_target(file.presidents,
+           "data/PVP-FCG_2021-04-08_GermanFederalCourts_Presidents.csv",
+           format = "file"),
+     tar_target(presidents,
+                fread(file.presidents))
+     )
 ```
+
+
+
+```{targets tar.file4}
+list(
+    tar_target(file.vpresidents,
+           "data/PVP-FCG_2021-04-08_GermanFederalCourts_VicePresidents.csv",
+           format = "file"),
+     tar_target(vpresidents,
+                fread(file.vpresidents))
+     )
+```
+
+
+
 
 ### Source Code
 
@@ -340,522 +369,6 @@ list(tar_target(scope,
 
 
 ```
-
-
-
-
-
-## Download Targets
-
-In diesem Abschnitt der Pipeline wird die Datenbank des BVerwG abgerufen, die Links zu Volltexten und Metadaten zusammengeführt und schließlich abgerufen.
-
-
-### Vorläufige Download-Tabelle erstellen
-
-Abfrage der Datenbank des BVerwG und erstellen der vorläufigen Download-Tabelle.
-
-```{targets tar.download1}
-tar_target(dt.download,
-                f.download_table_make(x = scope,
-                                      debug.toggle = config$debug$toggle,
-                                      debug.pages = config$debug$pages))
-
-```
-
-### Download-Tabelle Bereinigen
-
-Die Aktenzeichen und Senatsgruppen werden bereinigt und gespeichert.
-
-```{targets tar.download2}
-
-list(
-    tar_target(az_clean,
-                f.clean_az_bpatg(dt.download$az)),
-    tar_target(senatsgruppe_clean,
-               f.clean_senatsgruppe_bpatg(dt.download$senatsgruppe))
-    )
-				
-				
-```
-
-### Finale Download-Tabelle erstellen
-
-Die bereinigten Aktenzeichen und Senatsgruppen werden hier mit der vorläufigen Download-Tabelle zusammengeführt, weitere Bereinigungen durchgeführt, weitere Variablen aus den Bemerkungen extrahiert und schließlich auf ihre Konformität mit der Beschreibung im Codebook getestet.
-
-
-
-```{targets tar.download3}
-
-tar_target(dt.download.final,
-                f.download_table_finalize(x = dt.download,
-                                          az = az_clean,
-                                          senatsgruppe = senatsgruppe_clean))
-```
-
-
-
-
-### Download durchführen
-
-
-```{targets tar.download4}
-tar_target(files.pdf,
-                f.download(url = dt.download.final$url,
-                           filename = dt.download.final$doc_id,
-                           dir = "pdf",
-                           sleep.min = 0,
-                           sleep.max = 0.1,
-                           retries = 3,
-                           retry.sleep.min = 2,
-                           retry.sleep.max = 5,
-                           timeout = config$download$timeout,
-                           debug.toggle = FALSE,
-                           debug.files = 500),
-                format = "file")
-
-```
-
-
-
-
-
-
-## Convert Targets
-
-Durch diesen Abschnitt der Pipeline werden die PDF-Dateien in TXT konvertiert und mitsamt den Variablen in ihren Dateinamen eingelesen. Beim Einlesen werden die in PDF-Dateien üblichen über Zeilen gebrochene Wörter wieder zusammengefügt.
-
-
-
-
-```{targets tar.convert}
-
-list(tar_target(files.txt,
-                f.tar_pdf_extract(files.pdf),
-                format = "file"),
-     tar_target(dt.bpatg,
-                f.readtext(x = files.txt,
-                           docvarnames = docvarnames))
-     )
-					
-```					
-
-
-
-
-## Enhance Targets
-
-Dieser Abschnitt der Pipeline berechnet diverse Verbesserungen für den Datensatz und führt diese am Ende zusammen.
-
-
-### Daten standardisieren
-
-Das Datum wird im ISO-Format standardisiert und die Variablen \enquote{entscheidungsjahr} und \enquote{eingangsjahr\_iso} hinzugefügt.
-
-
-```{targets tar.enhance1}
-tar_target(dt.bpatg.datecleaned,
-                f.clean_dates(dt.bpatg))
-```
-
-
-
-
-
-
-### Variable erstellen: \enquote{verfahrensart}
-
-Die Variable \enquote{verfahrensart} wird aus den Registerzeichen berechnet.
-
-```{targets tar.enhance2}
-tar_target(var_verfahrensart,
-                f.var_verfahrensart(dt.bpatg.datecleaned$registerzeichen,
-                                    az.brd = az.brd,
-                                    gericht = "BVerwG"))
-```
-
-
-
-
-
-### Variable erstellen: \enquote{aktenzeichen}
-
-Das Aktenzeichen wird aus seinen Komponenten berechnet.
-
-
-```{targets tar.enhance3}
-tar_target(var_aktenzeichen,
-                f.var_aktenzeichen(dt.bpatg.datecleaned,
-                                   az.brd = az.brd,
-                                   gericht = "BVerwG"))
-```
-
-
-
-
-### Variable erstellen: \enquote{entscheidung\_typ}
-
-Der Typ der Entscheidung wird aus dem Text extrahiert.
-
-
-```{targets tar.enhance4}
-tar_target(var_entscheidung_typ,
-                f.var_entscheidung_typ(dt.bpatg.datecleaned$text))
-```
-
-
-
-### Variable erstellen: \enquote{ecli}
-
-Die ECLI wird aus ihren Komponenten berechnet. Achtung: weil die offizielle Kollisionsnummer nicht in der Datenbank dokumentiert ist, können Entscheidungen vom gleichen Tag mit dem gleichen Aktenzeichen potentiell fehlerhafte ECLIs aufweisen.
-
-
-
-```{targets tar.enhance5}
-tar_target(var_ecli,
-                f.var_ecli_bpatg(dt.bpatg.datecleaned,
-                                 entscheidung_typ = var_entscheidung_typ))
-```
-
-
-
-
-
-
-### Variablen erstellen: \enquote{zeichen, token, typen, saetze}
-
-Berechnung klassischer linguistischer Kennzahlen.
-
-
-
-```{targets tar.enhance6}
-tar_target(var_lingstats,
-                f.lingstats(dt.bpatg.datecleaned,
-                            multicore = config$parallel$lingsummarize,
-                            cores = fullCores,
-                            germanvars = TRUE))
-```
-
-
-
-
-
-### Konstanten erstellen
-
-Konstanten die dem Datensatz wichtige Herkunftsinformationen hinzufügen. Darunter sind die Versionsnummer, die Version DOI, die Concept DOI und die Lizenz.
-
-
-
-```{targets tar.enhance7}
-tar_target(var_constants,
-           data.frame(version = as.character(datestamp),
-                      doi_concept = config$doi$data$concept,
-                      doi_version = config$doi$data$version,
-                      lizenz = as.character(config$license$data))[rep(1,
-                                                                      nrow(dt.bpatg.datecleaned)),])
-```
-
-
-
-### Finalen Datensatz erstellen
-
-Die Verbesserungen der vorherigen Schritte werden in dieser Funktion zusammengefügt um den finalen Datenatz herzustellen.
-
-
-```{targets tar.enhance8}
-tar_target(dt.bpatg.full,
-                f.dataset_finalize(dt.bpatg.datecleaned,
-                                   download.table = dt.download.final,
-                                   aktenzeichen = var_aktenzeichen,
-                                   ecli = var_ecli,
-                                   entscheidung_typ = var_entscheidung_typ,
-                                   verfahrensart = var_verfahrensart,
-                                   lingstats = var_lingstats,
-                                   constants = var_constants,
-                                   variablen = variables$variable))
-
-```
-
-
-
-
-### Variante erstellen: Nur Metadaten
-
-Hier wird nur die Text-Variable entfernt um eine deutlich platzsparendere Variante des Datensatzes nur mit den Metadaten zu erstellen.
-
-
-
-```{targets tar.enhance9}
-tar_target(dt.bpatg.meta,
-                dt.bpatg.full[, !"text"])
-
-```
-
-
-
-
-
-
-
-
-
-## Write Targets
-
-Dieser Abschnitt der Pipeline schreibt den Datensatz und die jeweiligen Prüfsummen auf die Festplatte.
-
-
-
-### CSV schreiben: Voller Datensatz
-
-```{targets tar.write1}
-tar_target(csv.full,
-           f.tar_fwrite(x = dt.bpatg.full,
-                        filename = file.path("output",
-                                             paste0(prefix.files,
-                                                    "_DE_CSV_Datensatz.csv"))
-                        )
-           )
-```
-
-
-
-### CSV schreiben: Metadaten
-
-
-```{targets tar.write2}
-tar_target(csv.meta,
-           f.tar_fwrite(x = dt.bpatg.meta,
-                        filename = file.path("output",
-                                             paste0(prefix.files,
-                                                    "_DE_CSV_Metadaten.csv"))
-                        )
-           )
-```
-
-
-
-### CSV schreiben: Kryptographische Hashes
-
-
-```{targets tar.write3}
-tar_target(csv.hashes,
-           f.tar_fwrite(x = hashes,
-                        filename = file.path("output",
-                                             paste0(prefix.files,
-                                                    "_KryptographischeHashes.csv"))
-                        )
-           )
-```
-
-
-
-
-
-
-
-
-## Zip Targets
-
-Diese Abschnitt der Pipeline erstellt ZIP-Archive für alle zentralen Rechenergebnisse und speichert diese im Ordner \enquote{output}.
-
-
-### ZIP erstellen: PDF-Dateien (alle Entscheidungen)
-
-```{targets tar.zip1}
-tar_target(zip.pdf.all,
-                f.tar_zip(files.pdf,
-                              filename = paste(prefix.files,
-                                               "DE_PDF_Datensatz.zip",
-                                               sep = "_"),
-                              dir = "output",
-                              mode = "cherry-pick"),
-                format = "file")
-```
-
-
-
-### ZIP erstellen: PDF-Dateien (nur Leitsatzentscheidungen)
-
-```{targets tar.zip2}
-tar_target(zip.pdf.leitsatz,
-                f.tar_zip(grep("_LE_", files.pdf, value = TRUE),
-                              filename = paste(prefix.files,
-                                               "DE_PDF_Leitsatz-Entscheidungen.zip",
-                                               sep = "_"),
-                              dir = "output",
-                              mode = "cherry-pick"),
-                format = "file")
-```
-
-
-
-
-### ZIP erstellen: TXT-Dateien
-
-```{targets tar.zip3}
-tar_target(zip.txt,
-                f.tar_zip(files.txt,
-                              filename = paste(prefix.files,
-                                               "DE_TXT_Datensatz.zip",
-                                               sep = "_"),
-                              dir = "output",
-                              mode = "cherry-pick"),
-                format = "file")
-```
-
-### ZIP erstellen: Analyse-Dateien
-
-```{targets tar.zip4}
-tar_target(zip.analysis,
-           f.tar_zip("analysis/",
-                         filename = paste(prefix.files,
-                                          "DE_Analyse.zip",
-                                          sep = "_"),
-                         dir = "output",
-                         mode = "cherry-pick",
-                         report.codebook,
-                         report.robustness),
-           format = "file")
-```
-
-		   
-
-### ZIP erstellen: CSV-Datei (voller Datensatz)
-
-
-```{targets tar.zip5}
-tar_target(zip.csv.full,
-                f.tar_zip(csv.full,
-                              filename = gsub("\\.csv", "\\.zip", basename(csv.full)),
-                              dir = "output",
-                              mode = "cherry-pick"),
-                format = "file")
-```
-
-
-
-### ZIP erstellen: CSV-Datei (nur Metadaten)
-
-
-```{targets tar.zip6}
-tar_target(zip.csv.meta,
-                f.tar_zip(csv.meta,
-                              filename = gsub("\\.csv", "\\.zip", basename(csv.meta)),
-                              dir = "output",
-                              mode = "cherry-pick"),
-                format = "file")
-```
-
-
-
-
-### ZIP erstellen: Source Code
-
-
-```{targets tar.zip7}
-tar_target(zip.source,
-                f.tar_zip(files.source,
-                              filename = paste0(prefix.files,
-                                                "_Source_Code.zip"),
-                              dir = "output",
-                              mode = "mirror"),
-                format = "file")
-```
-
-
-
-
-### Kryptographische Hashes für alle ZIP-Archive berechnen
-
-
-```{targets tar.zip8}
-tar_target(zip.all,
-                c(zip.pdf.all,
-                  zip.pdf.leitsatz,
-                  zip.txt,
-                  zip.csv.full,
-                  zip.csv.meta,
-				  zip.analysis,
-                  zip.source))
-```
-
-
-```{targets tar.zip9}
-tar_target(hashes,
-           f.tar_multihashes(c(zip.all,
-                               report.codebook[1],
-                               report.robustness[1]),
-                             multicore = config$parallel$lingsummarize,
-                             cores = fullCores))
-```
-
-
-
-
-
-
-## Report Targets
-
-Dieser Abschnitt der Pipeline erstellt die finalen Berichte (Codebook und Robustness Checks).
-
-
-
-
-
-### LaTeX-Definitionen schreiben
-
-Um gewisse Variablen aus der Pipeline in die LaTeX-Kompilierung einzuführen müssen diese als .tex-Datei auf die Festplatte geschrieben werden.
-
-```{targets tar.report1}
-tar_target(latexdefs,
-                f.latexdefs(config,
-                            dir = "temp",
-                            datestamp = datestamp),
-	       format = "file")
-
-```
-
-
-
-### Zusammenfassungen linguistischer Kennwerte berechnen
-
-```{targets tar.report2}
-tar_target(lingstats.summary,
-                f.lingstats_summary(dt.bpatg.full,
-                                    germanvars = TRUE))
-
-```
-
-
-
-
-
-### Report erstellen: Robustness Checks
-
-```{targets tar.report3}
-tarchetypes::tar_render(report.robustness,
-                        file.path("reports",
-                                  "CE-BVerwG_RobustnessChecks.Rmd"),
-                        output_file = file.path("../output",
-                                                paste0("CE-BVerwG_", datestamp, "_RobustnessChecks.pdf")))
-
-```
-
-
-
-### Report erstellen: Codebook
-
-
-
-```{targets tar.report4}
-tarchetypes::tar_render(report.codebook,
-                        file.path("reports",
-                                  "CE-BVerwG_Codebook.Rmd"),
-                        output_file = file.path("../output",
-                                                paste0("CE-BVerwG_", datestamp, "_Codebook.pdf")))
-
-```
-
-
 
 
 
