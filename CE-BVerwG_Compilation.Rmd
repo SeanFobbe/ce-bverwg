@@ -360,7 +360,7 @@ tar_target(changelog,
 ### URLs zu PDF-Dateien abrufen
 
 ```{targets tar.download1}
-tar_target(pdflinks,
+tar_target(url.pdf,
            f.pdflinks_bverwg(download.max = config$download$max))
 ```
 
