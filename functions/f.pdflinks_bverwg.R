@@ -1,7 +1,12 @@
 #' URLs zu PDF-Entscheidungen des BVerwG abrufen
 #'
 #' Wertet die Datenbank des Bundesverwaltungsgerichts aus und erstellt einen Vektor mit URLs zu allen PDF-Dateien.
-#'
+
+#' Benötigt Packages:
+#' - rvest
+
+
+
 #' @param download.max Die maximale Anzahl URLs, die abgerufen werden soll.
 #'
 #' @return Ein Vektor von URLs zu allen Entscheidungen des BVerwG im PDF-Format.
