@@ -1,119 +1,64 @@
 #' Vorläufige Download-Tabelle erstellen
 
-#' Diese Funktion wertet die Entscheidungsdatenbank des Bundespatentgerichts aus und sammelt Links zu den Entscheidungsvolltexten und verbindet sie mit den in der Datenbank angegebenen Metadaten.
-
-#' @param x Data.table. Der Umfang der Datenbankseiten, der berücksichtigt werden soll. Ist im Datensatz im Ordner data/ dokumentiert.
-#' @param debug.toggle Logical. Ob der Debugging-Modus aktiviert werden soll. Im Debugging-Modus wird nur eine reduzierte Anzahl Datenbankseiten ausgewertet. Jede Seite enthält idR 30 Entscheidungen.
-#' @param deubg.pages Integer. Anzahl der auszuwertenden Datenbankseiten.
-
-
-#' @return Data.table. Eine Tabelle mit allen URLs und in der Datenbank verfügbaren Metadaten.
 
 
 
-
-f.download_table_make <- function(x,
-                                  debug.toggle = FALSE,
-                                  debug.pages = 50){
+f.download_table_make <- function(scope){
 
 
-    ## Genauen Such-Umfang berechnen
-
-    scope <- f.extend(x$year,
-                      x$pagemax0)
-
-
-    scope <- rbindlist(scope)
-
-    setnames(scope,
-             c("year",
-               "page"))
+    ## Umfang definieren
+    scope <- seq(from = 1,
+                 to = scope,
+                 by = 1000)
 
 
-    
-    ## [Debugging Modus] Reduzierung des Such-Umfangs
+    ## Linkliste erstellen
 
-    if (debug.toggle == TRUE){
-        scope <- scope[sample(scope[,.N], debug.pages)][order(year, page)]
+    links.list <- vector("list",
+                         length(scope))
+
+
+    for (i in seq_along(scope)){
+        
+        URL  <-  paste0("https://www.bverwg.de/suche?q=+*&db=e&dt=&lim=1000&start=",
+                        scope[i])
+        
+        volatile <- f.linkextract(URL)
+
+        links.temp <- grep ("/de/[0-9][0-9][0-9][0-9]",
+                            volatile,
+                            ignore.case = TRUE,
+                            value = TRUE)
+        
+        links.temp <- gsub(pattern = "/de/",
+                           replacement = "",
+                           links.temp)
+        
+        links.temp <- paste0("https://www.bverwg.de/entscheidungen/pdf/",
+                             links.temp,
+                             ".pdf")
+        
+        links.temp <- gsub(" ",
+                           "",
+                           links.temp,
+                           fixed = TRUE)
+
+        links.list[[i]] <- links.temp
+        
+        message(paste(scope[i], "bis", scope[i] + 999))
+
+        Sys.sleep(runif(1, 1, 2))
     }
 
+    ## Liste in Vektor transformieren
+    links.pdf <- unlist(links.list)
 
 
-    ## Metadaten extrahieren
-    
-    meta.all.list <- vector("list",
-                            scope[,.N])
+    ## Auf einzigartige Links reduzieren
+    links.pdf <- unique(links.pdf)
 
-    scope.random <- sample(scope[,.N])
 
-    for (i in seq_along(scope.random)){
-        
-        year <- scope$year[scope.random[i]]
-        page <- scope$page[scope.random[i]]
-
-        URL  <- paste0("https://juris.bundespatentgericht.de/cgi-bin/rechtsprechung/list.py?Gericht=bpatg&Art=en&Datum=",
-                       year,
-                       "&Seite=",
-                       page)
-        
-        html <- read_html(URL)
-        
-        url <-  html_nodes(html, "a" )%>% html_attr('href')
-        
-        url <- grep ("Blank=1.pdf",
-                      url,
-                      ignore.case = TRUE,
-                      value = TRUE)
-        
-        url <- sprintf("https://juris.bundespatentgericht.de/cgi-bin/rechtsprechung/%s",
-                        url)
-        
-
-        datum <- html_nodes(html, "[class='EDatum']") %>% html_text(trim = TRUE)
-
-        senatsgruppe <- html_nodes(html, "[class='ESpruchk']") %>% html_text(trim = TRUE)
-        
-        az <- html_nodes(html, "[class='EAz']") %>% html_text(trim = TRUE)
-
-        bemerkung <- html_nodes(html, "[class='ETitel']") %>% html_text(trim = TRUE)
-
-        meta.all.list[[scope.random[i]]] <- data.table(year,
-                                                       page,
-                                                       url,
-                                                       datum,
-                                                       senatsgruppe,
-                                                       az,
-                                                       bemerkung)
-
-        remaining <- length(scope.random) - i
-        
-        if ((remaining %% 100) == 0){
-            message(paste(Sys.time(),
-                          "| Noch",
-                          remaining,
-                          "verbleibend."))
-        }
-
-        if((i %% 100) == 0){
-            Sys.sleep(runif(1, 5, 15))
-        }else{
-            Sys.sleep(runif(1, 1.5, 2.5))
-        }    
-    }
-
-    
-    ## Zusammenfügen
-    dt.download <- rbindlist(meta.all.list)
-
-    
-    ## Datum bereinigen
-    dt.download[, datum := {
-        datum <- as.character(datum)
-        datum <- as.IDate(datum, "%d.%m.%Y")
-        list(datum)}]
-    
-
-    return(dt.download)
+    return(links.pdf)
 
 }
 
