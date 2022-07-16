@@ -42,6 +42,43 @@ tar_load(files.txt)
 
 
 
+# Duplikate
+
+#'## Data Table für Download erstellen
+
+dt.download <- data.table(links.pdf,
+                          filenames.final)
+
+
+
+
+#'## Duplikate bereinigen
+
+#+
+#'### Test auf Duplikate
+
+sort(dt.download$filenames.final[duplicated(dt.download$filenames.final)])
+
+
+#'### Von Duplikaten betroffene Links
+#' Alle diese Links wurden manuell überprüft und es handelt sich tatsächlich um Duplikate. Bei den Entscheidungen mit dem Registerzeichen WDS-VR finden sich Links mit und ohne Trennstrich, beide verweisen aber auf die gleichen Dateien. Die Entscheidungen mit den Ordinalzahlen \enquote{280814U2WD20.13.0.pdf} und \enquote{280814U2WD20.13S.0.pdf} sind identisch, das \enquote{S} nach der 13 ist vermutlich ein Tippfehler, siehe auch weiter oben bei der Einzelkorrektur.
+
+sort(dt.download$links.pdf[duplicated(dt.download$filenames.final,
+                                      fromLast = FALSE)])
+
+sort(dt.download$links.pdf[duplicated(dt.download$filenames.final,
+                                      fromLast = TRUE)])
+
+
+#'### Duplikate entfernen
+
+dt.download <- dt.download[!duplicated(dt.download$filenames.final)]
+
+
+
+
+
+
 
 
 # Vollständigkeit der Datenbank-Auswertung
