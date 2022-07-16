@@ -1,14 +1,20 @@
-#' Vorläufige Download-Tabelle erstellen
+#' URLs zu PDF-Entscheidungen des BVerwG abrufen
+#'
+#' Wertet die Datenbank des Bundesverwaltungsgerichts aus und erstellt einen Vektor mit URLs zu allen PDF-Dateien.
+#'
+#' @param download.max Die maximale Anzahl URLs, die abgerufen werden soll.
+#'
+#' @return Ein Vektor von URLs zu allen Entscheidungen des BVerwG im PDF-Format.
 
 
 
 
-f.download_table_make <- function(scope){
+f.pdflinks_bverwg <- function(download.max){
 
 
     ## Umfang definieren
     scope <- seq(from = 1,
-                 to = scope,
+                 to = download.max,
                  by = 1000)
 
 
