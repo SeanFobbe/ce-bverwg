@@ -372,6 +372,17 @@ tar_target(filenames.pdf,
            f.filenames.bverwg(url.pdf))
 ```
 
+### Finale Download-Tabelle erstellen
+
+```{targets tar.download3}
+tar_target(dt.download.final,
+           f.download_table_final(url = url.pdf,
+                                  filename = filenames.pdf,
+                                  debug.toggle = config$debug$toggle,
+                                  debug.files = config$debug$files))
+```
+
+
 
 
 
