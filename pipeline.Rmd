@@ -514,6 +514,9 @@ tar_target(var_vpraesi,
 ```
 
 
+
+
+
 ### Variablen erstellen: \enquote{zeichen, token, typen, saetze}
 
 Berechnung klassischer linguistischer Kennzahlen.
@@ -538,7 +541,7 @@ Konstanten die dem Datensatz wichtige Herkunftsinformationen hinzufügen. Darunt
 
 
 
-```{targets tar.enhance7}
+```{targets tar.enhance11}
 tar_target(var_constants,
            data.frame(version = as.character(datestamp),
                       doi_concept = config$doi$data$concept,
