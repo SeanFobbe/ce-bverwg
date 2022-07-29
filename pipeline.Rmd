@@ -493,8 +493,25 @@ tar_target(var_ecli,
 ```
 
 
+### Variable erstellen: \enquote{praesi}
 
 
+```{targets tar.enhance6}
+tar_target(var_praesi,
+           f.presidents(datum = dt.bverwg.datecleaned$datum,
+                        gericht = "BVerwG",
+						pvp.fcp = presidents))
+```
+
+### Variable erstellen: \enquote{vpraesi}
+
+
+```{targets tar.enhance7}
+tar_target(var_vpraesi,
+           f.presidents(datum = dt.bverwg.datecleaned$datum,
+                        gericht = "BVerwG",
+						pvp.fcp = vpresidents))
+```
 
 
 ### Variablen erstellen: \enquote{zeichen, token, typen, saetze}
@@ -503,7 +520,7 @@ Berechnung klassischer linguistischer Kennzahlen.
 
 
 
-```{targets tar.enhance6}
+```{targets tar.enhance9}
 tar_target(var_lingstats,
                 f.lingstats(dt.bverwg.datecleaned,
                             multicore = config$parallel$lingsummarize,
