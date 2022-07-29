@@ -43,8 +43,10 @@ f.download <- function(url,
     ## [Debugging Mode] Reduce download scope
     if (debug.toggle == TRUE){
 
-        url <- url[sample(length(url), debug.files)]
-        filename <- filename[sample(length(filename), debug.files)]
+        sample.index <- sample(length(url), debug.files)
+
+        url <- url[sample.index]
+        filename <- filename[sample.index]
 
     }
 
