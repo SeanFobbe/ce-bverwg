@@ -1,5 +1,5 @@
 
-#' Diese Funktion dokumentiert für jede Entscheidung welche/r Präsident:in oder Vize-Präsident:in am Tag der Entscheidung im Amt war. Datensatz muss nach Datum sortiert sein!
+#' Diese Funktion dokumentiert für jede Entscheidung welche/r Präsident:in oder Vize-Präsident:in am Tag der Entscheidung im Amt war.
 
 
 #' @param datum Das Datum der Entscheidungen.
