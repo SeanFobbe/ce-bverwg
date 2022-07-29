@@ -7,7 +7,8 @@
 #' Sofern die Variablen korrekt extrahiert wurden lässt sich die ECLI vollständig rekonstruieren.
 
 
-#' @param x Data.table. Ein juristischer Datensatz als data.table mit den Variablen "datum", "entscheidungsjahr", "spruchkoerper_az", "registerzeichen", "eingangsnummer", "eingangsjahr_az", "zusatz_az" und "kollision".
+#' @param x Data.table. Ein BVerwG-Datensatz mit den Variablen "datum", "entscheidung_typ", "spruchkoerper_az", "registerzeichen", "eingangsnummer", "eingangsjahr_az", "verzoegerung" und "kollision".
+#' @param dt.download Data.table. Eine Download-Tabelle mit den Variablen "url" und "filename".
 
 
 #' @param return Ein Vektor mit ECLIs für das Bundesverwaltungsgericht.
@@ -15,7 +16,8 @@
 
 
 
-f.var_ecli_bverwg <- function(x){
+f.var_ecli_bverwg <- function(x,
+                              dt.download){
 
 
     ## Ordinalzahl erstellen
@@ -56,13 +58,14 @@ f.var_ecli_bverwg <- function(x){
     
     ## Berücksichtigt werden im folgenden nur Dateien die tatsächlich heruntergeladen wurden.
     
-    files.pdf <- list.files(pattern = "\\.pdf$",
+    files.pdf <- list.files("pdf",
+                            pattern = "\\.pdf$",
                             ignore.case = TRUE)
 
-    eclitest.index <- dt.download$filenames.final %in% files.pdf
+    eclitest.index <- dt.download$filename %in% files.pdf
 
-    eclitest.links <- dt.download$links.pdf[eclitest.index]
-    eclitest.pdf <- dt.download$filenames.final[eclitest.index]
+    eclitest.links <- dt.download$url[eclitest.index]
+    eclitest.pdf <- dt.download$filename[eclitest.index]
 
     soll <- basename(eclitest.links)
 
