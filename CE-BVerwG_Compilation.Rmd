@@ -72,7 +72,7 @@ print(datestamp)
 begin.script <- Sys.time()
 
 ## Konfiguration
-config <- RcppTOML::parseTOML("CE-BVerwG_Config.toml")
+config <- RcppTOML::parseTOML("config.toml")
 print(config)
 
 
@@ -163,7 +163,7 @@ tar_option_set(packages = c("tarchetypes",
 
 datestamp <- Sys.Date()
 
-config <- RcppTOML::parseTOML("CE-BVerwG_Config.toml")
+config <- RcppTOML::parseTOML("config.toml")
 
 dir.analysis <- paste0(getwd(),
                        "/analysis")
