@@ -407,6 +407,28 @@ tar_target(files.pdf,
 
 
 
+## Convert Targets
+
+Durch diesen Abschnitt der Pipeline werden die PDF-Dateien in TXT konvertiert und mitsamt den Variablen in ihren Dateinamen eingelesen. Beim Einlesen werden die in PDF-Dateien üblichen über Zeilen gebrochene Wörter wieder zusammengefügt.
+
+
+
+
+```{targets tar.convert}
+
+list(tar_target(files.txt,
+                f.tar_pdf_extract(files.pdf),
+                format = "file"),
+     tar_target(dt.bverwg,
+                f.readtext(x = files.txt,
+                           docvarnames = docvarnames))
+     )
+					
+```					
+
+
+
+
 
 
 
