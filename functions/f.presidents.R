@@ -4,7 +4,7 @@
 
 #' @param datum Das Datum der Entscheidungen.
 #' @param gericht Das Gericht dessen Führungsriege dokumentiert werden soll.
-#' @param pvp.fcg Eine Ausgabe des Datensatzes: \enquote{Seán Fobbe and Tilko Swalve (2021). Presidents and Vice-Presidents of the Federal Courts of Germany (PVP-FCG). Version 2021-04-08. Zenodo. DOI: 10.5281/zenodo.4568682}
+#' @param pvp.fcg Eine Ausgabe des Datensatzes: \enquote{Seán Fobbe and Tilko Swalve (2021). Presidents and Vice-Presidents of the Federal Courts of Germany (PVP-FCG). Version 2021-04-08. Zenodo. DOI: 10.5281/zenodo.4568682}. Entweder die Variante für Präsident:innen oder Vize-Präsident:innen.
 
 
 
