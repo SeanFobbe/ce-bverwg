@@ -500,7 +500,7 @@ tar_target(var_ecli,
 tar_target(var_praesi,
            f.presidents(datum = dt.bverwg.datecleaned$datum,
                         gericht = "BVerwG",
-						pvp.fcp = presidents))
+						pvp.fcg = presidents))
 ```
 
 ### Variable erstellen: \enquote{vpraesi}
@@ -510,7 +510,7 @@ tar_target(var_praesi,
 tar_target(var_vpraesi,
            f.presidents(datum = dt.bverwg.datecleaned$datum,
                         gericht = "BVerwG",
-						pvp.fcp = vpresidents))
+						pvp.fcg = vpresidents))
 ```
 
 
