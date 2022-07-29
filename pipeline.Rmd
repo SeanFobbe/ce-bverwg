@@ -429,6 +429,56 @@ list(tar_target(files.txt,
 
 
 
+## Enhance Targets
+
+Dieser Abschnitt der Pipeline berechnet diverse Verbesserungen für den Datensatz und führt diese am Ende zusammen.
+
+
+### Daten standardisieren
+
+Das Datum wird im ISO-Format standardisiert und die Variablen \enquote{entscheidungsjahr} und \enquote{eingangsjahr\_iso} hinzugefügt.
+
+
+```{targets tar.enhance1}
+tar_target(dt.bverwg.datecleaned,
+                f.clean_dates(dt.bverwg))
+```
+
+
+
+
+
+
+### Variable erstellen: \enquote{verfahrensart}
+
+Die Variable \enquote{verfahrensart} wird aus den Registerzeichen berechnet.
+
+```{targets tar.enhance2}
+tar_target(var_verfahrensart,
+                f.var_verfahrensart(dt.bverwg.datecleaned$registerzeichen,
+                                    az.brd = az.brd,
+                                    gericht = "BVerwG"))
+```
+
+
+
+
+
+### Variable erstellen: \enquote{aktenzeichen}
+
+Das Aktenzeichen wird aus seinen Komponenten berechnet.
+
+
+```{targets tar.enhance3}
+tar_target(var_aktenzeichen,
+                f.var_aktenzeichen(dt.bverwg.datecleaned,
+                                   az.brd = az.brd,
+                                   gericht = "BVerwG"))
+```
+
+
+
+
 
 
 
