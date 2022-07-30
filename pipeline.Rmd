@@ -581,6 +581,20 @@ tar_target(dt.bverwg.full,
 ```
 
 
+### Variante erstellen: Nur Metadaten
+
+Hier wird die Text-Variable entfernt, um eine deutlich platzsparendere Variante des Datensatzes zu erstellen. Enthalten sind nur noch die Metadaten.
+
+
+
+```{targets tar.enhance14}
+tar_target(dt.bverwg.meta,
+                dt.bverwg.full[, !"text"])
+
+```
+
+
+
 
 
 
