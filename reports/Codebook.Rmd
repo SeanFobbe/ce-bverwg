@@ -409,7 +409,7 @@ Variable & Typ & Erläuterung\\
  \vspace{0.5cm}
 
 
-\ra{1.2}
+\ra{1.3}
 
 
 ```{r}
@@ -421,7 +421,7 @@ kbl(az.brd[stelle == "BVerwG" & position == "hauptzeichen",
     booktabs = TRUE,
     longtable = TRUE,
     col.names = c("Registerzeichen",
-                  "Verfahrensart"))   %>% kable_styling(latex_options = "repeat_header")
+                  "Verfahrensart")) 
 
 ```
 
