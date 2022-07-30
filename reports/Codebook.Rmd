@@ -37,6 +37,7 @@ tar_load(files.pdf)
 tar_load(files.txt)
 tar_load(variables.codebook)
 tar_load(lingstats.summary)
+tar_load(az.brd)
 
 ```
 
@@ -409,7 +410,8 @@ Variable & Typ & Erläuterung\\
 
 
 ```{r}
-kbl(table.registerzeichen[,c(3,5)],
+kbl(az.brd[stelle == "BVerwG" & position == "hauptzeichen",
+           .(zeichen_original,bedeutung)],
     format = "latex",
     align = c("P{3cm}",
               "p{11cm}"),
@@ -419,6 +421,9 @@ kbl(table.registerzeichen[,c(3,5)],
                   "Verfahrensart")) 
 
 ```
+
+
+
 
 
 
