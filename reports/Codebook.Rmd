@@ -297,8 +297,9 @@ PDF & \textbf{Traditionelle juristische Forschung}. Die PDF-Dokumente wie sie vo
 
 ## Datenstruktur 
 
+```{r}
 str(dt.bverwg.meta)
-
+```
 
 
 ## Hinweise
