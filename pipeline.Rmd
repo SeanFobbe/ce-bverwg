@@ -555,13 +555,13 @@ tar_target(var_constants,
 
 ```{targets tar.enhance12}
 tar_target(vars_additional,
-           cbind(var_verfahrensart,
-                 var_aktenzeichen,
-                 var_ecli,
-                 var_praesi,
-                 var_vpraesi,
-                 var_lingstats,
-                 var_constants))
+           data.table(verfahrensart = var_verfahrensart,
+                      aktenzeichen = var_aktenzeichen,
+                      ecli = var_ecli,
+                      praesi = var_praesi,
+                      v_praesi = var_vpraesi,
+                      var_lingstats,
+                      var_constants))
 
 ```
 
