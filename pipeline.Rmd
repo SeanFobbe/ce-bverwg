@@ -377,7 +377,7 @@ tar_target(filenames.pdf,
 ```{targets tar.download3}
 tar_target(dt.download.final,
            f.download_table_final(url = url.pdf,
-                                  filename = filenames.pdf,
+                                  doc_id = filenames.pdf,
                                   debug.toggle = config$debug$toggle,
                                   debug.files = config$debug$files))
 ```
@@ -390,7 +390,7 @@ tar_target(dt.download.final,
 ```{targets tar.download4}
 tar_target(files.pdf,
                 f.download(url = dt.download.final$url,
-                           filename = dt.download.final$filename,
+                           filename = dt.download.final$doc_id,
                            dir = "pdf",
                            sleep.min = 0.3,
                            sleep.max = 1,
@@ -575,7 +575,7 @@ Die Verbesserungen der vorherigen Schritte werden in dieser Funktion zusammengef
 tar_target(dt.bverwg.full,
                 f.dataset_finalize(x = dtbverwg.datecleaned,
                                    vars.additional = vars_additional,
-                                   variablen = variables.codebook$varname))
+                                   varnames = variables.codebook$varname))
 
 ```
 
