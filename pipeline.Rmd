@@ -779,7 +779,7 @@ tarchetypes::tar_render(report.robustness,
                                   "RobustnessChecks.Rmd"),
                         output_file = file.path("../output",
                                                 paste0(config$project$shortname,
-                                                       "_"
+                                                       "_",
                                                        datestamp,
                                                        "_RobustnessChecks.pdf")))
 
