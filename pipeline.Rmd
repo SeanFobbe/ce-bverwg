@@ -815,7 +815,6 @@ tarchetypes::tar_render(report.codebook,
 ```{targets tar.hashes1}
 tar_target(zip.all,
                 c(zip.pdf.all,
-                  zip.pdf.leitsatz,
                   zip.txt,
                   zip.csv.full,
                   zip.csv.meta,
