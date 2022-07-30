@@ -22,7 +22,7 @@ Primäre Endprodukte des Skripts sind folgende ZIP-Archive:
 - Alle Analyse-Ergebnisse (Tabellen als CSV, Grafiken als PDF und PNG)
 - Der Source Code und alle weiteren Quelldaten
 
-Alle Ergebnisse werden im Ordner 'output' abgelegt. Zusätzlich werden für alle ZIP-Archive kryptographische Signaturen (SHA2-256 und SHA3-512) berechnet und in einer CSV-Datei hinterlegt. 
+Alle Ergebnisse werden im Ordner `output` abgelegt. Zusätzlich werden für alle ZIP-Archive kryptographische Signaturen (SHA2-256 und SHA3-512) berechnet und in einer CSV-Datei hinterlegt. 
 
 
 ## Systemanforderungen
@@ -47,7 +47,7 @@ Kopieren Sie bitte den gesamten Source Code in einen leeren Ordner (!), beispiel
 git clone https://github.com/seanfobbe/ce-bverwg
 ```
 
-Verwenden Sie immer einen eigenständigen und *leeren* Ordner für die Kompilierung. Die Skripte löschen innerhalb von bestimmten Unterordnern (`txt/`, `pdf/`, `temp/`, `analysis` und `output/`) alle Dateien die den Datensatz verunreinigen könnten --- aber auch nur dort.
+Verwenden Sie immer einen separaten und *leeren* Ordner für die Kompilierung. Die Skripte löschen innerhalb von bestimmten Unterordnern (`txt/`, `pdf/`, `temp/`, `analysis` und `output/`) alle Dateien die den Datensatz verunreinigen könnten --- aber auch nur dort.
 
 
 
@@ -78,6 +78,8 @@ renv::restore()  # In einer R-Konsole ausführen
 *Achtung:* es reicht nicht, die Packages auf herkömmliche Art installiert zu haben. Sie müssen dies nochmal über [renv](https://rstudio.github.io/renv/articles/renv.html) tun, selbst wenn die Packages in ihrer normalen Library schon vorhanden sind.
 
 
+
+
 ### Schritt 5: Installation von Spacy
 
 Spacy (eine Python library) muss separat installiert werden. `spacyr` übernimmt dies für sie automatisch:
@@ -87,6 +89,8 @@ spacyr::spacy_install(lang_models = "de_core_news_sm")  # In einer R-Konsole aus
 ```
 
 Wenn sie spacy bereits in dem Conda environment `spacy_condaenv` installiert haben, ist es ausreichend wenn sie das deutsche language model `de_core_news_sm` installieren.
+
+
 
 
 ### Schritt 6: Installation von LaTeX
