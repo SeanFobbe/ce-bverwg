@@ -42,13 +42,11 @@ tar_load(latexdefs)
 
 Das **Bundesverwaltungsgericht (BVerwG)** ist einer der fünf obersten Gerichtshöfe des Bundes und steht an der Spitze der Verwaltungsgerichtsbarkeit der Bundesrepublik Deutschland. Im Rahmen der Verwaltungsgerichtsbarkeit ist es für alle öffentlich-rechtlichen Streitigkeiten nichtverfassungsrechtlicher Art zuständig (§ 40 Absatz 1 Satz 1 VwGO). Es wurde am 23. September 1952 durch Bundesgesetz errichtet.\footnote{Gesetz über das Bundesverwaltungsgericht, 23. September 1952, BGBl. I, S. 625.}
 
-Am BVerwG eingerichtet sind derzeit 13 reguläre Senate, davon zehn Revisionssenate, zwei Wehrdienstsenate und ein Fachsenat nach § 189 VwGO.\footnote{Geschäftsverteilungsplan des Bundesverwaltungsgerichts für das Geschäftsjahr 2021. <\url {https://www.bverwg.de/rechtsprechung/geschaeftsverteilungsplan}> Zusätzlich besteht ein Großer Senat nach § 11 VwGO und es sind Güterichter nach § 173 Satz 1 VwGO benannt.\footnote{Ibid.} Die drei Disziplinarsenate wurden 1971, 2004 und 2015 aufgelöst.
+Am BVerwG eingerichtet sind derzeit 13 reguläre Senate, davon zehn Revisionssenate, zwei Wehrdienstsenate und ein Fachsenat nach § 189 VwGO.\footnote{Geschäftsverteilungsplan des Bundesverwaltungsgerichts für das Geschäftsjahr 2021. <\url {https://www.bverwg.de/rechtsprechung/geschaeftsverteilungsplan}>} Zusätzlich besteht ein Großer Senat nach § 11 VwGO und es sind Güterichter nach § 173 Satz 1 VwGO benannt.\footnote{Ibid.} Die drei Disziplinarsenate wurden 1971, 2004 und 2015 aufgelöst.
 
 Die weit überwiegende Anzahl der Verfahren vor dem Bundesverwaltungsgericht sind Revisionen, d.h. die Überprüfung von Entscheidungen unterer Instanzen (Verwaltungsgericht, Oberverwaltungsgericht/Verwaltungsgerichtshof) auf Rechtsfehler ohne erneute Beweisaufnahme (§§~49, 132 ff VwGO).\footnote{Baden-Württemberg, Bayern und Hessen machen von der Option in § 184 VwGO Gebrauch und bezeichnen ihr Oberverwaltungsgericht als \enquote{Verwaltungsgerichtshof}.} In wenigen Fällen --- beispielsweise Klagen zwischen Bund und Bundesländern, zwischen Bundesländern, Vereinsverboten und Angelegenheiten des Bundesnachrichtendienstes --- ist das BVerwG erste und letzte Instanz (§\ 50 VwGO).
 
-
- 
-Die quantitative Analyse von juristischen Texten, insbesondere denen des BVerwG, ist in den deutschen Rechtswissenschaften ein noch junges und kaum bearbeitetes Feld.\footnote{Besonders positive Ausnahmen finden sich unter: \url{https://www.quantitative-rechtswissenschaft.de/}} Zu einem nicht unerheblichen Teil liegt dies auch daran, dass die Anzahl an frei nutzbaren Datensätzen außerordentlich gering ist.
+Wieso dieser Datensatz? Die quantitative Analyse von juristischen Texten, insbesondere denen des BVerwG, ist in den deutschen Rechtswissenschaften ein noch junges und kaum bearbeitetes Feld.\footnote{Besonders positive Ausnahmen finden sich unter: \url{https://www.quantitative-rechtswissenschaft.de/}} Zu einem nicht unerheblichen Teil liegt dies auch daran, dass die Anzahl an frei nutzbaren Datensätzen außerordentlich gering ist.
  
 Die meisten hochwertigen Datensätze lagern (fast) unerreichbar in kommerziellen Datenbanken und sind wissenschaftlich gar nicht oder nur gegen Entgelt zu nutzen. Frei verfügbare Datenbanken wie \emph{Opinio Iuris}\footnote{\url{https://opinioiuris.de/}} und \emph{openJur}\footnote{\url{https://openjur.de/}} verbieten ausdrücklich das maschinelle Auslesen der Rohdaten.\footnote{Openjur beabsichtigt eine API anzubieten, diese war \the\year\ aber immernoch nicht verfügbar. Openjur ist seit 2008 in Betrieb.} Wissenschaftliche Initiativen wie der Juristische Referenzkorpus (JuReKo) sind nach jahrelanger Arbeit hinter verschlossenen Türen verschwunden.
  
@@ -60,26 +58,28 @@ In einem funktionierenden Rechtsstaat muss die Rechtsprechung öffentlich, trans
 
 # Nutzung
 
- Die Daten sind in offenen, interoperablen und weit verbreiteten Formaten (CSV, TXT, PDF) veröffentlicht. Sie lassen sich grundsätzlich mit allen modernen Programmiersprachen (z.B. Python oder R), sowie mit grafischen Programmen nutzen.
+Die Daten sind in offenen, interoperablen und weit verbreiteten Formaten (CSV, TXT, PDF) veröffentlicht. Sie lassen sich grundsätzlich mit allen modernen Programmiersprachen (z.B. Python oder R), sowie mit grafischen Programmen nutzen.
 
  **Wichtig:** Nicht vorhandene Werte sind sowohl in den Dateinamen als auch in der CSV-Datei mit "NA" codiert.
 
 
 ## CSV-Dateien
- Am einfachsten ist es die **CSV-Dateien** einzulesen. CSV\footnote{Das CSV-Format ist in RFC 4180 definiert, siehe \url{https://tools.ietf.org/html/rfc4180}} ist ein einfaches und maschinell gut lesbares Tabellen-Format. In diesem Datensatz sind die Werte komma-separiert. Jede Spalte entspricht einer Variable, jede Zeile einer Entscheidung. Die Variablen sind unter Punkt \ref{variablen} genauer erläutert.
 
- Zum Einlesen empfehle ich für **R** das package **data.table** (via CRAN verfügbar). Dessen Funktion **fread()** ist etwa zehnmal so schnell wie die normale **read.csv()**-Funktion in Base-R. Sie erkennt auch den Datentyp von Variablen sicherer. Ein Beispiel:
+Am einfachsten ist es die **CSV-Dateien** einzulesen. CSV\footnote{Das CSV-Format ist in RFC 4180 definiert, siehe \url{https://tools.ietf.org/html/rfc4180}} ist ein einfaches und maschinell gut lesbares Tabellen-Format. In diesem Datensatz sind die Werte komma-separiert. Jede Spalte entspricht einer Variable, jede Zeile einer Entscheidung. Die Variablen sind unter Punkt \ref{variablen} genauer erläutert.
 
- eval = FALSE, echo = TRUE
+Zum Einlesen empfehle ich für **R** das package **data.table** (via CRAN verfügbar). Dessen Funktion **fread()** ist etwa zehnmal so schnell wie die normale **read.csv()**-Funktion in Base-R. Sie erkennt auch den Datentyp von Variablen sicherer. Ein Beispiel:
+
+```{r eval = FALSE, echo = TRUE}
 library(data.table)
 dt.bverwg <- fread("filename.csv")
-
+```
 
 
 ## TXT-Dateien
+
 Die **TXT-Dateien** inklusive Metadaten können zum Beispiel mit **R** und dem package **readtext** (via CRAN verfügbar) eingelesen werden. Ein Vorschlag:
 
- eval = FALSE, echo = TRUE
+```{r eval = FALSE, echo = TRUE}
 library(readtext)
 df.bverwg <- readtext("./*.txt",
                     docvarsfrom = "filenames", 
@@ -94,7 +94,7 @@ df.bverwg <- readtext("./*.txt",
                                     "kollision"),
                     dvsep = "_", 
                     encoding = "UTF-8")
-
+```
 
 
 
