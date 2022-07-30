@@ -78,10 +78,18 @@ renv::restore()  # In einer R-Konsole ausführen
 *Achtung:* es reicht nicht, die Packages auf herkömmliche Art installiert zu haben. Sie müssen dies nochmal über [renv](https://rstudio.github.io/renv/articles/renv.html) tun, selbst wenn die Packages in ihrer normalen Library schon vorhanden sind.
 
 
+### Schritt 5: Installation von Spacy
+
+Spacy (eine Python library) muss separat installiert werden. `spacyr` übernimmt dies für sie automatisch:
+
+```
+spacyr::spacy_install(lang_models = "de_core_news_sm")  # In einer R-Konsole ausführen
+```
+
+Wenn sie spacy bereits in dem Conda environment `spacy_condaenv` installiert haben, ist es ausreichend wenn sie das deutsche language model `de_core_news_sm` installieren.
 
 
-
-### Schritt 5: Installation von LaTeX
+### Schritt 6: Installation von LaTeX
 
 Um die PDF Reports zu kompilieren benötigen Sie eine \LaTeX -Installation. Sie können eine vollständige \LaTeX -Distribution auf Fedora wie folgt installieren:
 
@@ -101,7 +109,7 @@ Die für die Referenzdatensätze verwendete \LaTeX -Installation ist `texlive-sc
 
 
 
-### Schritt 6: Datensatz kompilieren
+### Schritt 7: Datensatz kompilieren
 
 Den vollständigen Datensatz kompilieren Sie mit folgendem Befehl:
 
@@ -154,8 +162,8 @@ Die folgende Struktur erläutert die wichtigsten Bestandteile des Projekts. Wäh
 
  
 ``` 
-├── CE-BVerwG_Compilation.Rmd   # Zentrale Definition der Pipeline
-├── CE-BVerwG_Config.toml       # Zentrale Konfigurations-Datei
+├── pipeline.Rmd               # Zentrale Definition der Pipeline
+├── config.toml                # Zentrale Konfigurations-Datei
 ├── R-fobbe-proto-package      # Oft verwendete Funktionen 
 ├── _targets_packages.R        # Automatisiert erstellte Package-Liste für renv
 ├── buttons                    # Buttons (nur optische Bedeutung)
