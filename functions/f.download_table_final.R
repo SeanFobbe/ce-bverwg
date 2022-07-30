@@ -8,7 +8,7 @@
 
 
 #' @param url URLs zu Entscheidungen des BVerwG im PDF-Format.
-#' @param filename Dateinamen für Entscheidungen des BVerwG im PDF-Format.
+#' @param doc_id Dateinamen für Entscheidungen des BVerwG im PDF-Format.
 #'
 #' @return Eine bereinigte Download-Tabelle für Entscheidungen des BVerwG im PDF-Format.
 
@@ -16,18 +16,18 @@
 
 
 f.download_table_final <- function(url,
-                                   filename,
+                                   doc_id,
                                    debug.toggle = FALSE,
                                    debug.files = 500){
 
 
     ## Tabelle erstellen
     dt.download <- data.table(url,
-                              filename)
+                              doc_id)
 
 
     ## Duplikate entfernen
-    dt.download <- dt.download[!duplicated(dt.download$filename)]
+    dt.download <- dt.download[!duplicated(dt.download$doc_id)]
 
 
 
