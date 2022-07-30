@@ -65,7 +65,7 @@ f.latexdefs <- function(x,
                    f.latexcommand("softwareconcepturldoi",
                                   paste0("https://doi.org/", x$doi$software$concept)),
                    f.latexcommand("softwareversionurldoi",
-                                  paste0("https://doi.org/", x$doi$software$version))),
+                                  paste0("https://doi.org/", x$doi$software$version)),
                    
                    "\n%-----Additional DOIs-----",
                    f.latexcommand("aktenzeichenurldoi",
