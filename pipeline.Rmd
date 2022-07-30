@@ -571,10 +571,10 @@ tar_target(vars_additional,
 Die Verbesserungen der vorherigen Schritte werden in dieser Funktion zusammengefügt um den finalen Datenatz herzustellen.
 
 
-```{r tar.enhance13}
+```{targets tar.enhance13}
 tar_target(dt.bverwg.full,
            f.dataset_finalize(x = dt.bverwg.datecleaned,
-                              download.table = dt.download.final
+                              download.table = dt.download.final,
                               vars.additional = vars_additional,
                               varnames = variables.codebook$varname))
 
