@@ -32,6 +32,11 @@ knitr::opts_chunk$set(fig.path = file.path("..", "analysis/"),
 
 ```{r, echo = FALSE}
 tar_load(latexdefs)
+tar_load(dt.bverwg.meta)
+tar_load(files.pdf)
+tar_load(files.txt)
+tar_load(variables.codebook)
+tar_load(lingstats.summary)
 
 ```
 
@@ -278,6 +283,31 @@ PDF & \textbf{Traditionelle juristische Forschung}. Die PDF-Dokumente wie sie vo
 
 
 \newpage
+
+
+
+
+# Variablen
+
+
+
+```{r}
+kable(variables.codebook,
+      format = "latex",
+      align = 'P{3.5cm}P{3cm}p{8cm}',
+      booktabs = TRUE,
+      longtable = TRUE,
+      escape = FALSE,
+      col.names = c("Variable",
+                    "Typ",
+                    "Erläuterung"))  %>% kable_styling(latex_options = "repeat_header")
+```
+
+
+
+
+
+
 
 
 
