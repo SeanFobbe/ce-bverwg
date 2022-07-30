@@ -65,9 +65,16 @@ f.latexdefs <- function(x,
                    f.latexcommand("softwareconcepturldoi",
                                   paste0("https://doi.org/", x$doi$software$concept)),
                    f.latexcommand("softwareversionurldoi",
-                                  paste0("https://doi.org/", x$doi$software$version)))
+                                  paste0("https://doi.org/", x$doi$software$version))),
                    
+                   "\n%-----Additional DOIs-----",
+                   f.latexcommand("aktenzeichenurldoi",
+                                  paste0("https://doi.org/", x$doi$aktenzeichen)),
+                   f.latexcommand("personendatenurldoi",
+                                  paste0("https://doi.org/", x$doi$personendaten))
+                   )
 
+    
 
 
     ## Write LaTeX Parameters to disk
