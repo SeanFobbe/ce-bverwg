@@ -22,12 +22,12 @@ f.dataset_finalize <- function(x,
 
 
     ## Merge URL vector
-    dt.download$doc_id <- gsub("\\.pdf",
-                               "\\.txt",
-                               download.table$doc_id)
+    download.table$doc_id <- gsub("\\.pdf",
+                                  "\\.txt",
+                                  download.table$doc_id)
 
     dt.final <- merge(dt.main,
-                      dt.download,
+                      download.table,
                       by = "doc_id")
     
 
