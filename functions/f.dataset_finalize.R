@@ -15,7 +15,7 @@ f.dataset_finalize <- function(x,
 
 
     ## Bind additional vars
-    dt.main <- cbind(x,
+    dt.final <- cbind(x,
                      vars.additional)
 
     ## Remove LaTeX escape characters
