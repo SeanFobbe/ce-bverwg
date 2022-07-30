@@ -12,7 +12,7 @@ output:
     pandoc_args: --listings
     includes:
       in_header: tex/Preamble_DE.tex
-      before_body: [temp/CE-BVerwG_Definitions.tex, tex/Titlepage_Compilation.tex]
+      before_body: [temp/Definitions.tex, tex/Titlepage_Compilation.tex]
 bibliography: temp/packages.bib
 nocite: '@*'
 ---
@@ -765,7 +765,7 @@ tar_target(latexdefs,
 
 ```{targets tar.report2}
 tar_target(lingstats.summary,
-                f.lingstats_summary(dt.bpatg.full,
+                f.lingstats_summary(dt.bverwg.full,
                                     germanvars = TRUE))
 
 ```
@@ -776,7 +776,7 @@ tar_target(lingstats.summary,
 ```{targets tar.report3}
 tarchetypes::tar_render(report.robustness,
                         file.path("reports",
-                                  "CE-BPatG_RobustnessChecks.Rmd"),
+                                  "RobustnessChecks.Rmd"),
                         output_file = file.path("../output",
                                                 paste0(config$project$shortname,
                                                        "_"
@@ -794,7 +794,7 @@ tarchetypes::tar_render(report.robustness,
 ```{targets tar.report4}
 tarchetypes::tar_render(report.codebook,
                         file.path("reports",
-                                  "CE-BPatG_Codebook.Rmd"),
+                                  "Codebook.Rmd"),
                         output_file = file.path("../output",
                                                 paste0(config$project$shortname,
                                                        "_",
