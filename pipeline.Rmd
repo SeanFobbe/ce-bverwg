@@ -280,7 +280,7 @@ list(
                "data/CE-BVerwG_Variables.csv",
                format = "file"),
     tar_target(variables.codebook,
-               fread(file.variables))
+               fread(file.variables.codebook))
 )
 ```
 
