@@ -276,12 +276,12 @@ Die Variablen des Datensatzes, inklusive ihrer Erläuterung.
 
 ```{targets tar.file1}
 list(
-    tar_target(file.variables,
-           "data/CE-BVerwG_Variables.csv",
-           format = "file"),
-     tar_target(variables,
-                fread(file.variables))
-     )
+    tar_target(file.variables.codebook,
+               "data/CE-BVerwG_Variables.csv",
+               format = "file"),
+    tar_target(variables.codebook,
+               fread(file.variables))
+)
 ```
 
 
@@ -566,6 +566,21 @@ tar_target(vars_additional,
 ```
 
 
+### Finalen Datensatz erstellen
+
+Die Verbesserungen der vorherigen Schritte werden in dieser Funktion zusammengefügt um den finalen Datenatz herzustellen.
+
+
+```{targets tar.enhance13}
+tar_target(dt.bverwg.full,
+                f.dataset_finalize(x = dtbverwg.datecleaned,
+                                   vars.additional = vars_additional,
+                                   variablen = variables.codebook$varname))
+
+```
+
+
+
 
 
 
@@ -675,8 +690,6 @@ tar_target(latexdefs,
 ```{r pipeline-run, results = "hide"}
 tar_make()
 ```
-
-
 
 
 
