@@ -551,6 +551,20 @@ tar_target(var_constants,
 ```
 
 
+### Zusätzliche Variablen zusammenführen
+
+```{targets tar.enhance12}
+tar_target(vars_additional,
+           cbind(var_verfahrensart,
+                 var_aktenzeichen,
+                 var_ecli,
+                 var_praesi,
+                 var_vpraesi,
+                 var_lingstats,
+                 var_constants))
+
+```
+
 
 
 
