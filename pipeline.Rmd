@@ -210,6 +210,7 @@ source("R-fobbe-proto-package/f.year.iso.R")
 source("R-fobbe-proto-package/f.hyphen.remove.R")
 source("R-fobbe-proto-package/f.fast.freqtable.R")
 source("R-fobbe-proto-package/f.future_lingsummarize.R")
+source("R-fobbe-proto-package/f.future_spacyparse.R")
 source("R-fobbe-proto-package/f.future_multihashes.R")
 
 ```
@@ -593,6 +594,27 @@ tar_target(dt.bverwg.meta,
                 dt.bverwg.full[, !"text"])
 
 ```
+
+
+
+### Variante erstellen: Annotationen
+
+```{targets tar.enhance15}
+tar_target(dt.annotated,
+           f.future_spacyparse(dt.bverwg.full,
+                               chunksperworker = 1,
+                               chunksize = NULL,
+                               model = "de_core_news_sm",
+                               pos = TRUE,
+                               tag = TRUE,
+                               lemma = TRUE,
+                               entity = TRUE,
+                               dependency = TRUE,
+                               nounphrase = TRUE))
+
+```
+
+
 
 
 
