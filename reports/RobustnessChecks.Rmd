@@ -44,6 +44,9 @@ tar_load(files.txt)
 
 
 
+
+
+
 # Vollständigkeit der Texte
 
 
@@ -61,6 +64,25 @@ setdiff(tools::file_path_sans_ext(basename(files.pdf)),
         tools::file_path_sans_ext(basename(files.txt)))
 ```
 
+
+
+# Variablen
+
+## Anzahl Variablen der Datensätze
+
+length(dt.bverwg.full)
+
+
+
+## Alle Variablen-Namen der Datensätze
+
+names(dt.bverwg.full)
+
+
+
+## Beispiel-Werte
+
+str(dt.bverwg.full)
 
 
 
