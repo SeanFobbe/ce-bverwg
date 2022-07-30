@@ -6,7 +6,7 @@
 
 - Vollständige Aktualisierung der Daten
 - Neuentwurf des Source Codes im *targets* framework
-- Einführung von Konfiguraitons-Datei
+- Einführung von separater Konfigurations-Datei
 - Strenge Versionskontrolle aller R packages mit *renv*
 
 
