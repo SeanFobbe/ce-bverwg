@@ -118,7 +118,7 @@ Die für die Referenzdatensätze verwendete \LaTeX -Installation ist `texlive-sc
 Den vollständigen Datensatz kompilieren Sie mit folgendem Befehl:
 
 ```
-source("run_dataset.R") # In einer R-Konsole ausführen
+source("run_project.R") # In einer R-Konsole ausführen
 ```
 
 
