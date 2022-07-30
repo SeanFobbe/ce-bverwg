@@ -644,7 +644,7 @@ kable(lingstats.summary,
 
 
 ```{r, CE-BVerwG_09_Density_Zeichen, fig.height = 6, fig.width = 9}
-ggplot(data = dt.bpatg.meta)+
+ggplot(data = dt.bverwg.meta)+
     geom_density(aes(x = zeichen),
                  fill = "#005189")+
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
@@ -673,7 +673,7 @@ ggplot(data = dt.bpatg.meta)+
 ## Verteilung Tokens
 
 ```{r,  CE-BVerwG_10_Density_Tokens, fig.height = 6, fig.width = 9}
-ggplot(data = dt.bpatg.meta)+
+ggplot(data = dt.bverwg.meta)+
     geom_density(aes(x = tokens),
                  fill = "#005189")+
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
@@ -701,7 +701,7 @@ ggplot(data = dt.bpatg.meta)+
 ## Verteilung Typen
 
 ```{r, CE-BVerwG_11_Density_Typen, fig.height = 6, fig.width = 9}
-ggplot(data = dt.bpatg.meta)+
+ggplot(data = dt.bverwg.meta)+
     geom_density(aes(x = typen),
                  fill = "#005189")+
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
@@ -730,7 +730,7 @@ ggplot(data = dt.bpatg.meta)+
 ## Verteilung Sätze
 
 ```{r, CE-BVerwG_12_Density_Saetze, fig.height = 6, fig.width = 9}
-ggplot(data = dt.bpatg.meta)+
+ggplot(data = dt.bverwg.meta)+
     geom_density(aes(x = saetze),
                  fill = "#005189")+
     scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
