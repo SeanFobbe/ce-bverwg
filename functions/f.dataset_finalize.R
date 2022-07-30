@@ -14,15 +14,15 @@ f.dataset_finalize <- function(x,
                                varnames){
 
 
-
+    ## Bind additional vars
     dt.main <- cbind(x,
-                     varnames)
+                     vars.additional)
 
+    ## Remove LaTeX escape characters
+    varnames <- gsub("\\\\", "", varnames)
 
-    variablen <- gsub("\\\\", "", variablen)
-
-    
-    data.table::setcolorder(dt.final, variablen)
+    ## Set column order
+    data.table::setcolorder(dt.final, varnames)
 
 
     return(dt.final)
