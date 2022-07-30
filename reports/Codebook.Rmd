@@ -421,7 +421,7 @@ kbl(az.brd[stelle == "BVerwG" & position == "hauptzeichen",
     booktabs = TRUE,
     longtable = TRUE,
     col.names = c("Registerzeichen",
-                  "Verfahrensart")) 
+                  "Verfahrensart"))   %>% kable_styling(latex_options = "repeat_header")
 
 ```
 
