@@ -902,7 +902,7 @@ freqtable.az.nosum <- freqtable.az[-.N]
 
 
 
-```{r, CE-BVerwG_04_Barplot_Spruchkoerper_AZ, fig.height = 6, fig.width = 9}
+```{r, CE-BVerwG_03_Barplot_Spruchkoerper_AZ, fig.height = 6, fig.width = 9}
 ggplot(data = freqtable.az.nosum) +
     geom_bar(aes(x = reorder(spruchkoerper_az,
                              -N),
@@ -970,7 +970,7 @@ freqtable.regz.nosum <- freqtable.regz[-.N]
 
 
 
-```{r, CE-BVerwG_05_Barplot_Registerzeichen, fig.height = 8, fig.width = 10}
+```{r, CE-BVerwG_04_Barplot_Registerzeichen, fig.height = 8, fig.width = 10}
 ggplot(data = freqtable.regz.nosum) +
     geom_bar(aes(x = reorder(registerzeichen,
                              N),
@@ -1101,7 +1101,7 @@ freqtable.vpraesi.nosum <- freqtable.vpraesi[-.N]
 
 
 
-```{r, CE-BVerwG_05_Barplot_VizePraesidentIn, fig.height = 6, fig.width = 9}
+```{r, CE-BVerwG_06_Barplot_VizePraesidentIn, fig.height = 6, fig.width = 9}
 ggplot(data = freqtable.vpraesi.nosum) +
     geom_bar(aes(x = reorder(v_praesi,
                              N),
@@ -1169,7 +1169,7 @@ freqtable.entscheidungsjahr.nosum <- freqtable.entscheidungsjahr[-.N]
 
 
 
-```{r, CE-BVerwG_06_Barplot_Entscheidungsjahr, fig.height = 6, fig.width = 9}
+```{r, CE-BVerwG_07_Barplot_Entscheidungsjahr, fig.height = 6, fig.width = 9}
 ggplot(data = freqtable.entscheidungsjahr.nosum) +
     geom_bar(aes(x = entscheidungsjahr,
                  y = N),
@@ -1228,7 +1228,7 @@ freqtable.eingangsjahr.nosum <- freqtable.eingangsjahr[-.N]
 
 
 
-```{r, CE-BVerwG_07_Barplot_EingangsjahrISO, fig.height = 6, fig.width = 9}
+```{r, CE-BVerwG_08_Barplot_EingangsjahrISO, fig.height = 6, fig.width = 9}
 ggplot(data = freqtable.eingangsjahr.nosum) +
     geom_bar(aes(x = eingangsjahr_iso,
                  y = N),
