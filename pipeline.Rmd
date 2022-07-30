@@ -661,7 +661,7 @@ tar_target(zip.pdf.all,
 
 ### ZIP erstellen: TXT-Dateien
 
-```{targets tar.zip3}
+```{targets tar.zip2}
 tar_target(zip.txt,
            f.tar_zip(files.txt,
                      filename = paste(prefix.files,
@@ -676,7 +676,7 @@ tar_target(zip.txt,
 ### ZIP erstellen: CSV-Datei (voller Datensatz)
 
 
-```{targets tar.zip5}
+```{targets tar.zip3}
 tar_target(zip.csv.full,
                 f.tar_zip(csv.full,
                               filename = gsub("\\.csv", "\\.zip", basename(csv.full)),
@@ -690,7 +690,7 @@ tar_target(zip.csv.full,
 ### ZIP erstellen: CSV-Datei (nur Metadaten)
 
 
-```{targets tar.zip6}
+```{targets tar.zip4}
 tar_target(zip.csv.meta,
                 f.tar_zip(csv.meta,
                               filename = gsub("\\.csv", "\\.zip", basename(csv.meta)),
@@ -704,7 +704,7 @@ tar_target(zip.csv.meta,
 
 ### ZIP erstellen: Analyse-Dateien
 
-```{targets tar.zip4}
+```{targets tar.zip5}
 tar_target(zip.analysis,
            f.tar_zip("analysis/",
                      filename = paste(prefix.files,
@@ -724,7 +724,7 @@ tar_target(zip.analysis,
 ### ZIP erstellen: Source Code
 
 
-```{targets tar.zip7}
+```{targets tar.zip6}
 tar_target(zip.source,
                 f.tar_zip(files.source,
                               filename = paste0(prefix.files,
@@ -757,6 +757,49 @@ tar_target(latexdefs,
                             dir = "temp",
                             datestamp = datestamp),
 	       format = "file")
+
+```
+
+
+### Zusammenfassungen linguistischer Kennwerte berechnen
+
+```{targets tar.report2}
+tar_target(lingstats.summary,
+                f.lingstats_summary(dt.bpatg.full,
+                                    germanvars = TRUE))
+
+```
+
+
+### Report erstellen: Robustness Checks
+
+```{targets tar.report3}
+tarchetypes::tar_render(report.robustness,
+                        file.path("reports",
+                                  "CE-BPatG_RobustnessChecks.Rmd"),
+                        output_file = file.path("../output",
+                                                paste0(config$project$shortname,
+                                                       "_"
+                                                       datestamp,
+                                                       "_RobustnessChecks.pdf")))
+
+```
+
+
+
+### Report erstellen: Codebook
+
+
+
+```{targets tar.report4}
+tarchetypes::tar_render(report.codebook,
+                        file.path("reports",
+                                  "CE-BPatG_Codebook.Rmd"),
+                        output_file = file.path("../output",
+                                                paste0(config$project$shortname,
+                                                       "_",
+                                                       datestamp,
+                                                       "_Codebook.pdf")))
 
 ```
 
