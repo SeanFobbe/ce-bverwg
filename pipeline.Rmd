@@ -669,6 +669,17 @@ tar_target(latexdefs,
 # Pipeline: Kompilierung
 
 
+
+## Durchführen der Kompilierung
+
+```{r pipeline-run, results = "hide"}
+tar_make()
+```
+
+
+
+
+
 ## Visualisierung
 
 ```{r, pipeline-graph, width = 9, height = 9}
@@ -691,13 +702,6 @@ ggraph(g,
 
 ```
                        
-
-
-## Durchführen der Kompilierung
-
-```{r pipeline-run, results = "hide"}
-tar_make()
-```
 
 
 
