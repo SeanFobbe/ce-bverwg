@@ -573,7 +573,7 @@ Die Verbesserungen der vorherigen Schritte werden in dieser Funktion zusammengef
 
 ```{targets tar.enhance13}
 tar_target(dt.bverwg.full,
-                f.dataset_finalize(x = dtbverwg.datecleaned,
+                f.dataset_finalize(x = dt.bverwg.datecleaned,
                                    vars.additional = vars_additional,
                                    varnames = variables.codebook$varname))
 
