@@ -1,4 +1,4 @@
-variable,type,explanation
+varname,type,explanation
 doc\_id,String,(Nur CSV) Dateiname der extrahierten TXT-Datei.
 text,String,(Nur CSV) Volltext der Entscheidung. Über Zeilengrenzen getrennte Wörter sind zusammengefügt.
 url,String,(Nur CSV) Link zum Volltext der Entscheidung in der Datenbank des BPatG.
