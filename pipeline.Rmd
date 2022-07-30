@@ -958,8 +958,8 @@ kable(meta,
 ## Datensatz in RAM (MB)
 
 ```{r}
-tar_load(dt.bpatg.full)
-print(object.size(dt.bpatg.full),
+tar_load(dt.bverwg.full)
+print(object.size(dt.bverwg.full),
       standard = "SI",
       humanReadable = TRUE,
       units = "MB")
