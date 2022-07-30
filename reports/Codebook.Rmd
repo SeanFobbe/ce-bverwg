@@ -1046,9 +1046,7 @@ ggplot(data = freqtable.praesi.nosum) +
     coord_flip()+
     theme_bw() +
     labs(
-        title = paste(datasetname,
-                      "| Version",
-                      datestamp,
+        title = paste(prefix.figuretitle,
                       "| Entscheidungen je Präsident:in"),
         caption = figure.caption,
         x = "Präsident:in",
@@ -1113,9 +1111,7 @@ ggplot(data = freqtable.vpraesi.nosum) +
     coord_flip()+
     theme_bw() +
     labs(
-        title = paste(datasetname,
-                      "| Version",
-                      datestamp,
+        title = paste(prefix.figuretitle,
                       "| Entscheidungen je Vize-Präsident:in"),
         caption = figure.caption,
         x = "Vize-Präsident:in",
