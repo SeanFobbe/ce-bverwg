@@ -287,8 +287,26 @@ PDF & \textbf{Traditionelle juristische Forschung}. Die PDF-Dokumente wie sie vo
 
 
 
-# Variablen
 
+# Variablen (Allgemein)
+\label{variablen}
+
+
+## Datenstruktur 
+
+str(dt.bverwg.meta)
+
+
+
+## Hinweise
+
+
+- Fehlende Werte sind immer mit \enquote{NA} codiert
+- Strings können grundsätzlich alle in UTF-8 definierten Zeichen (insbesondere Buchstaben, Zahlen und Sonderzeichen) enthalten.
+
+
+
+## Erläuterung der Variablen
 
 
 ```{r}
@@ -302,6 +320,41 @@ kable(variables.codebook,
                     "Typ",
                     "Erläuterung"))  %>% kable_styling(latex_options = "repeat_header")
 ```
+
+
+
+# Variablen (Linguistische Annotationen)
+\label{annovars}
+
+
+
+## Datenstruktur 
+
+
+
+
+## Hinweise
+
+ Diese Variante des Datensatzes beruht nur auf den Variablen \enquote{doc\_id} und \enquote{text} des regulären Datensatzes, die tokenisiert und mittels der Software \enquote{spacy}\footnote{Die den Annotationen zugrundeliegende Software ist \emph{spacy}, die hier verfügbar ist \url{https://spacy.io/}. Diese wird in R mittels des \emph{spacyr} packages integriert: \url{https://spacyr.quanteda.io/}.} mit linguistischen Annotationen versehen wurden.
+
+
+Die Metadaten des Gesamtdatensatzes sind nicht in der linguistische annotierten Fassung enthalten, weil die Bereitstellung von Metadaten für jedes Token die Dateigröße und damit auch den RAM-Bedarf für Analysen gewaltig steigern würde. Um anhand der Metadaten Teilmengen der linguistischen Annotationen zu bilden, gehen sie bitte wie folgt vor:
+
+
+- CSV-Datei mit Metadaten einlesen
+- Anhand der Metadaten die gewünschte Teilmenge der Dokumente bilden
+- CSV-Datei mit Linguistischen Annotationen einlesen
+- Die Werte der Variable \enquote{doc\_id} der Teilmenge nutzen um aus den annotierten Daten nur diejenigen herauszufiltern, deren Variable \enquote{doc\_id} mit der Teilmenge übereinstimmt 
+
+
+
+
+
+\newpage
+
+
+## Erläuterung der Variablen
+
 
 
 
