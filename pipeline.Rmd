@@ -599,7 +599,7 @@ tar_target(dt.bverwg.meta,
 
 ### Variante erstellen: Annotationen
 
-```{targets tar.enhance15}
+```{targets tar.enhance15, eval = FALSE}
 tar_target(dt.annotated,
            f.future_spacyparse(dt.bverwg.full,
                                chunksperworker = 1,
