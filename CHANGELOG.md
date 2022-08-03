@@ -8,6 +8,7 @@
 - Neuentwurf des Source Codes im *targets* framework
 - Einführung von separater Konfigurations-Datei
 - Strenge Versionskontrolle aller R packages mit *renv*
+- Variante mit linguistischen Annotationen ist temporär nicht mehr verfügbar
 
 
 
