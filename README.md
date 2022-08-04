@@ -179,7 +179,7 @@ Die folgende Struktur erläutert die wichtigsten Bestandteile des Projekts. Wäh
 ├── renv.lock                  # Versionskontrolle: Versionsinformationen
 ├── reports                    # Markdown-Dateien
 └── tex                        # LaTeX-Templates
-
+``` 
 
 
 
