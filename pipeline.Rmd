@@ -990,9 +990,9 @@ setDT(meta)
 
 kable(meta,
       format = "latex",
-      align = c("l"),
+      align = c("P{4cm}", "p{10cm}"),
       booktabs = TRUE,
-      longtable = TRUE) %>% kable_styling(latex_options = "repeat_header")
+      longtable = TRUE)
 
 
 ```
@@ -1008,9 +1008,9 @@ setDT(meta)
 
 kable(meta,
       format = "latex",
-      align = c("l"),
+      align = c("P{4cm}", "p{10cm}"),
       booktabs = TRUE,
-      longtable = TRUE) %>% kable_styling(latex_options = "repeat_header")
+      longtable = TRUE)
 
 
 ```
