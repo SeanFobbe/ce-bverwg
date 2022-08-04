@@ -35,7 +35,7 @@ f.presidents <- function(datum,
     ## Daten mit Namen ersetzen
     for (i in 1:dt[,.N]){
 
-        logical <- dt$term_begin_date[i] < as.IDate(datum) &  as.IDate(datum) < dt$term_end_date[i]
+        logical <- dt$term_begin_date[i] <= as.IDate(datum) &  as.IDate(datum) <= dt$term_end_date[i]
         indices <- which(logical, datum)
         names[indices] <- dt$name_last[i]
         
