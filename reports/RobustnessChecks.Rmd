@@ -70,21 +70,23 @@ setdiff(tools::file_path_sans_ext(basename(files.pdf)),
 
 ## Anzahl Variablen der Datensätze
 
+```{r}
 length(dt.bverwg.full)
-
+```
 
 
 ## Alle Variablen-Namen der Datensätze
 
+```{r}
 names(dt.bverwg.full)
-
+```
 
 
 ## Beispiel-Werte
 
+```{r}
 str(dt.bverwg.full)
-
-
+```
 
 
 
