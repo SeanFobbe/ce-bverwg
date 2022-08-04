@@ -419,7 +419,9 @@ Durch diesen Abschnitt der Pipeline werden die PDF-Dateien in TXT konvertiert un
 ```{targets tar.convert}
 
 list(tar_target(files.txt,
-                f.tar_pdf_extract(files.pdf),
+                f.tar_pdf_extract(files.pdf,
+                                  outputdir = "txt",
+                                  cores = fullCores),
                 format = "file"),
      tar_target(dt.bverwg,
                 f.readtext(x = files.txt,
