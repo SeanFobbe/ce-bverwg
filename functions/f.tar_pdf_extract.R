@@ -6,19 +6,19 @@
 #' @param outputdir Character. The directory to store the extracted TXT files in.
 
 f.tar_pdf_extract <- function(x,
-                              outputdir,
+                              outputdir = "txt",
                               cores = parallel::detectCores()){
     
-    unlink("txt", recursive = TRUE)
-    dir.create("txt")
+    unlink(outputdir, recursive = TRUE)
+    dir.create(outputdir)
 
     plan(multicore,
          workers = cores)
     
     pdf_extract(x,
-                outputdir = "txt")
+                outputdir = outputdir)
 
-    files.txt <- list.files("txt", pattern = "\\.txt", full.names = TRUE)
+    files.txt <- list.files(outputdir, pattern = "\\.txt", full.names = TRUE)
 
     return(files.txt)
     
