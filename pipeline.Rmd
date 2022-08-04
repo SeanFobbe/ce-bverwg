@@ -946,6 +946,23 @@ kable(meta[order(type, name)],
 \newpage
 ## Timing
 
+### Gesamte Laufzeit
+
+```{r, pipeline-runtime}
+runtime.sum <- sum(meta$seconds)
+
+## Sekunden
+print(runtime.sum)
+
+## Minuten
+runtime.sum / 60
+
+## Stunden
+runtime.sum / 3600
+```
+
+### Laufzeit einzelner Targets
+
 Der Zeitpunkt an dem die Targets berechnet wurden und ihre jeweilige Laufzeit in Sekunden.
 
 
@@ -964,20 +981,7 @@ kable(meta[order(-seconds)],
 
 ```
 
-Gesamte Laufzeit in Sekunden, Minuten und Stunden.
 
-```{r, pipeline-runtime}
-runtime.sum <- sum(meta$seconds)
-
-## Sekunden
-print(runtime.sum)
-
-## Minuten
-runtime.sum / 60
-
-## Stunden
-runtime.sum / 3600
-```
 
 \newpage
 ## Warnungen
@@ -1055,6 +1059,8 @@ kable(table.size,
 
 ```
 
+
+\newpage
 
 ## Datensatz in RAM (MB)
 
