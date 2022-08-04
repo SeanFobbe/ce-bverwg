@@ -27,7 +27,7 @@ doi.aktenzeichen = "10.5281/zenodo.4569564" # checked
 
 #=== Modus: Debugging ===
 
-debug.toggle = true   # Ob Debugging aktiv ist; Möglichkeiten sind "true" oder "false"
+debug.toggle = false   # Ob Debugging aktiv ist; Möglichkeiten sind "true" oder "false"
 debug.files = 100 # Die Anzahl der Dateien, die testweise heruntergeladen werden soll.
 
 
