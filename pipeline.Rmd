@@ -953,6 +953,7 @@ Der Zeitpunkt an dem die Targets berechnet wurden und ihre jeweilige Laufzeit in
 
 meta <- tar_meta(fields = c("time", "seconds"), complete_only = TRUE)
 setDT(meta)
+meta$mins <- round(meta$seconds / 60, digits = 2)
 
 kable(meta[order(-seconds)],
       format = "latex",
