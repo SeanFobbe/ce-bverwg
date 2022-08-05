@@ -156,7 +156,6 @@ Die Tabelle der Registerzeichen und der ihnen zugeordneten Verfahrensarten stamm
 Die Daten wurden unter Beachtung des Robot Exclusion Standard (RES) gesammelt. Der Abruf geschieht ausschließlich über TLS-verschlüsselte Verbindungen. Die Entscheidungen sind laut dem Gericht anonymisiert, aber ungekürzt.
 
 
-## Visualisierung des Prozesses
 
 ```{r, CE-BVerwG_00_Pipeline_Graph, fig.width = 8, fig.height = 9, fig.pos = "p", fig.cap = "Der vollständige Prozess der Datensatz-Kompilierung."}
 
