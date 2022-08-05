@@ -906,7 +906,7 @@ g  <- igraph::graph.data.frame(edgelist,
 
 
 ggraph(g,
-       'auto') + 
+       'sugiyama') + 
     geom_edge_diagonal(colour = "grey")+
     geom_node_point()+
     geom_node_text(aes(label = name),
@@ -923,7 +923,7 @@ ggraph(g,
 
 #alternative viz
 ggraph(g,
-       'auto') + 
+       'sugiyama') + 
 
     geom_edge_diagonal(aes(end_cap = label_rect(node2.name)), 
                    arrow = arrow(type = "closed",
