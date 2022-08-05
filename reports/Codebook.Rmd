@@ -184,7 +184,7 @@ ggraph(g,
 
 ```
     
-
+\newpage
 
 
 ## Grenzen des Datensatzes
