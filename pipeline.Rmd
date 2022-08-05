@@ -896,7 +896,7 @@ tar_make()
 
 ## Visualisierung
 
-```{r, pipeline-graph, width = 12, height = 15}
+```{r, pipeline-graph, width = 12, height = 18}
 
 edgelist <- tar_network(targets_only = TRUE)$edges
 setDT(edgelist)
@@ -906,7 +906,7 @@ g  <- igraph::graph.data.frame(edgelist,
 
 
 ggraph(g,
-       'dh') + 
+       'auto') + 
     geom_edge_diagonal(colour = "grey")+
     geom_node_point()+
     geom_node_text(aes(label = name),
@@ -916,11 +916,11 @@ ggraph(g,
 
 
 ggraph(g,
-       'dh') + 
+       'auto') + 
 
-    geom_edge_link(aes(end_cap = label_rect(node2.name)), 
+    geom_edge_diagonal(aes(end_cap = label_rect(node2.name)), 
                    arrow = arrow(type = "closed",
-                                 angle = 15,
+                                 angle = 30,
                                  length = unit(2, 'mm')))+
 
     geom_node_label(aes(label = name),
