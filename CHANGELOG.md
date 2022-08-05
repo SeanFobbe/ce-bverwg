@@ -9,6 +9,7 @@
 - Einführung von separater Konfigurations-Datei
 - Strenge Versionskontrolle aller R packages mit *renv*
 - Variante mit linguistischen Annotationen ist temporär nicht mehr verfügbar
+- Neue Visualisierung der gesamten Daten-Pipeline
 
 
 
