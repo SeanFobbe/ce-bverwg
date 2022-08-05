@@ -164,7 +164,7 @@ Der gesamte Source Code --- sowohl für die Erstellung des Datensatzes, als auch
 Mit jeder Kompilierung des vollständigen Datensatzes wird auch ein umfangreicher **Compilation Report** in einem attraktiv designten PDF-Format erstellt (ähnlich diesem Codebook). Der Compilation Report enthält den kommentierten Source Code für die Daten-Pipeline, dokumentiert relevante Rechenergebnisse, gibt sekundengenaue Zeitstempel an und ist mit einem klickbaren Inhaltsverzeichnis versehen. Er ist zusammen mit dem Source Code hinterlegt. Wenn Sie sich für Details der Herstellung interessieren, lesen Sie diesen bitte zuerst.
 
 
-```{r, CE-BVerwG_00_Pipeline_Graph, fig.width = 12, fig.height = 18, fig.cap = "Der vollständige Prozess der Datensatz-Kompilierung."}
+```{r, CE-BVerwG_00_Pipeline_Graph, fig.width = 7, fig.height = 9, fig.cap = "Der vollständige Prozess der Datensatz-Kompilierung."}
 
 edgelist <- tar_network(targets_only = TRUE)$edges
 setDT(edgelist)
