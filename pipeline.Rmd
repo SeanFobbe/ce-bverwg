@@ -914,6 +914,23 @@ ggraph(g,
                    repel = TRUE)+
     theme_void()
 
+
+ggraph(g,
+       'dh') + 
+
+    geom_edge_link(aes(end_cap = label_rect(node2.name)), 
+                   arrow = arrow(type = "closed",
+                                 angle = 15,
+                                 length = unit(2, 'mm')))+
+
+    geom_node_label(aes(label = name),
+                    size = 2,
+                    repel = FALSE)+
+    theme_void()
+
+
+
+
 ```
                        
 
