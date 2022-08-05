@@ -919,7 +919,7 @@ ggraph(g,
                        
 
 
-```{r, pipeline-graph, width = 12, height = 18}
+```{r, pipeline-graph1, width = 12, height = 18}
 
 ggraph(g,
        'auto') + 
