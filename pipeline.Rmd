@@ -896,7 +896,7 @@ tar_make()
 
 ## Visualisierung
 
-```{r, pipeline-graph, fig.width = 6, fig.height = 9}
+```{r, pipeline-graph, fig.width = 7, fig.height = 9}
 
 edgelist <- tar_network(targets_only = TRUE)$edges
 setDT(edgelist)
@@ -919,7 +919,7 @@ ggraph(g,
                        
 
 
-```{r, pipeline-graph1, fig.width = 6, fig.height = 9}
+```{r, pipeline-graph1, fig.width = 7, fig.height = 9}
 
 ggraph(g,
        'auto') + 
