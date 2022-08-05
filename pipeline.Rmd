@@ -915,6 +915,12 @@ ggraph(g,
     theme_void()
 
 
+```
+                       
+
+
+```{r, pipeline-graph, width = 12, height = 18}
+
 ggraph(g,
        'auto') + 
 
@@ -932,9 +938,6 @@ ggraph(g,
 
 
 ```
-                       
-
-
 
 
 # Pipeline: Analyse
