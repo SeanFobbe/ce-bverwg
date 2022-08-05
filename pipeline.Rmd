@@ -919,7 +919,7 @@ ggraph(g,
                        
 
 
-```{r, pipeline-graph1, fig.width = 7, fig.height = 9, eval = FALSE}
+```{r, pipeline-graph1, fig.width = 7, fig.height = 9, eval = FALSE, echo = FALSE}
 
 #alternative viz
 ggraph(g,
