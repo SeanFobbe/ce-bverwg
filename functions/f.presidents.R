@@ -42,6 +42,15 @@ f.presidents <- function(datum,
     }
 
 
+    ## Unit Test
+    test_that("Korrektheit des Ergebnisses.", {
+        expect_type(names, "character")
+        expect_length(setdiff(names, pvp.fcg[court == gericht]$name_last),  0)
+        expect_length(names, length(datum))
+    })
+    
+    
+
     return(names)
 
 }
