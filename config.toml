@@ -32,7 +32,7 @@ debug.files = 100 # Die Anzahl der Dateien, die testweise heruntergeladen werden
 
 
 #=== Modus: Linguistische Annotationen ===
-# Wenn dieser Modus aktiviert ist wird  mittels spacyr eine zusätzliche Variante des Datensatzes mit umfangreichen linguistischen Annotationen berechnet. Dieser Modus ist sehr rechenintensiv! Kann mit Debugging kombiniert werden.
+# Wenn dieser Modus aktiviert ist wird  mittels spacyr eine zusätzliche Variante des Datensatzes mit umfangreichen linguistischen Annotationen berechnet. Dieser Modus ist sehr rechenintensiv! Kann mit Debugging kombiniert werden. Aktuell nicht verfügbar, weil unlösebare Probleme mit spacy auftreten.
 
 annotate.toggle = false
 
