@@ -535,7 +535,7 @@ tar_target(var_lingstats,
                             multicore = config$parallel$lingsummarize,
                             cores = fullCores,
                             germanvars = TRUE,
-							tokens_locale = ""de_DE""))
+							tokens_locale = "de_DE"))
 ```
 
 
