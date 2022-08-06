@@ -54,9 +54,11 @@ Verwenden Sie immer einen separaten und *leeren* Ordner für die Kompilierung. D
 
 ### Schritt 2: Installation der Programmiersprache 'R'
 
-Sie müssen die [Programmiersprache R](https://www.r-project.org/) installiert haben.
+Sie müssen die [Programmiersprache R](https://www.r-project.org/) und OpenSSL installiert haben. Normalerweise sind diese in Fedora Linux bereits enthalten, andernfalls führen Sie aus:
 
-
+```
+$ sudo dnf install R openssl
+```
 
 
 
