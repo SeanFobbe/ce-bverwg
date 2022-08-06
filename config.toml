@@ -25,16 +25,22 @@ doi.personendaten = "10.5281/zenodo.4568682" # checked
 doi.aktenzeichen = "10.5281/zenodo.4569564" # checked
 
 
+
+
 #=== Modus: Debugging ===
 
 debug.toggle = false   # Ob Debugging aktiv ist; Möglichkeiten sind "true" oder "false"
 debug.files = 100 # Die Anzahl der Dateien, die testweise heruntergeladen werden soll.
 
 
+
+
 #=== Modus: Linguistische Annotationen ===
 # Wenn dieser Modus aktiviert ist wird  mittels spacyr eine zusätzliche Variante des Datensatzes mit umfangreichen linguistischen Annotationen berechnet. Dieser Modus ist sehr rechenintensiv! Kann mit Debugging kombiniert werden. Aktuell nicht verfügbar, weil unlösebare Probleme mit spacy auftreten.
 
 annotate.toggle = false
+
+
 
 
 
@@ -54,6 +60,7 @@ parallel.multihashes = true
 
 download.timeout = 600	  # Timeout für Downloads
 download.max = 27000    # Maximale Anzahl an heruntergeladenen Entscheidungen
+
 
 
 #=== Quanteda ===
