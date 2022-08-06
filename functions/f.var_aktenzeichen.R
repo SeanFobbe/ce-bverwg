@@ -41,6 +41,35 @@ f.var_aktenzeichen <- function(x,
     ##                      "",
     ##                      aktenzeichen)
 
+
+    ## REGEX-Validierung: Aktenzeichen
+    
+    regex.test <- grep(paste0("[0-9NA]+", # Spruchkörper
+                              " ",
+                              "[A-Za-z-]+", # Registerzeichen
+                              " ",
+                              "[0-9]+", # Eingangsnummer
+                              "/",
+                              "[0-9]{1,2}" # Eingangsjahr
+                              ),
+                       aktenzeichen,
+                       value = TRUE,
+                       invert = TRUE)
+
+    ## Fehlerhafte Aktenzeichen
+
+    if(length(regex.test) != 0){
+        warning("Fehlerhafte Aktenzeichen:")
+        warning(regex.test)
+    }
+
+    ## Unit Test
+    test_that("Aktenzeichen entsprechen Erwartungen.", {
+        expect_type(aktenzeichen, "character")
+        expect_length(regex.test,  0)
+        expect_length(aktenzeichen, nrow(x))
+    })
+    
     return(aktenzeichen)    
     
 }
