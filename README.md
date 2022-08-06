@@ -45,7 +45,7 @@ In der Standard-Einstellung wird das Skript vollautomatisch die maximale Anzahl 
 Kopieren Sie bitte den gesamten Source Code in einen leeren Ordner (!), beispielsweise mit:
 
 ```
-git clone https://github.com/seanfobbe/ce-bverwg
+$ git clone https://github.com/seanfobbe/ce-bverwg
 ```
 
 Verwenden Sie immer einen separaten und *leeren* Ordner für die Kompilierung. Die Skripte löschen innerhalb von bestimmten Unterordnern (`txt/`, `pdf/`, `temp/`, `analysis` und `output/`) alle Dateien die den Datensatz verunreinigen könnten --- aber auch nur dort.
@@ -84,18 +84,18 @@ Um alle packages in der benötigten Version zu installieren, führen Sie in der 
 
 
 
-### Schritt 6: Installation von LaTeX
+### Schritt 5: Installation von LaTeX
 
 Um die PDF Reports zu kompilieren benötigen Sie eine \LaTeX -Installation. Sie können eine vollständige \LaTeX -Distribution auf Fedora wie folgt installieren:
 
 ```
-sudo dnf install texlive-scheme-full
+$ sudo dnf install texlive-scheme-full
 ```
 
 Alternativ können sie das R package [tinytex](https://yihui.org/tinytex/) installieren, welches nur die benötigten \LaTeX\ packages installiert.
 
 ```
-install.packages("tinytex")  # In einer R-Konsole ausführen
+> install.packages("tinytex")  # In einer R-Konsole ausführen
 ```
 
 Die für die Referenzdatensätze verwendete \LaTeX -Installation ist `texlive-scheme-full`.
@@ -104,12 +104,19 @@ Die für die Referenzdatensätze verwendete \LaTeX -Installation ist `texlive-sc
 
 
 
-### Schritt 7: Datensatz kompilieren
+### Schritt 6: Datensatz kompilieren
+
+Falls Sie zuvor den Datensatz schon einmal kompiliert haben (ob erfolgreich oder erfolglos), können Sie mit folgendem Befehl alle Arbeitsdaten im Ordner löschen:
+
+```
+> source("delete_all_data.R") # In einer R-Konsole ausführen
+```
+
 
 Den vollständigen Datensatz kompilieren Sie mit folgendem Befehl:
 
 ```
-source("run_project.R") # In einer R-Konsole ausführen
+> source("run_project.R") # In einer R-Konsole ausführen
 ```
 
 
