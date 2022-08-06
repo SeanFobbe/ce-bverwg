@@ -135,6 +135,7 @@ knitr::write_bib(renv::dependencies()$Package,
 
 tar_option_set(packages = c("tarchetypes",
                             "RcppTOML",     # TOML-Dateien lesen und schreiben
+							"testthat",     # Unit Tests
                             "fs",           # Verbessertes File Handling
                             "zip",          # Verbessertes ZIP Handling
                             "mgsub",        # Vektorisiertes Gsub
