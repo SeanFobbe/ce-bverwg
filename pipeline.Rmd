@@ -97,6 +97,7 @@ unlink(grep(datestamp,
             invert = TRUE,
             value = TRUE))
 
+
 ```
 
 
@@ -947,7 +948,7 @@ ggraph(g,
 
 ## Gesamte Liste
 
-Die vollständige Liste aller Targets, inklusive ihres Types und ihrer Größe in Bytes. Targets die auf Dateien verweisen (z.B. alle PDF-Dateien) geben die Gesamtgröße der Dateien auf der Festplatte an.
+Die vollständige Liste aller Targets, inklusive ihres Types und ihrer Größe. Targets die auf Dateien verweisen (z.B. alle PDF-Dateien) geben die Gesamtgröße der Dateien auf der Festplatte an.
 
 
 
@@ -955,6 +956,7 @@ Die vollständige Liste aller Targets, inklusive ihres Types und ihrer Größe i
 
 meta <- tar_meta(fields = c("type", "bytes"), complete_only = TRUE)
 setDT(meta)
+meta$MB <- round(meta$bytes / 1e6, digits = 2)
 
 kable(meta[order(type, name)],
       format = "latex",
