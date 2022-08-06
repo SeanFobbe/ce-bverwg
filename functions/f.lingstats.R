@@ -16,7 +16,8 @@
 f.lingstats <- function(x,
                         multicore = TRUE,
                         cores = 2,
-                        germanvars = FALSE){
+                        germanvars = FALSE,
+                        tokens_locale = "en"){
 
     ## Set Future Strategy
     if(multicore == TRUE){
@@ -30,6 +31,9 @@ f.lingstats <- function(x,
 
     }
 
+    ## Set Tokens Locale
+    quanteda_options(tokens_locale = tokens_locale)
+    
 
     ## Perform Calculations
     lingstats <- f.future_lingsummarize(x)
