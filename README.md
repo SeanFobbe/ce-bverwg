@@ -64,7 +64,7 @@ $ sudo dnf install R openssl
 
 ### Schritt 3: Installation von 'renv'
 
-Starten sie eine R Session in diesem Ordner, sie sollten automatisch zur Installation von [renv](https://rstudio.github.io/renv/articles/renv.html) (Tool zur Versionierung von R packages) aufgefordert werden.
+Starten sie eine R Session in diesem Ordner, sie sollten automatisch zur Installation von [renv](https://rstudio.github.io/renv/articles/renv.html) aufgefordert werden. `renv` ist ein Tool zur strengen Versionskontrolle von R packages und sichert die Reproduzierbarkeit.
 
 
 
@@ -72,15 +72,13 @@ Starten sie eine R Session in diesem Ordner, sie sollten automatisch zur Install
 
 ### Schritt 4: Installation von R Packages
 
-Um alle packages in der benötigten Version zu installieren, führen Sie in der R session aus:
+Um durch [renv](https://rstudio.github.io/renv/articles/renv.html) alle R packages in der benötigten Version zu installieren, führen Sie in der R session aus:
 
 ```
 > renv::restore()  # In einer R-Konsole ausführen
 ```
 
-*Achtung:* es reicht nicht, die Packages auf herkömmliche Art installiert zu haben. Sie müssen dies nochmal über [renv](https://rstudio.github.io/renv/articles/renv.html) tun, selbst wenn die Packages in ihrer normalen Library schon vorhanden sind.
-
-
+*Achtung:* es reicht nicht, die Packages auf herkömmliche Art installiert zu haben. Sie müssen dies nochmal über [renv](https://rstudio.github.io/renv/articles/renv.html) tun, selbst wenn die Packages in der normalen Library schon vorhanden sind.
 
 
 
@@ -134,8 +132,8 @@ Der Datensatz und alle weiteren Ergebnisse sind nun im Ordner `output/` abgelegt
 Sie können die Pipeline visualisieren, aber nur nachdem sie die zentrale .Rmd-Datei mindestens einmal gerendert haben:
 
 ```
-targets::tar_glimpse()     # Nur Datenobjekte
-targets::tar_visnetwork()  # Alle Objekte
+> targets::tar_glimpse()     # Nur Datenobjekte
+> targets::tar_visnetwork()  # Alle Objekte
 ```
 
 
@@ -147,11 +145,11 @@ targets::tar_visnetwork()  # Alle Objekte
 Hilfreiche Befehle um Fehler zu lokalisieren und zu beheben.
 
 ```
-tar_progress()  # Zeigt Fortschritt und Fehler an
-tar_meta()      # Metadaten inspizieren
-tar_meta(fields = "warnings", complete_only = TRUE)  # Targets mit Warnungen
-tar_meta(fields = "error", complete_only = TRUE)  # Targets mit Fehlermeldungen
-tar_meta(fields = "seconds")  # Laufzeit der Targets
+> tar_progress()  # Zeigt Fortschritt und Fehler an
+> tar_meta()      # Alle Metadaten
+> tar_meta(fields = "warnings", complete_only = TRUE)  # Warnungen
+> tar_meta(fields = "error", complete_only = TRUE)  # Fehlermeldungen
+> tar_meta(fields = "seconds")  # Laufzeit der Targets
 ```
 
 
