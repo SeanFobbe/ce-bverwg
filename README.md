@@ -29,7 +29,7 @@ Alle Ergebnisse werden im Ordner `output` abgelegt. Zusätzlich werden für alle
 ## Systemanforderungen
 
 - Nur mit Fedora Linux getestet. Vermutlich auch funktionsfähig unter anderen Linux-Distributionen.
-- 16 GB Speicherplatz auf Festplatte
+- 6 GB Speicherplatz auf Festplatte
 - Multi-core CPU empfohlen (8 cores/16 threads für die Referenzdatensätze). 
 
 
