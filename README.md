@@ -75,23 +75,11 @@ Starten sie eine R Session in diesem Ordner, sie sollten automatisch zur Install
 Um alle packages in der benötigten Version zu installieren, führen Sie in der R session aus:
 
 ```
-renv::restore()  # In einer R-Konsole ausführen
+> renv::restore()  # In einer R-Konsole ausführen
 ```
 
 *Achtung:* es reicht nicht, die Packages auf herkömmliche Art installiert zu haben. Sie müssen dies nochmal über [renv](https://rstudio.github.io/renv/articles/renv.html) tun, selbst wenn die Packages in ihrer normalen Library schon vorhanden sind.
 
-
-
-
-### Schritt 5: Installation von Spacy
-
-Spacy (eine Python library) muss separat installiert werden. `spacyr` übernimmt dies für sie automatisch:
-
-```
-spacyr::spacy_install(lang_models = "de_core_news_sm")  # In einer R-Konsole ausführen
-```
-
-Wenn sie spacy bereits in dem Conda environment `spacy_condaenv` installiert haben, ist es ausreichend wenn sie das deutsche language model `de_core_news_sm` installieren.
 
 
 
