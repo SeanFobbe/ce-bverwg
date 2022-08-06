@@ -534,7 +534,8 @@ tar_target(var_lingstats,
                 f.lingstats(dt.bverwg.datecleaned,
                             multicore = config$parallel$lingsummarize,
                             cores = fullCores,
-                            germanvars = TRUE))
+                            germanvars = TRUE,
+							tokens_locale = ""de_DE""))
 ```
 
 
