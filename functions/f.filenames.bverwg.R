@@ -164,14 +164,19 @@ f.filenames.bverwg <- function(url){
                        invert = TRUE)
 
 
+    ## Fehlerhafte Dateinamen
 
-    ## Stoppen falls REGEX-Validierung gescheitert
-
-    if (length(regex.test) != 0){
+    if(length(regex.test) != 0){
         warning("Fehlerhafte Dateinamen:")
         warning(regex.test)
-        stop("REGEX VALIDIERUNG GESCHEITERT: DATEINAMEN ENTSPRECHEN NICHT DEM CODEBOOK-SCHEMA!")
     }
+
+    ## Unit Test
+    test_that("Dateinamen entsprechen dem Schema im Codebook.", {
+        expect_type(filenames.final, "character")
+        expect_length(regex.test,  0)
+        expect_length(filenames.final, length(url))
+    })
 
 
     ## Return
