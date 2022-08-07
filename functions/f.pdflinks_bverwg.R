@@ -82,21 +82,23 @@ f.pdflinks_bverwg <- function(download.max){
                        invert = TRUE)
 
 
-    ## Fehlerhafte Dateinamen
+    ## Warnungen
 
     if(length(regex.test) != 0){
         warning("Fehlerhafte Dateinamen:")
         warning(regex.test)
     }
 
-    ## Unit Test
-    test_that("Dateinamen entsprechen dem Schema im Codebook.", {
-        expect_type(filenames.final, "character")
-        expect_length(regex.test,  0)
-        expect_length(filenames.final, length(url))
-    })
+    if(length(links.pdf) == download.max){
+        warning("Exakt soviele Links abgerufen wie in download.max angegeben. Eventuell ist Abfrage-Umfang zu gering und verfügbare Entscheidungen werden verpasst!")
+    }
 
-    
+    ## Unit Test
+    test_that("URLs entsprechen den Erwartungen.", {
+        expect_type(links.pdf, "character")
+        expect_length(regex.test,  0)
+        expect_lte(length(links.pdf), download.max)
+    })   
 
 
     return(links.pdf)
