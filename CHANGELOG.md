@@ -10,6 +10,7 @@
 - Strenge Versionskontrolle aller R packages mit *renv*
 - Variante mit linguistischen Annotationen ist temporär nicht mehr verfügbar
 - Neue Visualisierung der gesamten Daten-Pipeline
+- Vielzahl zusätzlicher Unit Tests (inklusive type safety) für wichtige Funktionen
 
 
 
