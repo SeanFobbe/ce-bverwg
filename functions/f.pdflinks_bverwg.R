@@ -85,7 +85,7 @@ f.pdflinks_bverwg <- function(download.max){
     ## Warnungen
 
     if(length(regex.test) != 0){
-        warning("Fehlerhafte Dateinamen:")
+        warning("Fehlerhafte URLs:")
         warning(regex.test)
     }
 
