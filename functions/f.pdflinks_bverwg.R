@@ -53,9 +53,6 @@ f.pdflinks_bverwg <- function(download.max){
                             ignore.case = TRUE,
                             value = TRUE)
 
-    ## Whitespace trimmen und auf einzigartige Links reduzieren
-    links.relative <- unique(trimws(links.relative))
-
     ## Entfernen von /de/
     links.relative <- gsub(pattern = "/de/",
                            replacement = "",
@@ -65,8 +62,39 @@ f.pdflinks_bverwg <- function(download.max){
     links.pdf <- paste0("https://www.bverwg.de/entscheidungen/pdf/",
                         links.relative,
                         ".pdf")
+    ## Whitespace trimmen
+    links.pdf <- gsub(" ",
+                      "",
+                      links.pdf)
+
+    ## Auf einzigartige Links reduzieren
+    links.pdf <- unique(links.pdf)
+    
+
+    ## REGEX-Validierung: Gesamter Link
+    
+    regex.test <- grep(paste0("^https://www.bverwg.de/entscheidungen/pdf/",
+                              "[0-9A-Za-z\\.\\;-]{8,}", # Minimale Länge des Dateinamens
+                              "\\.pdf$"
+                              ),
+                       links.pdf,
+                       value = TRUE,
+                       invert = TRUE)
 
 
+    ## Fehlerhafte Dateinamen
+
+    if(length(regex.test) != 0){
+        warning("Fehlerhafte Dateinamen:")
+        warning(regex.test)
+    }
+
+    ## Unit Test
+    test_that("Dateinamen entsprechen dem Schema im Codebook.", {
+        expect_type(filenames.final, "character")
+        expect_length(regex.test,  0)
+        expect_length(filenames.final, length(url))
+    })
 
     
 
