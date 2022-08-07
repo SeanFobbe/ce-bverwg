@@ -962,7 +962,8 @@ meta <- tar_meta(fields = c("type", "bytes"), complete_only = TRUE)
 setDT(meta)
 meta$MB <- round(meta$bytes / 1e6, digits = 2)
 
-sum(meta$MB) # Gesamter Speicherplatzverbrauch
+# Gesamter Speicherplatzverbrauch
+sum(meta$MB)
 
 kable(meta[order(type, name)],
       format = "latex",
