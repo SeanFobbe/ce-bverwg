@@ -206,7 +206,7 @@ if (config$cores$max == FALSE){
 
 ```{targets global-functions, tar_globals = TRUE}
 
-lapply(list.files("functions", full.names = TRUE), source)
+lapply(list.files("functions", pattern = "\\.R$", full.names = TRUE), source)
 
 source("R-fobbe-proto-package/f.linkextract.R")
 source("R-fobbe-proto-package/f.year.iso.R")
