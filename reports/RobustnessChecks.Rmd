@@ -120,12 +120,7 @@ freqtable.ignore  <-  c("text",
 
 ## Liste zu prüfender Variablen
 
-varlist <- names(dt.bverwg.full)
-varlist <- grep(paste(freqtable.ignore,
-                      collapse = "|"),
-                varlist,
-                invert = TRUE,
-                value = TRUE)
+varlist <- setdiff(names(dt.bverwg.meta), freqtable.ignore)
 print(varlist)
 
 
