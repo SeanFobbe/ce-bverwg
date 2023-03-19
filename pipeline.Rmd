@@ -899,7 +899,7 @@ tar_make()
 
 ## Visualisierung
 
-```{r, pipeline-graph, fig.width = 7, fig.height = 9}
+```{r, pipeline-graph, fig.width = 12, fig.height = 18}
 
 edgelist <- tar_network(targets_only = TRUE)$edges
 setDT(edgelist)
@@ -919,29 +919,7 @@ ggraph(g,
 
 
 ```
-                       
 
-
-```{r, pipeline-graph1, fig.width = 7, fig.height = 9, eval = FALSE, echo = FALSE}
-
-#alternative viz
-ggraph(g,
-       'sugiyama') + 
-
-    geom_edge_diagonal(aes(end_cap = label_rect(node2.name)), 
-                   arrow = arrow(type = "closed",
-                                 angle = 30,
-                                 length = unit(2, 'mm')))+
-
-    geom_node_label(aes(label = name),
-                    size = 2,
-                    repel = FALSE)+
-    theme_void()
-
-
-
-
-```
 
 
 # Pipeline: Analyse
@@ -953,16 +931,14 @@ Die vollständige Liste aller Targets, inklusive ihres Types und ihrer Größe. 
 
 
 
-
-
 ```{r, pipeline-list}
 
-meta <- tar_meta(fields = c("type", "bytes"), complete_only = TRUE)
+meta <- tar_meta(fields = c("type", "bytes", "format"), complete_only = TRUE)
 setDT(meta)
 meta$MB <- round(meta$bytes / 1e6, digits = 2)
 
 # Gesamter Speicherplatzverbrauch
-sum(meta$MB)
+sum(meta$MB, na.rm = TRUE)
 
 kable(meta[order(type, name)],
       format = "latex",
@@ -972,6 +948,9 @@ kable(meta[order(type, name)],
 
 
 ```
+
+
+
 
 \newpage
 ## Timing
@@ -995,6 +974,9 @@ runtime.sum / 60
 runtime.sum / 3600
 ```
 
+
+
+
 ### Laufzeit einzelner Targets
 
 Der Zeitpunkt an dem die Targets berechnet wurden und ihre jeweilige Laufzeit in Sekunden.
@@ -1011,27 +993,37 @@ kable(meta[order(-seconds)],
 ```
 
 
-
 \newpage
 ## Warnungen
 
 
-```{r, pipeling-warnings}
+
+```{r, pipline-warnings, results = 'asis'}
 
 meta <- tar_meta(fields = "warnings", complete_only = TRUE)
 setDT(meta)
+meta$warnings <- gsub("(\\.pdf|\\.html?|\\.txt)", "\\1 \n\n", meta$warnings)
 
-kable(meta,
-      format = "latex",
-      align = c("P{4cm}", "p{10cm}"),
-      booktabs = TRUE,
-      longtable = TRUE)
+if (meta[,.N > 0]){
 
+    for(i in 1:meta[,.N]){
+
+        cat(paste("###", meta[i]$name), "\n\n")
+        cat(paste(meta[i]$warnings, "\n\n"))
+        
+    }
+
+}else{
+
+    cat("No warnings to report.")
+
+}
 
 ```
 
 
 
+\newpage
 ## Fehlermeldungen
 
 ```{r, pipeline-errors}
@@ -1039,15 +1031,23 @@ kable(meta,
 meta <- tar_meta(fields = "error", complete_only = TRUE)
 setDT(meta)
 
-kable(meta,
-      format = "latex",
-      align = c("P{4cm}", "p{10cm}"),
-      booktabs = TRUE,
-      longtable = TRUE)
+if (meta[,.N > 0]){
+
+    for(i in 1:meta[,.N]){
+
+        cat(paste("###", meta[i]$name), "\n\n")
+        cat(paste(meta[i]$error, "\n\n"))
+        
+    }
+
+}else{
+
+    cat("No errors to report.")
+
+}
 
 
 ```
-
 
 
 
@@ -1058,22 +1058,15 @@ kable(meta,
 
 
 
-## ZIP und CSV-Dateien
+## ZIP-Dateien
 
+```{r filesize.zip}
 
-```{r filesize}
-tar_load(zip.all)
-tar_load(csv.full)
-tar_load(csv.meta)
+files <- list.files("output", pattern = "\\.zip", full.names = TRUE)
 
+filesize <- round(file.size(files) / 10^6, digits = 2)
 
-files.all <- c(zip.all,
-               csv.full,
-               csv.meta)
-
-filesize <- round(file.size(files.all) / 10^6, digits = 2)
-
-table.size <- data.table(basename(files.all),
+table.size <- data.table(basename(files),
                          filesize)
 
 
@@ -1088,19 +1081,30 @@ kable(table.size,
 
 ```
 
-
 \newpage
+## CSV-Dateien
 
-## Datensatz in RAM (MB)
+```{r filesize.csv}
 
-```{r}
-tar_load(dt.bverwg.full)
-print(object.size(dt.bverwg.full),
-      standard = "SI",
-      humanReadable = TRUE,
-      units = "MB")
-      
+files <- list.files("output", pattern = "\\.csv", full.names = TRUE)
+
+filesize <- round(file.size(files) / 10^6, digits = 2)
+
+table.size <- data.table(basename(files),
+                         filesize)
+
+
+kable(table.size,
+      format = "latex",
+      align = c("l", "r"),
+      format.args = list(big.mark = ","),
+      booktabs = TRUE,
+      longtable = TRUE,
+      col.names = c("Datei",
+                    "Größe in MB"))
+
 ```
+
 
 
 
@@ -1121,7 +1125,6 @@ tar_load(files.txt)
 txt.MB <- file.size(files.txt) / 10^6
 sum(txt.MB)
 ```
-
 
 
 
