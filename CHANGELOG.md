@@ -18,19 +18,20 @@
 - Aktenzeichen aus dem Eingangszeitraum 2000 bis 2009 nun korrekt mit führender Null formatiert (z.B. 1 BvR 44/02 statt 1 BvR 44/2)
 - Aktenzeichen in Verzögerungsverfahren nun korrekt formatiert
 - Aktenzeichen verwenden nun richigerweise den Punkt als Trenner (statt den Schrägstrich wie bei anderen Gerichten)
+- Verbesserte Formatierung von Profiling, Warnungen und Fehlermeldungen im Compilation Report
+
+
 
 
 
 ## TODO
 
-
-
-- Verbesserte Formatierung von Warnungen und Fehlermeldungen im Compilation Report
 - Verbesserung des Robustness Check Reports
+
 - Update README
 
 - Fix Chunk Headings
-- Verzögerungsmarker in AZ?
+
 
 
 
