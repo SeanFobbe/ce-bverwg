@@ -34,13 +34,13 @@ f.var_aktenzeichen <- function(x,
 
     aktenzeichen <- paste0(x$spruchkoerper_az,
                            " ",
-                           mgsub(x$registerzeichen,
-                                 az.gericht$zeichen_code,
-                                 az.gericht$zeichen_original),
+                           mgsub::mgsub(x$registerzeichen,
+                                        az.gericht$zeichen_code,
+                                        az.gericht$zeichen_original),
                            " ",
                            x$eingangsnummer,
                            "/",
-                           x$eingangsjahr_az)
+                           formatC(x$eingangsjahr_az, flag = "0", width = 2))
 
     
     ## evtl für andere gerichte nützlich
