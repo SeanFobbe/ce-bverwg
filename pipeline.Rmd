@@ -626,7 +626,9 @@ tar_target(dt.annotated,
                                lemma = TRUE,
                                entity = TRUE,
                                dependency = TRUE,
-                               nounphrase = TRUE))
+                               nounphrase = TRUE,
+							   multicore = config$parallel$annotate,
+							   cores = fullCores))
 
 ```
 
