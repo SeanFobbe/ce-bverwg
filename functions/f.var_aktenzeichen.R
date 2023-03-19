@@ -39,7 +39,7 @@ f.var_aktenzeichen <- function(x,
                                         az.gericht$zeichen_original),
                            " ",
                            x$eingangsnummer,
-                           "/",
+                           ".",
                            formatC(x$eingangsjahr_az, flag = "0", width = 2),
                            " ",
                            x$verzoegerung)
@@ -61,7 +61,7 @@ f.var_aktenzeichen <- function(x,
                               "[A-Za-z-]+", # Registerzeichen
                               " ",
                               "[0-9]+", # Eingangsnummer
-                              "/",
+                              "\\.",
                               "[0-9]{1,2}" # Eingangsjahr
                               ),
                        aktenzeichen,
