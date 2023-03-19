@@ -521,6 +521,16 @@ tar_target(var_vpraesi,
 
 
 
+### Variablen erstellen: \enquote{bverwge, uebersetzung, leitsatz, fachpresse}
+
+```{targets tar.enhance.sammlungen}
+
+tar_target(var_sammlungen,
+                f.var_sammlungen(dt.bverwg.datecleaned$text))
+
+```
+
+
 
 
 ### Variablen erstellen: \enquote{zeichen, token, typen, saetze}
@@ -568,6 +578,7 @@ tar_target(vars_additional,
                       praesi = var_praesi,
                       v_praesi = var_vpraesi,
                       var_lingstats,
+					  var_sammlungen,
                       var_constants))
 
 ```
