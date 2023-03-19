@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  ce-bverwg:
+    container_name: ce-bverwg
+    image: ce-bverwg:4.2.2
+    tty: true
+    volumes:
+      - .:/ce-bverwg:z
