@@ -40,14 +40,19 @@ f.var_aktenzeichen <- function(x,
                            " ",
                            x$eingangsnummer,
                            "/",
-                           formatC(x$eingangsjahr_az, flag = "0", width = 2))
+                           formatC(x$eingangsjahr_az, flag = "0", width = 2),
+                           " ",
+                           x$verzoegerung)
 
     
-    ## evtl für andere gerichte nützlich
-    ## aktenzeichen <- gsub("NA ",
-    ##                      "",
-    ##                      aktenzeichen)
 
+    aktenzeichen <- gsub("NA ",
+                         "",
+                         aktenzeichen)
+
+    aktenzeichen <- trimws(aktenzeichen)
+
+    
 
     ## REGEX-Validierung: Aktenzeichen
     
