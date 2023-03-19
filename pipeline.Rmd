@@ -639,7 +639,7 @@ tar_target(dt.annotated,
 
 ## Write Targets
 
-Dieser Abschnitt der Pipeline schreibt den Datensatz und alle Hash-Prüfsummen auf die Festplatte.
+Dieser Abschnitt der Pipeline schreibt alle CSV-Varianten auf die Festplatte.
 
 
 
