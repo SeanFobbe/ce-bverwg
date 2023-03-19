@@ -4,7 +4,7 @@
 
 ## Überblick
 
-Das **Corpus der Entscheidungen des Bundesverwaltungsgerichts (CE-BVerwG)** ist eine möglichst vollständige Sammlung der vom Bundesverwaltungsgericht veröffentlichten Entscheidungen. Der Datensatz nutzt als seine Datenquelle die Entscheidungsdatenbank des Bundesverwaltungsgerichts und wertet diese vollständig aus.
+Das **Corpus der Entscheidungen des Bundesverwaltungsgerichts (CE-BVerwG)** ist eine möglichst vollständige Sammlung der vom Bundesverwaltungsgericht veröffentlichten Entscheidungen. Der Datensatz nutzt als seine Datenquelle die [amtliche Entscheidungsdatenbank des Bundesverwaltungsgerichts](https://www.bverwg.de/rechtsprechung/urteile-beschluesse) und wertet diese vollständig aus.
 
 Alle mit diesem Skript erstellten Datensätze werden dauerhaft kostenlos und urheberrechtsfrei auf Zenodo, dem wissenschaftlichen Archiv des CERN, veröffentlicht. Alle Versionen sind mit einem separaten und langzeit-stabilen (persistenten) Digital Object Identifier (DOI) versehen.
 
@@ -28,12 +28,14 @@ Alle Ergebnisse werden im Ordner `output` abgelegt. Zusätzlich werden für alle
 
 ## Systemanforderungen
 
-- Nur mit Fedora Linux getestet. Vermutlich auch funktionsfähig unter anderen Linux-Distributionen.
-- 6 GB Speicherplatz auf Festplatte
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+- 8 GB Speicherplatz auf Festplatte
 - Multi-core CPU empfohlen (8 cores/16 threads für die Referenzdatensätze). 
 
 
 In der Standard-Einstellung wird das Skript vollautomatisch die maximale Anzahl an Rechenkernen/Threads auf dem System zu nutzen. Die Anzahl der verwendeten Kerne kann in der Konfigurationsatei angepasst werden. Wenn die Anzahl Threads auf 1 gesetzt wird, ist die Parallelisierung deaktiviert.
+
 
 
 
@@ -45,83 +47,46 @@ In der Standard-Einstellung wird das Skript vollautomatisch die maximale Anzahl 
 Kopieren Sie bitte den gesamten Source Code in einen leeren Ordner (!), beispielsweise mit:
 
 ```
-$ git clone https://github.com/seanfobbe/ce-bverwg
+$ git clone https://github.com/seanfobbe/ce-bverwge
 ```
 
-Verwenden Sie immer einen separaten und *leeren* Ordner für die Kompilierung. Die Skripte löschen innerhalb von bestimmten Unterordnern (`txt/`, `pdf/`, `temp/`, `analysis` und `output/`) alle Dateien die den Datensatz verunreinigen könnten --- aber auch nur dort.
+Verwenden Sie immer einen separaten und *leeren* Ordner für die Kompilierung. Die Skripte löschen innerhalb von bestimmten Unterordnern (`files/`, `temp/`, `analysis` und `output/`) alle Dateien die den Datensatz verunreinigen könnten --- aber auch nur dort.
 
 
 
-### Schritt 2: Installation der Programmiersprache 'R'
+### Schritt 2: Docker Image erstellen
 
-Sie müssen die [Programmiersprache R](https://www.r-project.org/) und OpenSSL installiert haben. Normalerweise sind diese in Fedora Linux bereits enthalten, andernfalls führen Sie aus:
-
-```
-$ sudo dnf install R openssl
-```
-
-
-
-### Schritt 3: Installation von 'renv'
-
-Starten sie eine R Session in diesem Ordner, sie sollten automatisch zur Installation von [renv](https://rstudio.github.io/renv/articles/renv.html) aufgefordert werden. `renv` ist ein Tool zur strengen Versionskontrolle von R packages und sichert die Reproduzierbarkeit.
-
-
-
-
-
-### Schritt 4: Installation von R Packages
-
-Um durch [renv](https://rstudio.github.io/renv/articles/renv.html) alle R packages in der benötigten Version zu installieren, führen Sie in der R session aus:
+Ein Docker Image stellt ein komplettes Betriebssystem mit der gesamten verwendeten Software automatisch zusammen. Nutzen Sie zur Erstellung des Images einfach:
 
 ```
-> renv::restore()  # In einer R-Konsole ausführen
+$ bash docker-build-image.sh
 ```
 
-*Achtung:* es reicht nicht, die Packages auf herkömmliche Art installiert zu haben. Sie müssen dies nochmal über [renv](https://rstudio.github.io/renv/articles/renv.html) tun, selbst wenn die Packages in der normalen Library schon vorhanden sind.
 
 
 
-### Schritt 5: Installation von LaTeX
-
-Um die PDF Reports zu kompilieren benötigen Sie eine \LaTeX -Installation. Sie können eine vollständige \LaTeX -Distribution auf Fedora wie folgt installieren:
-
-```
-$ sudo dnf install texlive-scheme-full
-```
-
-Alternativ können sie das R package [tinytex](https://yihui.org/tinytex/) installieren, welches nur die benötigten \LaTeX\ packages installiert.
-
-```
-> install.packages("tinytex")  # In einer R-Konsole ausführen
-```
-
-Die für die Referenzdatensätze verwendete \LaTeX -Installation ist `texlive-scheme-full`.
-
-
-
-
-
-### Schritt 6: Datensatz kompilieren
+### Schritt 3: Datensatz kompilieren
 
 Falls Sie zuvor den Datensatz schon einmal kompiliert haben (ob erfolgreich oder erfolglos), können Sie mit folgendem Befehl alle Arbeitsdaten im Ordner löschen:
 
 ```
-> source("delete_all_data.R") # In einer R-Konsole ausführen
+$ Rscript delete_all_data.R
+```
+
+Den vollständigen Datensatz kompilieren Sie mit folgendem Skript:
+
+```
+$ bash docker-run-project.sh
 ```
 
 
-Den vollständigen Datensatz kompilieren Sie mit folgendem Befehl:
-
-```
-> source("run_project.R") # In einer R-Konsole ausführen
-```
 
 
 
 ### Ergebnis
 
 Der Datensatz und alle weiteren Ergebnisse sind nun im Ordner `output/` abgelegt.
+
 
 
 
@@ -158,22 +123,33 @@ Hilfreiche Befehle um Fehler zu lokalisieren und zu beheben.
 
 ## Projektstruktur
 
-Die folgende Struktur erläutert die wichtigsten Bestandteile des Projekts. Währen der Kompilierung werden weitere Ordner erstellt (`pdf/`, `txt/`, `temp/` `analysis` und `output/`). Die Endergebnisse werden alle in `output/` abgelegt.
+Die folgende Struktur erläutert die wichtigsten Bestandteile des Projekts. Während der Kompilierung werden weitere Ordner erstellt (`files/`, `temp/` `analysis` und `output/`). Die Endergebnisse werden alle in `output/` abgelegt.
 
  
 ``` 
-├── pipeline.Rmd               # Zentrale Definition der Pipeline
-├── config.toml                # Zentrale Konfigurations-Datei
-├── R-fobbe-proto-package      # Oft verwendete Funktionen 
-├── _targets_packages.R        # Automatisiert erstellte Package-Liste für renv
+.
 ├── buttons                    # Buttons (nur optische Bedeutung)
+├── CHANGELOG.md               # Alle Änderungen
+├── compose.yaml               # Konfiguration für Docker
+├── config.toml                # Zentrale Konfigurations-Datei
 ├── data                       # Datensätze, auf denen die Pipeline aufbaut
+├── delete_all_data.R          # Löscht den Datensatz und Zwischenschritte
+├── docker-build-image.sh      # Docker Image erstellen
+├── Dockerfile                 # Definition des Docker Images
+├── docker-run-project.sh      # Docker Image und Datensatz kompilieren
 ├── functions                  # Wichtige Schritte der Pipeline
 ├── gpg                        # Persönlicher Public GPG-Key für Seán Fobbe
-├── renv                       # Versionskontrolle: Executables
-├── renv.lock                  # Versionskontrolle: Versionsinformationen
+├── old                        # Alter Code aus früheren Versionen
+├── pipeline.Rmd               # Zentrale Definition der Pipeline
+├── README.md                  # Bedienungsanleitung
 ├── reports                    # Markdown-Dateien
+├── requirements-python.txt    # Benötigte Python packages
+├── requirements-R.R           # Benötigte R packages
+├── requirements-system.txt    # Benötigte system dependencies
+├── run_project.R              # Kompiliert den gesamten Datensatz
 └── tex                        # LaTeX-Templates
+
+
 ``` 
 
 
