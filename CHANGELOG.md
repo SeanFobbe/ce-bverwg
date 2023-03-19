@@ -13,18 +13,24 @@
 - Update der Download-Funktion
 - Überflüssige Warnung in f.future_lingsummarize-Funktion entfernt
 - Alle Roh-Dateien werden nun im Unterordner "files" gespeichert
+- Zusätzliche Unit-Tests
+- Vom BVerwG nicht veröffentlichte Entscheidungstypen im Codebook genauer beschrieben
+- Aktenzeichen aus dem Eingangszeitraum 2000 bis 2009 nun korrekt mit führender Null formatiert (z.B. 1 BvR 44/02 statt 1 BvR 44/2)
+- Aktenzeichen in Verzögerungsverfahren nun korrekt formatiert
+- Aktenzeichen verwenden nun richigerweise den Punkt als Trenner (statt den Schrägstrich wie bei anderen Gerichten)
 
 
 
 ## TODO
 
-- Aktenzeichen aus dem Eingangszeitraum 2000 bis 2009 nun korrekt mit führender Null formatiert (z.B. 1 BvR 44/02 statt 1 BvR 44/2)
+
 
 - Verbesserte Formatierung von Warnungen und Fehlermeldungen im Compilation Report
 - Verbesserung des Robustness Check Reports
 - Update README
 
 - Fix Chunk Headings
+- Verzögerungsmarker in AZ?
 
 
 
