@@ -922,7 +922,7 @@ ggraph(g,
 
 
 
-# Pipeline: Analyse
+# Pipeline: Profiling
 
 
 ## Gesamte Liste
@@ -994,7 +994,7 @@ kable(meta[order(-seconds)],
 
 
 \newpage
-## Warnungen
+# Pipeline: Warnungen
 
 
 
@@ -1024,7 +1024,7 @@ if (meta[,.N > 0]){
 
 
 \newpage
-## Fehlermeldungen
+# Pipeline: Fehlermeldungen
 
 ```{r, pipeline-errors}
 
