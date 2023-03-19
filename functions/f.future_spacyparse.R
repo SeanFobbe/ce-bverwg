@@ -46,6 +46,8 @@ f.future_spacyparse <- function(x,
 
     ## Run Annottions
     raw.list <- split(x, seq(nrow(x)))
+
+    suppressWarnings({
     
     result.list <- future_lapply(raw.list,
                                  spacy_parse,
@@ -59,6 +61,8 @@ f.future_spacyparse <- function(x,
                                  dependency = dependency,
                                  nounphrase = nounphrase,
                                  multithread = FALSE)
+
+    })
     
     dt.return <- rbindlist(result.list)
     
