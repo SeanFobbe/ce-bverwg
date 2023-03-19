@@ -19,6 +19,7 @@ COPY requirements-R.R .
 RUN Rscript requirements-R.R
 
 
+# Config layers
+RUN git config --global --add safe.directory /ce-bverwg
 WORKDIR /ce-bverwg
-
 CMD "R"
