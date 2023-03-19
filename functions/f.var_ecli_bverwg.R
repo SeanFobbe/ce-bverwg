@@ -17,7 +17,8 @@
 
 
 f.var_ecli_bverwg <- function(x,
-                              dt.download.final){
+                              dt.download.final,
+                              files.pdf){
 
 
     ## Ordinalzahl erstellen
@@ -58,11 +59,7 @@ f.var_ecli_bverwg <- function(x,
     
     ## Berücksichtigt werden im folgenden nur Dateien die tatsächlich heruntergeladen wurden.
     
-    files.pdf <- list.files("pdf",
-                            pattern = "\\.pdf$",
-                            ignore.case = TRUE)
-
-    eclitest.index <- dt.download.final$doc_id %in% files.pdf
+    eclitest.index <- dt.download.final$doc_id %in% basename(files.pdf)
 
     eclitest.links <- dt.download.final$url[eclitest.index]
     eclitest.pdf <- dt.download.final$doc_id[eclitest.index]
@@ -105,7 +102,7 @@ f.var_ecli_bverwg <- function(x,
 
     ist <- ecli.ordinalzahl
 
-    soll <- soll[match(files.pdf,
+    soll <- soll[match(basename(files.pdf),
                        eclitest.pdf)]
 
 
