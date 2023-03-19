@@ -613,7 +613,7 @@ tar_target(dt.bverwg.meta,
 
 
 
-### Variante erstellen: Annotationen
+### Variante erstellen: Linguistische Annotationen
 
 ```{targets tar.enhance.annotate, eval = config$annotate$toggle}
 tar_target(dt.annotated,
@@ -671,6 +671,19 @@ tar_target(csv.meta,
 ```
 
 
+
+### CSV schreiben: Metadaten
+
+
+```{targets tar.write.annotated, eval = config$annotate$toggle}
+tar_target(csv.annotated,
+           f.tar_fwrite(x = dt.annotated,
+                        filename = file.path("output",
+                                             paste0(prefix.files,
+                                                    "_DE_CSV_Annotiert.csv"))
+                        )
+           )
+```
 
 
 
@@ -739,6 +752,20 @@ tar_target(zip.csv.meta,
                               mode = "cherry-pick"),
                 format = "file")
 ```
+
+
+### ZIP erstellen: CSV-Datei (Linguistische Annotationen)
+
+
+```{targets tar.zip.csv.annotated, eval = config$annotate$toggle}
+tar_target(zip.csv.annotated,
+                f.tar_zip(csv.annotated,
+                              filename = gsub("\\.csv", "\\.zip", basename(csv.annotated)),
+                              dir = "output",
+                              mode = "cherry-pick"),
+                format = "file")
+```
+
 
 
 
