@@ -494,7 +494,7 @@ Die ECLI wird aus ihren Komponenten berechnet.
 ```{targets tar.enhance5}
 tar_target(var_ecli,
            f.var_ecli_bverwg(x = dt.bverwg.datecleaned,
-                             dt.download = dt.download.final))
+                             dt.download.final = dt.download.final))
 ```
 
 
