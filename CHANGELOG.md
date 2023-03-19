@@ -7,6 +7,7 @@
 - Vollständige Aktualisierung der Daten
 - Gesamte Laufzeitumgebung mit Docker versionskontrolliert
 - Update des Run-Skripts und des Delete-Skripts
+- Proto-Package Mono-Repo entfernt, alle Funktionen nun fest projektbasiert versionskontrolliert
 
 
 
