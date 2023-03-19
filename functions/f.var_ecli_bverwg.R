@@ -8,7 +8,7 @@
 
 
 #' @param x Data.table. Ein BVerwG-Datensatz mit den Variablen "datum", "entscheidung_typ", "spruchkoerper_az", "registerzeichen", "eingangsnummer", "eingangsjahr_az", "verzoegerung" und "kollision".
-#' @param dt.download Data.table. Eine Download-Tabelle mit den Variablen "url" und "doc_id".
+#' @param dt.download.final Data.table. Eine Download-Tabelle mit den Variablen "url" und "doc_id".
 
 
 #' @param return Ein Vektor mit ECLIs für das Bundesverwaltungsgericht.
@@ -17,7 +17,7 @@
 
 
 f.var_ecli_bverwg <- function(x,
-                              dt.download){
+                              dt.download.final){
 
 
     ## Ordinalzahl erstellen
@@ -62,10 +62,10 @@ f.var_ecli_bverwg <- function(x,
                             pattern = "\\.pdf$",
                             ignore.case = TRUE)
 
-    eclitest.index <- dt.download$doc_id %in% files.pdf
+    eclitest.index <- dt.download.final$doc_id %in% files.pdf
 
-    eclitest.links <- dt.download$url[eclitest.index]
-    eclitest.pdf <- dt.download$doc_id[eclitest.index]
+    eclitest.links <- dt.download.final$url[eclitest.index]
+    eclitest.pdf <- dt.download.final$doc_id[eclitest.index]
 
     soll <- basename(eclitest.links)
 
