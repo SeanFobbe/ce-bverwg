@@ -8,17 +8,23 @@
 - Gesamte Laufzeitumgebung mit Docker versionskontrolliert
 - Update des Run-Skripts und des Delete-Skripts
 - Proto-Package Mono-Repo entfernt, alle Funktionen nun fest projektbasiert versionskontrolliert
-
-
-
-- Aktenzeichen aus dem Eingangszeitraum 2000 bis 2009 nun korrekt mit führender Null formatiert (z.B. 1 BvR 44/02 statt 1 BvR 44/2)
 - Vereinfachung der Konfigurations-Datei
-- Verbesserte Formatierung von Warnungen und Fehlermeldungen im Compilation Report
-- Verbesserung des Robustness Check Reports
 - Neue Funktion für automatischen clean run (Löschung aller Zwischenergebnisse)
 - Update der Download-Funktion
 - Überflüssige Warnung in f.future_lingsummarize-Funktion entfernt
 - Alle Roh-Dateien werden nun im Unterordner "files" gespeichert
+
+
+
+## TODO
+
+- Aktenzeichen aus dem Eingangszeitraum 2000 bis 2009 nun korrekt mit führender Null formatiert (z.B. 1 BvR 44/02 statt 1 BvR 44/2)
+
+- Verbesserte Formatierung von Warnungen und Fehlermeldungen im Compilation Report
+- Verbesserung des Robustness Check Reports
+
+
+- Fix Chunk Headings
 
 
 
