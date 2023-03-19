@@ -40,7 +40,7 @@ cleanrun = false # Löscht vor jedem Run alle gespeicherten Zwischen- und Enderg
 
 # Wenn dieser Modus aktiviert ist wird  mittels spacyr eine zusätzliche Variante des Datensatzes mit umfangreichen linguistischen Annotationen berechnet. Dieser Modus ist sehr rechenintensiv! Kann mit Debugging kombiniert werden. Aktuell nicht verfügbar, weil unlösebare Probleme mit spacy auftreten.
 
-toggle = true
+toggle = false
 
 
 
