@@ -7,6 +7,7 @@
 - Vollständige Aktualisierung der Daten
 - Gesamte Laufzeitumgebung mit Docker versionskontrolliert
 - 4 neue Variablen: BVerwGE, Leitsatz, Fachpresse und Übersetzung (jeweils binär)
+- Linguistisch annotierte Variante ist wieder verfügbar
 - Aktenzeichen aus dem Eingangszeitraum 2000 bis 2009 nun korrekt mit führender Null formatiert (z.B. 1 BvR 44/02 statt 1 BvR 44/2)
 - Aktenzeichen in Verzögerungsverfahren nun korrekt formatiert
 - Aktenzeichen verwenden nun richigerweise den Punkt als Trenner (statt den Schrägstrich wie bei anderen Gerichten)
@@ -22,7 +23,6 @@
 - Zusätzliche Unit-Tests
 - Verbesserung des Robustness Check Reports
 - README mit Anleitung im Hinblick auf Docker überarbeitet
-
 
 
 
