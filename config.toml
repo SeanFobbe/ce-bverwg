@@ -29,8 +29,8 @@ aktenzeichen = "10.5281/zenodo.4569564" # checked
 
 [debug]
 
-toggle = true   # Ob Debugging aktiv ist; Möglichkeiten sind "true" oder "false"
-files = 100 # Die Anzahl der Dateien, die testweise heruntergeladen werden soll.
+toggle = false   # Ob Debugging aktiv ist; Möglichkeiten sind "true" oder "false"
+files = 300 # Die Anzahl der Dateien, die testweise heruntergeladen werden soll.
 
 cleanrun = false # Löscht vor jedem Run alle gespeicherten Zwischen- und Endergebnisse (Hinweis: ist unabhängig von debug.toggle, aber idR für Debugging nützlich)
 
