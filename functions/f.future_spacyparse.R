@@ -15,21 +15,36 @@ f.future_spacyparse <- function(x,
                                 lemma = FALSE,
                                 entity = FALSE,
                                 dependency = FALSE,
-                                nounphrase = FALSE){
+                                nounphrase = FALSE,
+                                multicore = TRUE,
+                                cores = parallel::detectCores()){
 
+
+    ## Begin Profiling
     begin <- Sys.time()
 
+
+    ## Initalize Model
     spacy_initialize(model = model)
 
     
-    print(paste0("Begin at ",
-                 begin,
-                 ". Processing ",
-                 x[,.N],
-                 " documents"))
+
+    ## Set Future Strategy
+    if(multicore == TRUE){
+
+        plan("multicore",
+             workers = cores)
+        
+    }else{
+
+        plan("sequential")
+
+    }
 
 
     
+
+    ## Run Annottions
     raw.list <- split(x, seq(nrow(x)))
     
     result.list <- future_lapply(raw.list,
@@ -45,11 +60,12 @@ f.future_spacyparse <- function(x,
                                  nounphrase = nounphrase,
                                  multithread = FALSE)
     
-    result.dt <- rbindlist(result.list)
+    dt.return <- rbindlist(result.list)
     
-     
+    
     
 
+    ## Report Profiling
     end <- Sys.time()
     duration <- end - begin
 
@@ -61,9 +77,12 @@ f.future_spacyparse <- function(x,
                  ". Ended at ",
                  end, "."))
 
+
+    ## Close Spacy Connection
     spacy_finalize()
+
     
-    return(result.dt)
+    return(dt.return)
 
 
 }
