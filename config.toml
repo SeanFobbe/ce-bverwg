@@ -62,7 +62,7 @@ multihashes = true
 
 [download]
 
-max = 27000    # Maximale Anzahl an heruntergeladenen Entscheidungen
+max = 28000    # Maximale Anzahl an heruntergeladenen Entscheidungen
 timeout = 600	  # Timeout für Downloads
 
 
