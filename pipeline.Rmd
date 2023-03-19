@@ -1021,7 +1021,7 @@ if (meta[,.N > 0]){
 
     for(i in 1:meta[,.N]){
 
-        cat(paste("###", meta[i]$name), "\n\n")
+        cat(paste("##", meta[i]$name), "\n\n")
         cat(paste(meta[i]$warnings, "\n\n"))
         
     }
@@ -1048,7 +1048,7 @@ if (meta[,.N > 0]){
 
     for(i in 1:meta[,.N]){
 
-        cat(paste("###", meta[i]$name), "\n\n")
+        cat(paste("##", meta[i]$name), "\n\n")
         cat(paste(meta[i]$error, "\n\n"))
         
     }
