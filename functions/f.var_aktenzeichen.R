@@ -46,7 +46,7 @@ f.var_aktenzeichen <- function(x,
 
     
 
-    aktenzeichen <- gsub("NA ",
+    aktenzeichen <- gsub(" NA",
                          "",
                          aktenzeichen)
 
@@ -62,8 +62,8 @@ f.var_aktenzeichen <- function(x,
                               " ",
                               "[0-9]+", # Eingangsnummer
                               "\\.",
-                              "[0-9]{1,2}" # Eingangsjahr
-                              ),
+                              "[0-9]{2}", # Eingangsjahr
+                              " *D?"),
                        aktenzeichen,
                        value = TRUE,
                        invert = TRUE)
