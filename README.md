@@ -18,6 +18,7 @@ Primäre Endprodukte des Skripts sind folgende ZIP-Archive:
  
 - Der volle Datensatz im CSV-Format
 - Die reinen Metadaten im CSV-Format (wie unter 1, nur ohne Entscheidungstexte)
+- (Optional) Linguistisch annotierte Fassung aller Entscheidungen im CSV-Format
 - Alle Entscheidungen im TXT-Format (reduzierter Umfang an Metadaten)
 - Alle Entscheidungen im PDF-Format (reduzierter Umfang an Metadaten)
 - Alle Analyse-Ergebnisse (Tabellen als CSV, Grafiken als PDF und PNG)
@@ -30,7 +31,7 @@ Alle Ergebnisse werden im Ordner `output` abgelegt. Zusätzlich werden für alle
 
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
-- 8 GB Speicherplatz auf Festplatte
+- 12 GB Speicherplatz auf Festplatte
 - Multi-core CPU empfohlen (8 cores/16 threads für die Referenzdatensätze). 
 
 
