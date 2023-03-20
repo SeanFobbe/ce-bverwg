@@ -33,6 +33,7 @@ knitr::opts_chunk$set(fig.path = file.path("..", "analysis/"),
 ```{r, echo = FALSE}
 tar_load(latexdefs)
 tar_load(dt.bverwg.meta)
+tar_load(dt.annotated)
 tar_load(files.pdf)
 tar_load(files.txt)
 tar_load(variables.codebook)
@@ -337,7 +338,7 @@ kable(variables.codebook,
 
 ## Datenstruktur 
 
-str(annotated.corpus)
+str(dt.annotated)
 
 
 
