@@ -22,7 +22,7 @@
 - Verbesserte Formatierung von Profiling, Warnungen und Fehlermeldungen im Compilation Report
 - Zusätzliche Unit-Tests
 - Verbesserung des Robustness Check Reports
-- README mit Anleitung im Hinblick auf Docker überarbeitet
+- README im Hinblick auf Docker überarbeitet
 
 
 
