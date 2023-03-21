@@ -445,7 +445,7 @@ kbl(az.brd[stelle == "BVerwG" & position == "hauptzeichen",
 
 ## Hinweise
 
-- Die Personendaten stammen aus folgendem Datensatz: \enquote{Seán Fobbe and Tilko Swalve (2021). Presidents and Vice-Presidents of the Federal Courts of Germany (PVP-FCG). Version 2021-04-08. Zenodo. DOI: 10.5281/zenodo.4568682}.
+- Die Personendaten stammen aus folgendem Datensatz: \enquote{Seán Fobbe and Tilko Swalve (2023). Presidents and Vice-Presidents of the Federal Courts of Germany (PVP-FCG). Version 2023-03-21. Zenodo. \url{https://github.com/SeanFobbe/pvp-fcg}}.
 - Das Datum bezieht sich jeweils auf das Amt als Präsident:in, nicht auf die Amtszeit als Richter:in.
 
   
@@ -515,7 +515,7 @@ kable(table.praesi.alter[grep("VACANCY",
 
 ## Hinweise
 
-- Die Personendaten stammen aus folgendem Datensatz: \enquote{Seán Fobbe and Tilko Swalve (2021). Presidents and Vice-Presidents of the Federal Courts of Germany (PVP-FCG). Version 2021-04-08. Zenodo. DOI: 10.5281/zenodo.4568682}.
+- Die Personendaten stammen aus folgendem Datensatz: \enquote{Seán Fobbe and Tilko Swalve (2023). Presidents and Vice-Presidents of the Federal Courts of Germany (PVP-FCG). Version 2023-03-21. Zenodo. \url{https://github.com/SeanFobbe/pvp-fcg}}.
 - Das Datum bezieht sich jeweils auf das Amt als Vize-Präsident:in, nicht auf die Amtszeit als Richter:in.
 
 
