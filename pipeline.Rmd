@@ -294,7 +294,7 @@ list(
 ```{targets tar.file.presi}
 list(
     tar_target(file.presidents,
-           "data/PVP-FCG_2021-04-08_GermanFederalCourts_Presidents.csv",
+           "data/PVP-FCG_2023-03-21_GermanFederalCourts_Presidents.csv",
            format = "file"),
      tar_target(presidents,
                 fread(file.presidents))
@@ -306,7 +306,7 @@ list(
 ```{targets tar.file.vpresi}
 list(
     tar_target(file.vpresidents,
-           "data/PVP-FCG_2021-04-08_GermanFederalCourts_VicePresidents.csv",
+           "data/PVP-FCG_2023-03-21_GermanFederalCourts_VicePresidents.csv",
            format = "file"),
      tar_target(vpresidents,
                 fread(file.vpresidents))
