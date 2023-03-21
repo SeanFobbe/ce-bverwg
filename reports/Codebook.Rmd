@@ -338,8 +338,9 @@ kable(variables.codebook,
 
 ## Datenstruktur 
 
+```{r}
 str(dt.annotated)
-
+```
 
 
 ## Hinweise
