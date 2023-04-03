@@ -5,6 +5,12 @@
 ## Version \version
 
 - Vollständige Aktualisierung der Daten
+- Die Pipeline mit allen Zwischenergebnissen wird nun automatisch in "output/" archiviert
+
+
+## Version 2023-03-21
+
+- Vollständige Aktualisierung der Daten
 - Gesamte Laufzeitumgebung mit Docker versionskontrolliert
 - 4 neue Variablen: BVerwGE, Leitsatz, Fachpresse und Übersetzung (jeweils binär)
 - Linguistisch annotierte Variante ist wieder verfügbar
