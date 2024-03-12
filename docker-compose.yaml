@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.7"
 
 services:
   ce-bverwg:
@@ -6,5 +6,5 @@ services:
     image: ce-bverwg:4.2.2
     tty: true
     volumes:
-      - .:/ce-bverwg:z
-      - ./gitconfig:/etc/gitconfig:z
+      - .:/ce-bverwg
+      - ./gitconfig:/etc/gitconfig
