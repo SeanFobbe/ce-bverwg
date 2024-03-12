@@ -8,3 +8,5 @@ services:
     volumes:
       - .:/ce-bverwg
       - ./etc/gitconfig:/etc/gitconfig
+    environment:
+      - TZ=Europe/Berlin
