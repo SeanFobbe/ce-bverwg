@@ -6,6 +6,8 @@
 
 - Vollständige Aktualisierung der Daten
 - Die Pipeline mit allen Zwischenergebnissen wird nun automatisch in "output/" archiviert
+- Gruppierung von Dateinamen der Diagramme nach Typ
+
 
 
 ## Version 2023-03-21
