@@ -7,4 +7,4 @@ services:
     tty: true
     volumes:
       - .:/ce-bverwg
-      - ./gitconfig:/etc/gitconfig
+      - ./etc/gitconfig:/etc/gitconfig
