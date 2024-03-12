@@ -7,6 +7,10 @@
 - Vollständige Aktualisierung der Daten
 - Die Pipeline mit allen Zwischenergebnissen wird nun automatisch in "output/" archiviert
 - Gruppierung von Dateinamen der Diagramme nach Typ
+- Vereinfachung der Repository-Struktur
+- Anpassung von Docker Compose an Debian 11
+- Update GPG Public Key in Repository
+
 
 
 
