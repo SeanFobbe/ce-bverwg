@@ -41,7 +41,7 @@ f.pdflinks_bverwg <- function(download.max){
         
         message(paste(scope[i], "bis", scope[i] + 999))
 
-        Sys.sleep(runif(1, 1, 2))
+        Sys.sleep(runif(1, 4, 6))
     }
 
     ## Liste in Vektor transformieren
