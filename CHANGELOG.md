@@ -5,12 +5,16 @@
 ## Version \version
 
 - Vollständige Aktualisierung der Daten
+- Aktualisierung der Python Tool Chain
+
+## Version 2024-03-13
+
+- Vollständige Aktualisierung der Daten
 - Die Pipeline mit allen Zwischenergebnissen wird nun automatisch in "output/" archiviert
 - Gruppierung von Dateinamen der Diagramme nach Typ
 - Vereinfachung der Repository-Struktur
 - Anpassung von Docker Compose an Debian 11
 - Update GPG Public Key in Repository
-
 
 
 
@@ -36,7 +40,6 @@
 - Zusätzliche Unit-Tests
 - Verbesserung des Robustness Check Reports
 - README im Hinblick auf Docker überarbeitet
-
 
 
 
